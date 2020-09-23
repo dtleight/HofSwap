@@ -21,19 +21,18 @@ class _LandingPageState extends State<LandingPage>
           Container(),
           Transform.translate(
             offset: Offset(0.0, 814.0),
-            child: Image.file(File("Logo.jpg")),
+            child: Image(image:AssetImage("assets/logo.jpg")),
           ),
           Transform.translate(
             offset: Offset(-64.0, 200.0),
             child:
-            // Adobe XD layer: 'Requirements Docume…' (shape)
             Container(
               width: 540.0,
               height: 405.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(57.0),
                 image: DecorationImage(
-                  image: const AssetImage(''),
+                  image:  AssetImage('assets/logo.jpg'),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -41,7 +40,7 @@ class _LandingPageState extends State<LandingPage>
           ),
           Transform.translate(
             offset: Offset(0.0, 814.0),
-            child: Image.file(File("Logo.jpg")),
+            child: Image(image:AssetImage("assets/logo.jpg")),
           ),
           Container(),
         ],
