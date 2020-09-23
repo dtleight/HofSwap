@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'LandingPage.dart';
-import 'StorePage.dart';
-void main() {
-  runApp(MyApp());
-}
+import 'package:hofswap/Containers/PageContainer.dart';
+import 'Pages/LandingPage.dart';
+import 'Pages/StorePage.dart';
+void main() {runApp(MyApp());}
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,8 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: StorePage(),
+      home: PageContainer(),
     );
   }
 }
-

@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: 50),
-
             ],
           ),
         ),
