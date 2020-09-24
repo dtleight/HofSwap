@@ -14,11 +14,16 @@ class _LandingPageState extends State<LandingPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: const Color(0xfff7e942),
+        body: Align(alignment:Alignment.center, child:Image(image:AssetImage("assets/logo.jpg")))
+    );
+      /**
       backgroundColor: const Color(0xfff7e942),
       body: Stack(
         children: <Widget>[
           Container(),
           Container(),
+          Align(alignment: Alignment.center,child:Image(image:AssetImage("assets/logo.jpg")))
           Transform.translate(
             offset: Offset(0.0, 814.0),
             child: Image(image:AssetImage("assets/logo.jpg")),
@@ -45,6 +50,6 @@ class _LandingPageState extends State<LandingPage>
           Container(),
         ],
       ),
-    );
+          **/
   }
 }
