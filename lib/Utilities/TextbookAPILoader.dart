@@ -5,12 +5,12 @@ import '../Objects/Textbook.dart';
 ///
 class TextbookAPILoader
 {
-  List books;
-  String book;
+  List<Textbook> books;
+  Textbook book;
   TextbookAPILoader(List<Textbook> books)
   {
     this.books = books;
-    this.book = books[0].title;
+    this.book = books[0];
     print(book);
   }
 

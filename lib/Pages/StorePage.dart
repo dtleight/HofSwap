@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Utilities/TextbookAPILoader.dart';
+import '../Objects/Textbook.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -63,12 +64,18 @@ class _StorePageState extends State<StorePage> {
           /// it in a DialogBox.
           ///
           onPressed: () async {
-            txtBox = await fetchBook(myController.text);
-            print(txtBox);
+            Textbook t = await fetchBook(myController.text);
             return showDialog(context: context, builder: (context)
               {
-                //Image: http://openlibrary.org/isbn/9780385533225
-              return AlertDialog(content: Text(txtBox),);
+              return AlertDialog(content:
+              Column(
+                  children: <Widget>[
+                    Text(t.title),
+                    Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
+                    Text(t.authors.toString()),
+                  ],
+              ),
+              );
             }
             );
           },
@@ -81,7 +88,7 @@ class _StorePageState extends State<StorePage> {
   /// FetchBook handles retrieving the JSON information from the API call and instantiating a textbook object(for later use)
   /// it then returns the name of the book
   ///
-  Future<String> fetchBook(String ISBN) async {
+  Future<Textbook> fetchBook(String ISBN) async {
     final response = await http.get('https://www.googleapis.com/books/v1/volumes?q=+isbn='+ ISBN + '&key=AIzaSyB_mPqjpcjaEV1Wu593EY8czEAsuF-K_Nw');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json
