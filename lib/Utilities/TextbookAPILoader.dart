@@ -11,7 +11,6 @@ class TextbookAPILoader
   {
     this.books = books;
     this.book = books[0];
-    print(book);
   }
 
   factory TextbookAPILoader.fromJson(Map<String,dynamic> json)
