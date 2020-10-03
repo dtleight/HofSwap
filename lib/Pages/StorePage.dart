@@ -34,21 +34,54 @@ class _StorePageState extends State<StorePage> {
   /// This method handles the UI creation for the store page, The UI contains a textbox, and a button.
   ///
   ///
+
+
   Widget build(BuildContext context) {
     return new Scaffold(
-        body: Column(
-      children: <Widget>[
-        TextFormField(
-            decoration: new InputDecoration(
-          labelText: "Enter ISBN Number",
-          fillColor: Colors.white,
-          border: new OutlineInputBorder(
-            borderRadius: new BorderRadius.circular(25.0),
-            borderSide: new BorderSide(),
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.lightGreenAccent,
+        title: Row(children: <Widget>[Text("Search   "),Align(alignment: Alignment.centerRight ,child: Container(height: 80.0, width: 200.0, child:TextField(
+          decoration: new InputDecoration(
+
+            labelText: "Enter ISBN Number",
+            fillColor: Colors.white,
+            border: InputBorder.none
           ),
           controller: myController,
-        ),
+        ))), FlatButton(
+          color: Colors.blue,
+          textColor: Colors.white,
+          child: Text("Enter"),
+          disabledColor: Colors.grey,
+          disabledTextColor: Colors.black,
+          padding: EdgeInsets.all(8.0),
+          splashColor: Colors.blueAccent,
+          ///
+          /// onPressed: handles the action when the button is pressed: this function calls a search of the Google Books APi and displays
+          /// it in a DialogBox.
+          ///
+          onPressed: () async {
+            Textbook t = await fetchBook(myController.text);
+            return showDialog(context: context, builder: (context)
+            {
+              return AlertDialog(content:
+              Column(
+                children: <Widget>[
+                  Text(t.title),
+                  Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
+                  Text(t.authors.toString()),
+                ],
+              ),
+              );
+            }
+            );
+          },
+        )] , ),
+
+      ),
+        body: Column(
+      children: <Widget>[
+
         FlatButton(
           color: Colors.blue,
           textColor: Colors.white,
