@@ -35,7 +35,7 @@ class _StorePageState extends State<StorePage> {
   ///
   ///
 
-
+  Card c = new Card();
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
@@ -79,40 +79,73 @@ class _StorePageState extends State<StorePage> {
         )] , ),
 
       ),
-        body: Column(
-      children: <Widget>[
 
-        FlatButton(
-          color: Colors.blue,
-          textColor: Colors.white,
-          child: Text("Enter"),
-          disabledColor: Colors.grey,
-          disabledTextColor: Colors.black,
-          padding: EdgeInsets.all(8.0),
-          splashColor: Colors.blueAccent,
-          ///
-          /// onPressed: handles the action when the button is pressed: this function calls a search of the Google Books APi and displays
-          /// it in a DialogBox.
-          ///
-          onPressed: () async {
-            Textbook t = await fetchBook(myController.text);
-            return showDialog(context: context, builder: (context)
-              {
-              return AlertDialog(content:
-              Column(
-                  children: <Widget>[
-                    Text(t.title),
-                    Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
-                    Text(t.authors.toString()),
-                  ],
-              ),
-              );
-            }
-            );
-          },
-        ),
-      ],
-    ));
+        body: Column(
+              children: <Widget>[
+                Container(height: 150.0, width: 500.0, child: Card
+                  (
+
+                    child:Row
+                      (
+
+                        children: <Widget>
+                        [
+
+                          Image.network("http://covers.openlibrary.org/b/isbn/9780140860092-M.jpg",),
+                          SizedBox(width: 50,),
+                    Align(alignment: Alignment.topLeft, child: Card(
+                              borderOnForeground: false,
+                              elevation:  0,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>
+                            [
+
+                              Text("Title: Of Mice and Men "),
+                              Text("Author: John Steinbeck"),
+                              Text("Seller: Dalton Leight"),
+                              Text("Price: \$99.99")
+
+                            ])
+                          ))
+                        ]
+                      )
+                  )
+                ),
+                Container(height: 150.0, width: 500.0, child: Card
+                  (
+
+                    child:Row
+                      (
+
+                        children: <Widget>
+                        [
+
+                          Image.network("http://covers.openlibrary.org/b/isbn/9780140860092-M.jpg",),
+                          SizedBox(width: 50,),
+                          Align(alignment: Alignment.topLeft, child: Card(
+                              borderOnForeground: false,
+                              elevation:  0,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>
+                                  [
+
+                                    Text("Title: Of Mice and Men "),
+                                    Text("Author: John Steinbeck"),
+                                    Text("Seller: Dalton Leight"),
+                                    Text("Price: \$99.99")
+
+                                  ])
+                          ))
+                        ]
+                    )
+                )
+                )
+              ],
+        ));
   }
 
   ///

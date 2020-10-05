@@ -27,5 +27,4 @@ flutter:
   assets:
     - assets/
     - assets/logo.jpg
-    - assets/hofcard.jpg
     - assets/hofcard2.jpg
