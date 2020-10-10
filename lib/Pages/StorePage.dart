@@ -40,7 +40,7 @@ class _StorePageState extends State<StorePage> {
     return new Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreenAccent,
-        title: Row(children: <Widget>[Text("Search   "),Align(alignment: Alignment.centerRight ,child: Container(height: 80.0, width: 200.0, child:TextField(
+        title: Row(children: <Widget>[Text("Search   "),Align(alignment: Alignment.centerRight ,child: Container(height: 80.0, width: 159.0, child:TextField(
           decoration: new InputDecoration(
 
             labelText: "Enter ISBN Number",
@@ -82,76 +82,51 @@ class _StorePageState extends State<StorePage> {
 
         body: Column(
               children: <Widget>[
-                Container(height: 150.0, width: 500.0, child: Card
-                  (
+                buildTextbookCell(new Textbook.temporary("Of Mice and Men",["John Steinbeck"],"9780140860092",)),
+               // buildTextbookCell(),
 
-                    child:Row
-                      (
-
-                        children: <Widget>
-                        [
-
-                          Image.network("http://covers.openlibrary.org/b/isbn/9780140860092-M.jpg",),
-                          SizedBox(width: 50,),
-                    Align(alignment: Alignment.topLeft, child: Card(
-                              borderOnForeground: false,
-                              elevation:  0,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: <Widget>
-                            [
-
-                              Text("Title: Of Mice and Men "),
-                              Text("Author: John Steinbeck"),
-                              Text("Seller: Dalton Leight"),
-                              Text("Price: \$99.99")
-
-                            ])
-                          ))
-                        ]
-                      )
-                  )
-                ),
-                Container(height: 150.0, width: 500.0, child: Card
-                  (
-
-                    child:Row
-                      (
-
-                        children: <Widget>
-                        [
-
-                          Image.network("http://covers.openlibrary.org/b/isbn/9780140860092-M.jpg",),
-                          SizedBox(width: 50,),
-                          Align(alignment: Alignment.topLeft, child: Card(
-                              borderOnForeground: false,
-                              elevation:  0,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>
-                                  [
-
-                                    Text("Title: Of Mice and Men "),
-                                    Text("Author: John Steinbeck"),
-                                    Text("Seller: Dalton Leight"),
-                                    Text("Price: \$99.99")
-
-                                  ])
-                          ))
-                        ]
-                    )
-                )
-                )
               ],
         ));
   }
+Container buildTextbookCell(Textbook tb){
+    return Container(height: 150.0, width: 500.0, child: Card
+      (
 
+        child:Row
+          (
+
+            children: <Widget>
+            [
+
+              Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg",),
+              SizedBox(width: 50,),
+              Align(alignment: Alignment.topLeft, child: Card(
+                  borderOnForeground: false,
+                  elevation:  0,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>
+                      [
+
+                        Text(tb.title),
+                        Text(tb.authors[0]),
+                        Text("Seller: Dalton Leight"),
+                        Text("Price: \$99.99")
+
+                      ])
+              ))
+            ]
+        )
+    )
+    );
+
+}
   ///
   /// FetchBook handles retrieving the JSON information from the API call and instantiating a textbook object(for later use)
   /// it then returns the name of the book
   ///
+
   Future<Textbook> fetchBook(String ISBN) async {
     final response = await http.get('https://www.googleapis.com/books/v1/volumes?q=+isbn='+ ISBN + '&key=AIzaSyB_mPqjpcjaEV1Wu593EY8czEAsuF-K_Nw');
     if (response.statusCode == 200) {
