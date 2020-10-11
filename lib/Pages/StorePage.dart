@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Pages/FocusedStoreView.dart';
+import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Utilities/TextbookAPILoader.dart';
 import '../Objects/Textbook.dart';
 import 'package:http/http.dart' as http;
@@ -28,8 +30,6 @@ class _StorePageState extends State<StorePage> {
     super.dispose();
   }
 
-  String txtBox = "test";
-
   ///
   /// This method handles the UI creation for the store page, The UI contains a textbox, and a button.
   ///
@@ -37,6 +37,7 @@ class _StorePageState extends State<StorePage> {
 
   Card c = new Card();
   Widget build(BuildContext context) {
+    DatabaseRouting db = new DatabaseRouting();
     return new Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreenAccent,
@@ -79,25 +80,26 @@ class _StorePageState extends State<StorePage> {
         )] , ),
 
       ),
-
-        body: Column(
-              children: <Widget>[
-                buildTextbookCell(new Textbook.temporary("Of Mice and Men",["John Steinbeck"],"9780140860092",)),
-               // buildTextbookCell(),
-
-              ],
-        ));
+      ///
+      /// Dynamically creates new Textbook Display Objects based off of the list of textbooks.
+      ///
+      body: ListView.builder(itemBuilder: (BuildContext context, int i)
+      {
+        return buildTextbookCell(db.textbooks[i]);
+      },
+        itemCount: db.textbooks.length ,
+      ),
+    );
   }
 Container buildTextbookCell(Textbook tb){
-    return Container(height: 150.0, width: 500.0, child: Card
+    return Container(height: 150.0, width: 500.0, child:
+    GestureDetector(
+      child: Card
       (
-
         child:Row
           (
-
             children: <Widget>
             [
-
               Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg",),
               SizedBox(width: 50,),
               Align(alignment: Alignment.topLeft, child: Card(
@@ -109,16 +111,19 @@ Container buildTextbookCell(Textbook tb){
                       children: <Widget>
                       [
 
-                        Text(tb.title),
+                        Text(tb.title,style: TextStyle(fontWeight: FontWeight.bold),),
                         Text(tb.authors[0]),
-                        Text("Seller: Dalton Leight"),
+                        Text("Seller: Dalton Leight",),
                         Text("Price: \$99.99")
 
-                      ])
+                      ]
+                  )
               ))
             ]
         )
-    )
+        ),
+        onTap: () { Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(tb)));}
+      )
     );
 
 }
