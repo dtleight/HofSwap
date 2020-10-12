@@ -6,7 +6,8 @@ import '../Objects/Textbook.dart';
 class DatabaseRouting
 {
   static final DatabaseRouting _db = DatabaseRouting._internal();
-  List<Textbook> textbooks;
+ List<Textbook> textbooks;
+
 
   factory DatabaseRouting()
   {
@@ -68,17 +69,7 @@ class DatabaseRouting
     QuerySnapshot eventsQuery = await ref.getDocuments();
     eventsQuery.documents.forEach((document) {
       textbooks.add(new Textbook.temporary(document['title'], document['author'],document.documentID));
-      /**
-          markers.add(new Marker(
-          position: new LatLng(gp.latitude, gp.longitude),
-          markerId: new MarkerId(document.documentID),
-          onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new CacheInfoPage(new Cache(document.documentID,document['cacheID'],gp))));}
-          )
-          );
-       **/
     });
-    print("Textbooks loaded");
-    print(textbooks.toString());
   }
 /**
   ///

@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class StorePage extends StatefulWidget {
-  String txtBox = "Default";
 
   StorePage() {}
 
@@ -19,7 +18,7 @@ class StorePage extends StatefulWidget {
 class _StorePageState extends State<StorePage> {
 
   ///
-  /// Textbox controller
+  /// TextBox controller
   ///
   final myController = TextEditingController();
 
@@ -33,9 +32,6 @@ class _StorePageState extends State<StorePage> {
   ///
   /// This method handles the UI creation for the store page, The UI contains a textbox, and a button.
   ///
-  ///
-
-  Card c = new Card();
   Widget build(BuildContext context) {
     DatabaseRouting db = new DatabaseRouting();
     return new Scaffold(
@@ -77,7 +73,9 @@ class _StorePageState extends State<StorePage> {
             }
             );
           },
-        )] , ),
+        )
+        ] ,
+        ),
 
       ),
       ///

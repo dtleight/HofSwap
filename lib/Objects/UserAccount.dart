@@ -13,7 +13,7 @@ class UserAccount extends Account
     return _account;
   }
 
-  UserAccount.instantiate(String name, Map<String,Account> following, Map<String,Account> followers, List<Textbook> booksOnSale, int rating, String hofstraID, List<Textbook> wishlist, List<Textbook> soldBooks) : super.instantiate(name,following,followers,booksOnSale,rating)
+  UserAccount.instantiate(String name, Map<String,Account> following, Map<String,Account> followers, List<Textbook> booksOnSale, int rating, String email,  String hofstraID, List<Textbook> wishlist, List<Textbook> soldBooks) : super.instantiate(name,following,followers,booksOnSale,rating,email)
   {
     _account.hofstraID = hofstraID;
     this.wishlist = wishlist;
