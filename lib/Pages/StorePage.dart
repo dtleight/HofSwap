@@ -16,11 +16,14 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-
+  bool isSearchEnabled = false;
   ///
   /// TextBox controller
   ///
   final myController = TextEditingController();
+
+
+
 
   @override
   void dispose() {
@@ -29,6 +32,10 @@ class _StorePageState extends State<StorePage> {
     super.dispose();
   }
 
+  void updateSearch()
+  {
+    setState( () {isSearchEnabled = !isSearchEnabled;});
+  }
   ///
   /// This method handles the UI creation for the store page, The UI contains a textbox, and a button.
   ///
@@ -36,44 +43,58 @@ class _StorePageState extends State<StorePage> {
     DatabaseRouting db = new DatabaseRouting();
     return new Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreenAccent,
-        title: Row(children: <Widget>[Text("Search   "),Align(alignment: Alignment.centerRight ,child: Container(height: 80.0, width: 159.0, child:TextField(
-          decoration: new InputDecoration(
+        backgroundColor: Colors.green,
+        actions:
+        [
+         Visibility(visible: isSearchEnabled,child:Container(height: 10.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "Search",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white,focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: myController,),),),
+          Padding(
+              padding: EdgeInsets.fromLTRB(0,0,10,0),
+              child:GestureDetector
+            (
+              child: Icon(Icons.search),
+              onTap: () {
+                updateSearch();
+                },
+            )
+          )
+        ],
+        title: Row
+          (
+              children:
+              [
+                Text("Store Page"),
 
-            labelText: "Enter ISBN Number",
-            fillColor: Colors.white,
-            border: InputBorder.none
-          ),
-          controller: myController,
-        ))), FlatButton(
-          color: Colors.blue,
-          textColor: Colors.white,
-          child: Text("Enter"),
-          disabledColor: Colors.grey,
-          disabledTextColor: Colors.black,
-          padding: EdgeInsets.all(8.0),
-          splashColor: Colors.blueAccent,
+                //Container(height: 80.0, width: 159.0, child: TextField(decoration: new InputDecoration(labelText: "Enter ISBN Number", fillColor: Colors.white, border: InputBorder.none), controller: myController,)),
+                 /**FlatButton(
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  child: Text("Enter"),
+                  padding: EdgeInsets.all(8.0),
+                  splashColor: Colors.blueAccent,
           ///
           /// onPressed: handles the action when the button is pressed: this function calls a search of the Google Books APi and displays
           /// it in a DialogBox.
           ///
-          onPressed: () async {
-            Textbook t = await fetchBook(myController.text);
-            return showDialog(context: context, builder: (context)
-            {
-              return AlertDialog(content:
-              Column(
-                children: <Widget>[
-                  Text(t.title),
-                  Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
-                  Text(t.authors.toString()),
-                ],
-              ),
+                  onPressed: () async {
+                  Textbook t = await fetchBook(myController.text);
+                  return showDialog(context: context, builder: (context)
+                  {
+                    return AlertDialog(content:
+                    Column
+                      (
+                      children:
+                      [
+                        Text(t.title),
+                        Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
+                        Text(t.authors.toString()),
+                      ],
+                    ),
               );
             }
             );
           },
         )
+                **/
         ] ,
         ),
 

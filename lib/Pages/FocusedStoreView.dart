@@ -18,57 +18,79 @@ class FocusedStoreView extends StatelessWidget
         appBar: AppBar(title: Text(tb.title + " by " + tb.authors.toString()),),
         body:Padding(
           padding: EdgeInsets.fromLTRB(0,10,0,0),
-          child: GridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 0,
-            crossAxisSpacing: 0,
-            children: <Widget>
+          child: Row(
+            children:
             [
-              Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),),
-              GridView.count
-                (
-                crossAxisCount: 2,
-                childAspectRatio:2.7,
-                mainAxisSpacing: 1.0,
-                crossAxisSpacing: 1.0,
-                children: <Widget>
+             Column
+               (
+                children:
                 [
-                  Text("Title: "),Text( tb.title),
-                  Text("Authors: "), Text(tb.authors.toString()),
-                  Text("Seller: "), Text("Dalton Leight"),
-                  Text("Price: "), Text("99.99"),
-                  Text("Condition: "), Text("Horrible"),
+                  Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),),
                 ],
-              ),
-              FlatButton
-                (
-
-                child: Text("Add to Wishlist"),
-                onPressed: () {return addToWishlist();},
-                color: Colors.blueAccent,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                ),
-              FlatButton
-                (
-                child: Text("Contact Seller"),
-                onPressed: () {return sendEmail();},
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-              )
+               ),
+             Column
+               (
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children:
+               [
+                  Column
+                   (
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   mainAxisSize: MainAxisSize.max,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: <Widget>
+                   [
+                     Row(children: [Text("Title: "),Text( tb.title),]),
+                     Row(children: [Text("Authors: "), Text(tb.authors[0]),]),
+                     Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
+                     Row(children: [Text("Price: "), Text("99.99"),]),
+                     Row(children: [Text("Condition: "), Text("Horrible"),]),
+                     Row(
+                       mainAxisSize: MainAxisSize.min,
+                       children: [
+                         Icon(Icons.star, color: Colors.green[500]),
+                         Icon(Icons.star, color: Colors.green[500]),
+                         Icon(Icons.star, color: Colors.green[500]),
+                         Icon(Icons.star, color: Colors.black),
+                         Icon(Icons.star, color: Colors.black),
+                       ],
+                     )
+                   ],
+                 ),
+                 Row(
+                  children:
+                    [
+                      Container
+                        (
+                        height: 50,
+                        width: 100,
+                        child: FlatButton
+                          (
+                            child: Text("Add to Wishlist"),
+                            onPressed: () {return addToWishlist();},
+                            color: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                      ),
+                      SizedBox(width: 15,),
+                      Container(
+                        height: 50,
+                        width: 100,
+                        child:FlatButton
+                          (
+                            child: Text("Contact Seller"),
+                            color: Colors.blueAccent,
+                            onPressed: () {return sendEmail();},
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                        ),
+                  ]
+                 )
+               ],
+             ),
             ],
+            )
           ),
-        )
-
-
-      /**
-         * GridView.count
-            (
-            crossAxisCount: 2,
-            mainAxisSpacing: 10,
-            children: <Widget>[
-            SizedBox(height: 5),
-            SizedBox(height: 5),
-            Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),)
-         */
       );
   }
 
