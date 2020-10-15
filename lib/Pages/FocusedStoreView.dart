@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import '../Objects/Account.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
 class FocusedStoreView extends StatelessWidget
 {
@@ -96,8 +98,31 @@ class FocusedStoreView extends StatelessWidget
 
   void sendEmail() async
   {
-    Account sender = new Account.instantiate("Dalton Leight", null, null,null,0,"dleight1@pride.hofstra.edu");
-  }
+    Account sender = new Account.instantiate("Dalton Leight", null, null, null, 0,"dleight1@pride.hofstra.edu");
+
+    String username = "";
+    String password = "";
+
+    final smtpServer = gmail(username, password);
+    // Creating the Gmail server
+
+    // Create our email message.
+    final message = Message()
+      ..from = Address(username)
+      ..recipients.add(sender.email) //recipent email
+      ..subject = 'I am Interested in Your Textbook!' //subject of the email
+      ..text = 'Hello ' + sender.name + "! \n I am interested in purchasing your copy of " + tb.title
+          + ". Please let me know if it is still available! \nThank you."; //body of the email
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString()); //print if the email is sent
+    } on MailerException catch (e) {
+      print('Message not sent. \n'+ e.toString()); //print if the email is not sent
+      // e.toString() will show why the email is not sending
+    }
+
+}
   void addToWishlist()
   {
 
