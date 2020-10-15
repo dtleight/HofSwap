@@ -52,8 +52,28 @@ class _StorePageState extends State<StorePage> {
               child:GestureDetector
             (
               child: Icon(Icons.search),
-              onTap: () {
+              onTap: () async
+              {
                 updateSearch();
+                if(!isSearchEnabled)
+                  {
+                    Textbook t = await searchQuery(myController.text);
+                    return showDialog(context: context, builder: (context)
+                    {
+                      return AlertDialog(content:
+                        Column
+                        (
+                          children:
+                          [
+                          Text(t.title),
+                          Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
+                          Text(t.authors.toString()),
+                          ],
+                        ),
+                      );
+                    }
+                    );
+                  }
                 },
             )
           )
@@ -161,6 +181,23 @@ Container buildTextbookCell(Textbook tb){
       {
         //Lets us know that the api call failed
         throw Exception('Failed to load book');
+    }
+  }
+
+  Future<Textbook> searchQuery(String string) async
+  {
+    String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
+    String str = "https://www.googleapis.com/books/v1/volumes?q=+" + queryParams + "&key=AIzaSyB_mPqjpcjaEV1Wu593EY8czEAsuF-K_Nw";
+    print(str);
+    final response = await http.get(str);
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response, parse the json
+      return TextbookAPILoader.fromJson(json.decode(response.body)).book;
+    }
+    else
+    {
+      //Lets us know that the api call failed
+      throw Exception('Failed to load book');
     }
   }
 }
