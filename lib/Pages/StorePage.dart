@@ -120,7 +120,6 @@ Container buildTextbookCell(Textbook tb){
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>
                       [
-
                         Text(tb.title,style: TextStyle(fontWeight: FontWeight.bold),),
                         Text(tb.authors[0]),
                         Text("Seller: Dalton Leight",),
