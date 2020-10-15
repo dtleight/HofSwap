@@ -51,15 +51,14 @@ class AccountPage extends StatelessWidget
                       Icon(Icons.star, color: Colors.black),
                     ],
                   ),
-                  SizedBox(height: 20,),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-
-                    ],
-                  ),
-
+                  SizedBox(height: 30,),
+                  Text("My Selling Page " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  SizedBox(height: 15,),
+                  Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  SizedBox(height: 15,),
+                  Text("View People You Follow " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  SizedBox(height: 15,),
+                  Text("View People Who Follow You " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ]
             )
         ))
