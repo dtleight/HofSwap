@@ -58,6 +58,7 @@ class _StorePageState extends State<StorePage> {
                 if(!isSearchEnabled)
                   {
                     Textbook t = await searchQuery(myController.text);
+                    print(t.ISBN);
                     return showDialog(context: context, builder: (context)
                     {
                       return AlertDialog(content:
@@ -66,7 +67,7 @@ class _StorePageState extends State<StorePage> {
                           children:
                           [
                           Text(t.title),
-                          Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
+                          Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+  t.ISBN +"-M.jpg",)),
                           Text(t.authors.toString()),
                           ],
                         ),
@@ -85,36 +86,6 @@ class _StorePageState extends State<StorePage> {
                 Text("Store Page"),
 
                 //Container(height: 80.0, width: 159.0, child: TextField(decoration: new InputDecoration(labelText: "Enter ISBN Number", fillColor: Colors.white, border: InputBorder.none), controller: myController,)),
-                 /**FlatButton(
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  child: Text("Enter"),
-                  padding: EdgeInsets.all(8.0),
-                  splashColor: Colors.blueAccent,
-          ///
-          /// onPressed: handles the action when the button is pressed: this function calls a search of the Google Books APi and displays
-          /// it in a DialogBox.
-          ///
-                  onPressed: () async {
-                  Textbook t = await fetchBook(myController.text);
-                  return showDialog(context: context, builder: (context)
-                  {
-                    return AlertDialog(content:
-                    Column
-                      (
-                      children:
-                      [
-                        Text(t.title),
-                        Flexible(child:Image.network("http://covers.openlibrary.org/b/isbn/"+myController.text +"-M.jpg",)),
-                        Text(t.authors.toString()),
-                      ],
-                    ),
-              );
-            }
-            );
-          },
-        )
-                **/
         ] ,
         ),
 

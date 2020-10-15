@@ -28,7 +28,7 @@ class FocusedStoreView extends StatelessWidget
                (
                 children:
                 [
-                  Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),),
+                  Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" + tb.ISBN +"-M.jpg"),),
                 ],
                ),
              ),
