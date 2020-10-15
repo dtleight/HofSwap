@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hofswap/Pages/AccountPage.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
 
@@ -23,6 +24,7 @@ class _PageViewDemoState extends State<PageContainer> {
     return PageView(
       controller: _controller,
       children: [
+        AccountPage(),
         LandingPage(),
         StorePage(),
       ],

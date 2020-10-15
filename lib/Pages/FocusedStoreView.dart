@@ -17,7 +17,7 @@ class FocusedStoreView extends StatelessWidget
   {
     return Scaffold
       (
-        appBar: AppBar(title: Text(tb.title + " by " + tb.authors.toString()),),
+        appBar: AppBar(title: Text(tb.title + " by " + tb.authors[0].toString()),),
         body: Padding(
           padding: EdgeInsets.fromLTRB(10,10,0,0),
           child:
