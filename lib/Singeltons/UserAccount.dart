@@ -1,5 +1,5 @@
 import 'package:hofswap/Objects/Account.dart';
-import 'Textbook.dart';
+import '../Objects/Textbook.dart';
 
 class UserAccount extends Account
 {

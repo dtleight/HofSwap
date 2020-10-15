@@ -58,7 +58,7 @@ class _StorePageState extends State<StorePage> {
                 if(!isSearchEnabled)
                   {
                     Textbook t = await searchQuery(myController.text);
-                    print(t.ISBN);
+                    print("ISBN is " + t.ISBN);
                     return showDialog(context: context, builder: (context)
                     {
                       return AlertDialog(content:
@@ -159,7 +159,6 @@ Container buildTextbookCell(Textbook tb){
   {
     String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
     String str = "https://www.googleapis.com/books/v1/volumes?q=+" + queryParams + "&key=AIzaSyB_mPqjpcjaEV1Wu593EY8czEAsuF-K_Nw";
-    print(str);
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json

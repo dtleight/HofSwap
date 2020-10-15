@@ -8,6 +8,7 @@ import 'package:mailer/smtp_server.dart';
 class FocusedStoreView extends StatelessWidget
 {
   Textbook tb;
+  bool isSuccessful = false;
   FocusedStoreView(Textbook textbook)
   {
     this.tb = textbook;
@@ -85,7 +86,27 @@ class FocusedStoreView extends StatelessWidget
                           (
                             child: Text("Contact Seller"),
                             color: Colors.blueAccent,
-                            onPressed: () {return sendEmail();},
+                            onPressed: ()
+                            {
+                              sendEmail();
+                              if (isSuccessful)
+                                {
+                                  showDialog(context: context, builder: (context)
+                                  {
+                                    isSuccessful = false;
+                                    return AlertDialog(content:
+                                    Column
+                                      (
+                                      children:
+                                      [
+                                        Text("Email sent successfully"),
+                                      ]
+                                      ),
+                                    );
+                                  }
+                                  );
+                                }
+                            },
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                           ),
                         ),
@@ -105,8 +126,8 @@ class FocusedStoreView extends StatelessWidget
   {
     Account sender = new Account.instantiate("Dalton Leight", null, null, null, 0,"dleight1@pride.hofstra.edu");
 
-    String username = "";
-    String password = "";
+    String username = "HofSwap@gmail.com";
+    String password = "HofSwap190";
 
     final smtpServer = gmail(username, password);
     // Creating the Gmail server
@@ -116,12 +137,13 @@ class FocusedStoreView extends StatelessWidget
       ..from = Address(username)
       ..recipients.add(sender.email) //recipent email
       ..subject = 'I am Interested in Your Textbook!' //subject of the email
-      ..text = 'Hello ' + sender.name + "! \n I am interested in purchasing your copy of " + tb.title
-          + ". Please let me know if it is still available! \nThank you."; //body of the email
+      ..text = 'Hello ' + sender.name + "! \n\nI am interested in purchasing your copy of " + tb.title
+          + ". Please let me know if it is still available! \n\nThank you,\n"+ sender.name; //body of the email
 
     try {
       final sendReport = await send(message, smtpServer);
       print('Message sent: ' + sendReport.toString()); //print if the email is sent
+      isSuccessful = true;
     } on MailerException catch (e) {
       print('Message not sent. \n'+ e.toString()); //print if the email is not sent
       // e.toString() will show why the email is not sending

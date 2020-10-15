@@ -29,20 +29,14 @@ class Textbook
   ///
   factory Textbook.fromJson(Map<String, dynamic> json)
   {
-    List<dynamic> identifiers = json['volumeInfo']['industryIdentifiers'] as List<dynamic>;
-    String str = "";
-    try{
-      print(identifiers[0]);
-      String str = identifiers[0].toString();
-      str = str.substring(str.length-14,str.length-1);
-      print(str);
+    try
+    {
+      return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors'],json['volumeInfo']['industryIdentifiers'][0]['identifier']);
     }
     catch(Exception)
   {
 
   }
-
-
-    return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors'],str);
+  return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors'],"");
   }
 }
