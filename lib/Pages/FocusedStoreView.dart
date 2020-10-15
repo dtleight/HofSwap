@@ -18,19 +18,22 @@ class FocusedStoreView extends StatelessWidget
     return Scaffold
       (
         appBar: AppBar(title: Text(tb.title + " by " + tb.authors.toString()),),
-        body:Padding(
-          padding: EdgeInsets.fromLTRB(0,10,0,0),
-          child: Row(
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(10,10,0,0),
+          child:
+          Row(
             children:
             [
-             Column
+             Flexible(child: Column
                (
                 children:
                 [
                   Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),),
                 ],
                ),
-             Column
+             ),
+             SizedBox(width: 10,),
+             Flexible(child: Column
                (
                crossAxisAlignment: CrossAxisAlignment.start,
                children:
@@ -59,13 +62,13 @@ class FocusedStoreView extends StatelessWidget
                      )
                    ],
                  ),
-                 Row(
+                 Flexible(child: Row(
                   children:
                     [
                       Container
                         (
                         height: 50,
-                        width: 100,
+                        width: 90,
                         child: FlatButton
                           (
                             child: Text("Add to Wishlist"),
@@ -74,10 +77,10 @@ class FocusedStoreView extends StatelessWidget
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                           ),
                       ),
-                      SizedBox(width: 15,),
+                      SizedBox(width: 10,),
                       Container(
                         height: 50,
-                        width: 100,
+                        width: 90,
                         child:FlatButton
                           (
                             child: Text("Contact Seller"),
@@ -87,8 +90,10 @@ class FocusedStoreView extends StatelessWidget
                           ),
                         ),
                   ]
-                 )
+                 ),
+                 ),
                ],
+             ),
              ),
             ],
             )
