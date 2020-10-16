@@ -4,7 +4,7 @@ import 'package:hofswap/Objects/Account.dart';
 
 class AccountPage extends StatelessWidget
 {
- Account account = new Account.instantiate("Scott Jefferys", null,null,null, 5, "scott.m.jefferys@hofstra.edu",);
+  Account account = new Account.instantiate("Scott Jefferys", null,null,null, 5, "scott.m.jefferys@hofstra.edu",);
   @override
 
   Widget build(BuildContext context)
