@@ -108,26 +108,34 @@ Container buildTextbookCell(Textbook tb){
       (
         child:Row
           (
-            children: <Widget>
+            children:
             [
-              Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg",),
-              SizedBox(width: 50,),
-              Align(alignment: Alignment.topLeft, child: Card(
-                  borderOnForeground: false,
-                  elevation:  0,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>
-                      [
-                        Text(tb.title,style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text(tb.authors[0]),
-                        Text("Seller: Dalton Leight",),
-                        Text("Price: \$99.99")
+              //Flexible(child: FractionallySizedBox(child: Expanded(child: Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg",)),widthFactor: 0.25,heightFactor: 1,)),
+              Expanded(child: Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg",fit: BoxFit.contain,),flex: 2,),
+              Flexible(child: FractionallySizedBox(widthFactor: 0.1,heightFactor: 1.0,),),
+              Flexible(
+                child:  Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Align(alignment: Alignment.topLeft, child: Card(
+                      borderOnForeground: false,
+                      elevation:  0,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children:
+                          [
+                            Text(tb.title,style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text(tb.authors[0]),
+                            Text("Seller: Dalton Leight",),
+                            Text("Price: \$99.99")
 
-                      ]
-                  )
-              ))
+                          ]
+                      )
+                  )),
+                ),
+                flex: 8,
+              ),
+
             ]
         )
         ),

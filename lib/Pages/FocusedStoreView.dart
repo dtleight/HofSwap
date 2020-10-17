@@ -32,9 +32,12 @@ class FocusedStoreView extends StatelessWidget
                   Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" + tb.ISBN +"-M.jpg"),),
                 ],
                ),
+               flex: 4,
              ),
-             SizedBox(width: 10,),
-             Flexible(child: Column
+             //Flexible(child: SizedBox(),flex: 8,),
+              Flexible(child: FractionallySizedBox(widthFactor: 0.6,heightFactor: 1.0,),),
+             Flexible(
+               child: Column
                (
                crossAxisAlignment: CrossAxisAlignment.start,
                children:
@@ -115,6 +118,7 @@ class FocusedStoreView extends StatelessWidget
                  ),
                ],
              ),
+               flex: 8,
              ),
             ],
             )
