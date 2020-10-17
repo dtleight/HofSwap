@@ -6,6 +6,8 @@ import 'package:hofswap/Pages/StorePage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Utilities/CardReader.dart';
 
+import 'AccountPage.dart';
+
 
 class LandingPage extends StatefulWidget
 {
@@ -28,28 +30,33 @@ class _LandingPageState extends State<LandingPage>
       appBar: AppBar(title: Text("Landing Page"),),
         drawer: Drawer
           (
-            child: ListView(
+            child: ListView
+              (
               children:
               [
-                Center(
-                  child:UserAccountsDrawerHeader(
-                    accountName: Align(child: Text("Test"),alignment: Alignment.centerLeft,),
-                    accountEmail: Text("Test2"),
-
-                    currentAccountPicture: GestureDetector
+                DrawerHeader
+                  (
+                    child: Center
                       (
-                      child: CircleAvatar
+                      child:Container
                         (
-                        backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg"),
+                        height:100,
+                        width: 100,
+                        child:GestureDetector
+                          (
+                          child: CircleAvatar
+                          (
+                          radius: 20,
+                          backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg",),
+                          ),
+                        onTap: ()
+                        {
+                          Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new AccountPage()));
+                        },
+                        ),
                       ),
                     ),
-                    decoration: BoxDecoration
-                      (
-                      color: Colors.lightBlueAccent,
-                    ),
                   ),
-                ),
-
                 ListTile
                   (
                     leading: Icon(Icons.shopping_cart),
