@@ -24,7 +24,6 @@ class _PageViewDemoState extends State<PageContainer> {
     return PageView(
       controller: _controller,
       children: [
-        AccountPage(),
         LandingPage(),
         StorePage(),
       ],
