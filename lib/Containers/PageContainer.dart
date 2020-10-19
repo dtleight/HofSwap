@@ -10,7 +10,7 @@ class PageContainer extends StatefulWidget {
 
 class _PageViewDemoState extends State<PageContainer> {
   PageController _controller = PageController(
-    initialPage: 1,
+    initialPage: 0,
   );
 
   @override
