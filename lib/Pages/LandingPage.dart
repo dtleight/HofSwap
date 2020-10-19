@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/SellersPage.dart';
+import 'package:hofswap/Pages/SettingsPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
@@ -76,6 +77,10 @@ class _LandingPageState extends State<LandingPage>
                   (
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
+                    onTap: ()
+                    {
+                      Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new SettingsPage()));
+                    }
                 ),
                 ListTile
                   (
