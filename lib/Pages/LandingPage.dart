@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/SellersPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
+import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Utilities/CardReader.dart';
 
 import 'AccountPage.dart';
@@ -19,12 +20,6 @@ class _LandingPageState extends State<LandingPage>
 {
   @override
   Widget build(BuildContext context) {
-    /**
-     *
-
-    CardReader c = new CardReader();
-    c.getCard();
-     **/
     return Scaffold
       (
       appBar: AppBar(title: Text("Landing Page"),),
@@ -38,23 +33,25 @@ class _LandingPageState extends State<LandingPage>
                   (
                     child: Center
                       (
-                      child:Container
-                        (
-                        height:100,
-                        width: 100,
-                        child:GestureDetector
+                        child: Column
                           (
-                          child: CircleAvatar
-                          (
-                          radius: 20,
-                          backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg",),
-                          ),
-                        onTap: ()
-                        {
-                          Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new AccountPage()));
-                        },
+                            children:
+                            [
+                              GestureDetector
+                                (
+                                  child: CircleAvatar
+                                    (
+                                      radius: 60,
+                                      backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg",),
+                                    ),
+                                  onTap: ()
+                                  {
+                                    Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new AccountPage()));
+                                    },
+                                ),
+                              Text(new UserAccount().name ?? "Scott Jeffreys")
+                            ],
                         ),
-                      ),
                     ),
                   ),
                 ListTile

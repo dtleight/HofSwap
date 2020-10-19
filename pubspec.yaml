@@ -13,6 +13,7 @@ dependencies:
   http: 0.12.2
   path_provider: 1.6.18
   mailer: ^3.0.3
+  flutter_launcher_icons: 0.8.1
   #camera: ^0.5.7+4
   firebase_core: ^0.4.0+9   #Base library for Firebase
   firebase_ml_vision: ^0.9.6+3 #Library for Firebase Machine Learning Vision Library
@@ -22,6 +23,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "../assets/logo.jpg"
+  ios: true
+  image_path: "../assets/logo.jpg"
 
 flutter:
   uses-material-design: true
