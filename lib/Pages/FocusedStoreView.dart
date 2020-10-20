@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
+import 'package:hofswap/Singeltons/UserAccount.dart';
 import '../Objects/Account.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -154,8 +155,15 @@ class FocusedStoreView extends StatelessWidget
     }
 
 }
+
+  ///
+  /// Add/Remove a textbook from the list, call updateState() to change button text/color
+  ///
   void addToWishlist()
   {
-
+      new UserAccount().wishlist.add(tb);
+      //Update database
+      //Here:
+      print(new UserAccount().wishlist[0].title.toString());
   }
 }

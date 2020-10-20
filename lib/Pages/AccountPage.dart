@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Account.dart';
+import 'package:hofswap/Singeltons/UserAccount.dart';
+
+import 'SettingsPage.dart';
 
 class AccountPage extends StatelessWidget
 {
-  Account account = new Account.instantiate("Scott Jefferys", null,null,null, 5, "scott.m.jefferys@hofstra.edu",);
+  UserAccount account = new UserAccount();
   @override
 
   Widget build(BuildContext context)
@@ -12,8 +15,20 @@ class AccountPage extends StatelessWidget
     //bottom: TabBar(tabs:[Tab(text: account.name,)],),
     return Scaffold
       (
-      backgroundColor: Colors.lightBlueAccent,
-      appBar: AppBar(title: Text("My Account"),backgroundColor: Colors.green,),
+      appBar: AppBar(
+        title: Text("My Account"),
+        actions:
+        [
+          IconButton
+            (
+              icon: Icon(Icons.settings),
+              onPressed:()
+              {
+                Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new SettingsPage()));
+              }
+              )
+        ],
+      ),
       body:  Column(children:
       [ SizedBox(height: 15,),
         Center(
@@ -23,32 +38,31 @@ class AccountPage extends StatelessWidget
           ),
         ),
         SizedBox(height: 20,),
-        Align(alignment: Alignment.center,  child: Card(
-
-            color: Colors.lightBlueAccent,
-            borderOnForeground: false,
-            elevation:  0,
-
-            child: Column(
+        Align(
+            alignment: Alignment.center,
+            child: Card
+              (
+              borderOnForeground: false,
+              elevation:  0,
+              child: Column
+                (
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>
                 [
-
-                  Text("Name: "+account.name,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-                  Text("Email: "+account.email),
-
+                  Text("Name: "+ account.name,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                  Text("Email: "+ account.email),
+                  Text("Hofstra ID: H" + account.hofstraID),
                   Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children:
+                    [
                       Text("Rating: "),
-
-
-                      Icon(Icons.star, color: Colors.green[500]),
-                      Icon(Icons.star, color: Colors.green[500]),
-                      Icon(Icons.star, color: Colors.green[500]),
-                      Icon(Icons.star, color: Colors.black),
-                      Icon(Icons.star, color: Colors.black),
+                      Icon(Icons.star, color: (account.rating >= 1)?Colors.green[500]:Colors.black),
+                      Icon(Icons.star,color: (account.rating >= 2)?Colors.green[500]:Colors.black),
+                      Icon(Icons.star, color: (account.rating >= 3)?Colors.green[500]:Colors.black),
+                      Icon(Icons.star, color: (account.rating >= 4)?Colors.green[500]:Colors.black),
+                      Icon(Icons.star, color: (account.rating >= 5)?Colors.green[500]:Colors.black),
                     ],
                   ),
                   SizedBox(height: 30,),

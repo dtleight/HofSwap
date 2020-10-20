@@ -1,13 +1,10 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/SellersPage.dart';
 import 'package:hofswap/Pages/SettingsPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
 import 'package:hofswap/Pages/WishListPage.dart';
-import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
-import 'package:hofswap/Utilities/CardReader.dart';
 
 import 'AccountPage.dart';
 
@@ -27,7 +24,6 @@ class _LandingPageState extends State<LandingPage>
       appBar: AppBar(title: Text("Landing Page"),),
         drawer: Drawer
           (
-
             child: ListView
               (
               children:

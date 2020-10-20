@@ -43,7 +43,6 @@ class _StorePageState extends State<StorePage> {
     DatabaseRouting db = new DatabaseRouting();
     return new Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
         actions:
         [
          Visibility(visible: isSearchEnabled,child:Container(height: 10.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "Search",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white,focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: myController,),),),
@@ -110,10 +109,10 @@ Container buildTextbookCell(Textbook tb){
           (
             children:
             [
-              //Flexible(child: FractionallySizedBox(child: Expanded(child: Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg",)),widthFactor: 0.25,heightFactor: 1,)),
               Expanded(child: Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg",fit: BoxFit.contain,),flex: 2,),
               Flexible(child: FractionallySizedBox(widthFactor: 0.1,heightFactor: 1.0,),),
               Flexible(
+                flex: 8,
                 child:  Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Align(alignment: Alignment.topLeft, child: Card(
@@ -133,7 +132,6 @@ Container buildTextbookCell(Textbook tb){
                       )
                   )),
                 ),
-                flex: 8,
               ),
 
             ]
