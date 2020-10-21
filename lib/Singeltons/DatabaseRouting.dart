@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import '../Objects/Account.dart';
 import '../Objects/Textbook.dart';
@@ -26,84 +27,6 @@ class DatabaseRouting {
   {
     CollectionReference ref = Firestore.instance.collection(collection);
     return await ref.getDocuments();
-  }
-
-  class AddUser (Account account){
-    print("Database write started");
-
-    final String email;
-    final String id;
-    final String name;
-    final String password;
-
-    AddUser(this.email, this.id, this.name, this.password);
-    /*
-      @override
-      Widget build(BuildContext context) {
-      // Create a CollectionReference called users that references the firestore collection
-          CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-          Future<void> addUser() {
-            // Call the user's CollectionReference to add a new user
-            return users
-                .add({
-            'email': email,
-            'id': id,
-            'name': name,
-            'password': password
-            })
-                .then((value) => print("User Added"))
-                .catchError((error) => print("Failed to add user: $error"));
-          }
-
-          return FlatButton(
-            onPressed: addUser,
-            child: Text(
-            "Add User",
-            ),
-          );
-      }
-       */
-
-  }
-
-  class AddTextbook (Account account){
-    print("Database write started");
-
-    final String ISBN;
-    final String author;
-    final String title;
-    final String edition;
-
-    AddTextbook(this.ISBN, this.author, this.title, this.edition);
-    /*
-      @override
-      Widget build(BuildContext context) {
-      // Create a CollectionReference called users that references the firestore collection
-          CollectionReference users = FirebaseFirestore.instance.collection('textbooks');
-
-          Future<void> addTextbook() {
-            // Call the user's CollectionReference to add a new user
-            return textbooks
-                .add({
-            'ISBN': ISBN,
-            'author': author,
-            'title': title,
-            'edition': edition
-            })
-                .then((value) => print("Textbook Added"))
-                .catchError((error) => print("Failed to add textbook: $error"));
-          }
-
-          return FlatButton(
-            onPressed: addTextbook,
-            child: Text(
-            "Add Textbook",
-            ),
-          );
-      }
-       */
-
   }
 
     avoid createUser(Account account)
@@ -162,4 +85,79 @@ class DatabaseRouting {
       });
     }
 
+}
+class AddUser (Account account){
+  print("Database write started");
+
+  final String email;
+  final String id;
+  final String name;
+  final String password;
+
+  AddUser(this.email, this.id, this.name, this.password);
+  /*
+  @override
+  Widget build(BuildContext context) {
+  // Create a CollectionReference called users that references the firestore collection
+      CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+      Future<void> addUser() {
+        // Call the user's CollectionReference to add a new user
+        return users
+            .add({
+              'email': email,
+              'id': id,
+              'name': name,
+              'password': password
+              })
+            .then((value) => print("User Added"))
+            .catchError((error) => print("Failed to add user: $error"));
+      }
+
+      return FlatButton(
+        onPressed: addUser,
+        child: Text(
+        "Add User",
+        ),
+      );
+  }
+   */
+
+}
+class AddTextbook (Account account){
+  print("Database write started");
+
+  final String ISBN;
+  final String author;
+  final String title;
+  final String edition;
+
+  AddTextbook(this.ISBN, this.author, this.title, this.edition);
+/*
+  @override
+  Widget build(BuildContext context) {
+  // Create a CollectionReference called users that references the firestore collection
+      CollectionReference users = FirebaseFirestore.instance.collection('textbooks');
+
+      Future<void> addTextbook() {
+        // Call the user's CollectionReference to add a new user
+        return textbooks
+            .add({
+              'ISBN': ISBN,
+              'author': author,
+              'title': title,
+              'edition': edition
+            })
+            .then((value) => print("Textbook Added"))
+            .catchError((error) => print("Failed to add textbook: $error"));
+          }
+
+          return FlatButton(
+            onPressed: addTextbook,
+            child: Text(
+            "Add Textbook",
+            ),
+          );
+      }
+       */
 }
