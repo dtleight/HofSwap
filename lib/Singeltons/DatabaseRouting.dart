@@ -29,96 +29,96 @@ class DatabaseRouting {
   }
 
   class AddUser (Account account){
-  print("Database write started");
+    print("Database write started");
 
-  final String email;
-  final String id;
-  final String name;
-  final String password;
+    final String email;
+    final String id;
+    final String name;
+    final String password;
 
-  AddUser(this.email, this.id, this.name, this.password);
-  /*
-    @override
-    Widget build(BuildContext context) {
-    // Create a CollectionReference called users that references the firestore collection
-        CollectionReference users = FirebaseFirestore.instance.collection('users');
+    AddUser(this.email, this.id, this.name, this.password);
+    /*
+      @override
+      Widget build(BuildContext context) {
+      // Create a CollectionReference called users that references the firestore collection
+          CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-        Future<void> addUser() {
-          // Call the user's CollectionReference to add a new user
-          return users
-              .add({
-          'email': email,
-          'id': id,
-          'name': name,
-          'password': password
-          })
-              .then((value) => print("User Added"))
-              .catchError((error) => print("Failed to add user: $error"));
-        }
+          Future<void> addUser() {
+            // Call the user's CollectionReference to add a new user
+            return users
+                .add({
+            'email': email,
+            'id': id,
+            'name': name,
+            'password': password
+            })
+                .then((value) => print("User Added"))
+                .catchError((error) => print("Failed to add user: $error"));
+          }
 
-        return FlatButton(
-          onPressed: addUser,
-          child: Text(
-          "Add User",
-          ),
-        );
-    }
-     */
+          return FlatButton(
+            onPressed: addUser,
+            child: Text(
+            "Add User",
+            ),
+          );
+      }
+       */
 
   }
 
   class AddTextbook (Account account){
-  print("Database write started");
+    print("Database write started");
 
-  final String ISBN;
-  final String author;
-  final String title;
-  final String edition;
+    final String ISBN;
+    final String author;
+    final String title;
+    final String edition;
 
-  AddTextbook(this.ISBN, this.author, this.title, this.edition);
-  /*
-    @override
-    Widget build(BuildContext context) {
-    // Create a CollectionReference called users that references the firestore collection
-        CollectionReference users = FirebaseFirestore.instance.collection('textbooks');
+    AddTextbook(this.ISBN, this.author, this.title, this.edition);
+    /*
+      @override
+      Widget build(BuildContext context) {
+      // Create a CollectionReference called users that references the firestore collection
+          CollectionReference users = FirebaseFirestore.instance.collection('textbooks');
 
-        Future<void> addTextbook() {
-          // Call the user's CollectionReference to add a new user
-          return textbooks
-              .add({
-          'ISBN': ISBN,
-          'author': author,
-          'title': title,
-          'edition': edition
-          })
-              .then((value) => print("Textbook Added"))
-              .catchError((error) => print("Failed to add textbook: $error"));
-        }
+          Future<void> addTextbook() {
+            // Call the user's CollectionReference to add a new user
+            return textbooks
+                .add({
+            'ISBN': ISBN,
+            'author': author,
+            'title': title,
+            'edition': edition
+            })
+                .then((value) => print("Textbook Added"))
+                .catchError((error) => print("Failed to add textbook: $error"));
+          }
 
-        return FlatButton(
-          onPressed: addTextbook,
-          child: Text(
-          "Add Textbook",
-          ),
-        );
-    }
-     */
+          return FlatButton(
+            onPressed: addTextbook,
+            child: Text(
+            "Add Textbook",
+            ),
+          );
+      }
+       */
 
   }
 
-  avoid createUser(Account account)
-  {
-  print("Database write started");
-  Firestore.instance.collection("users").document(account.name).setData(
-  {
-  'name': "Dalton Leight",
-  }
-
-  );
-  }
-
-      Future<void> generateUser(String name, String email, String imageSRC) async
+    avoid createUser(Account account)
+    {
+      print("Database write started");
+      Firestore.instance.collection("users").document(account.name).setData(
       {
+        'name': "Dalton Leight",
+      }
+
+      );
+    }
+
+     Future<void> generateUser(String name, String email, String imageSRC) async
+     {
         DocumentSnapshot ds = await Firestore.instance.collection("users").document(email).get();
         if(ds.data != null)
         {
