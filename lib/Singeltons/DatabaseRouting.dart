@@ -106,7 +106,7 @@ class DatabaseRouting {
 
   }
 
-    avoid createUser(Account account)
+    void createUser(Account account)
     {
       print("Database write started");
       Firestore.instance.collection("users").document(account.name).setData(
@@ -162,4 +162,9 @@ class DatabaseRouting {
       });
     }
 
+
+    void _signout(){
+    await FirebaseAuth.instance.signOut();
+
+  }
 }

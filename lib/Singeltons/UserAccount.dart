@@ -33,5 +33,4 @@ class UserAccount extends Account
 
 
 
-
 }
