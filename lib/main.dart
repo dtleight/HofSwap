@@ -3,8 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hofswap/Containers/PageContainer.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'Objects/Textbook.dart';
-import 'Pages/LandingPage.dart';
-import 'Pages/StorePage.dart';
+import 'Pages/LoginPage.dart';
 import 'Singeltons/UserAccount.dart';
 void main() async {
   new UserAccount.instantiate("Dalton Leight", "dleight1@pride.hofstra.edu", 2.5, "70292000", new List<Textbook>());
@@ -26,8 +25,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
     ),
-      home: PageContainer(),
-      //home: LoginPage(),
+      //home: PageContainer(),
+      home: LoginPage(),
     );
   }
 }

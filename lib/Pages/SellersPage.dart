@@ -47,18 +47,25 @@ class _SellersPageState extends State<SellersPage>
         context: context,
         builder: (context)
         {
-          textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController(),]);
+          textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),]);
         return AlertDialog
           (
+            title: AppBar(title: Text("Enter Information"),),
+            titlePadding: EdgeInsets.all(0),
+            //Text("Enter Information"),
+            scrollable: true,
             content: Form
               (
                 child: Column
                 (
                   children:
                   [
-                    ...addField(0, "Enter Textbook Title"),
-                    ...addField(1, "Enter ISBN Number"),
-                    ...addField(2, "Price")
+                    ...addField(0, "Textbook Title"),
+                    ...addField(1, "ISBN Number"),
+                    ...addField(2, "Edition"),
+                    ...addField(3, "Condition"),
+                    ...addField(4, "Price"),
+                    Align(alignment: Alignment.bottomRight, child: FlatButton(),)
                   ],
                 ),
               ),

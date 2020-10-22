@@ -107,7 +107,7 @@ class _LandingPageState extends State<LandingPage>
           ),
       ),
         backgroundColor: const Color(0xfff7e942),
-        body: Align(alignment:Alignment.center, child:Image(image:AssetImage("assets/logo.jpg")))
+        body: Align(alignment:Alignment.center, child:Image(image:AssetImage("assets/logo.png")))
     );
   }
 }

@@ -26,15 +26,15 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  android: "../assets/logo.jpg"
+  android: "../assets/logo.png"
   ios: true
-  image_path: "../assets/logo.jpg"
+  image_path: "../assets/logo.png"
 
 flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/logo.jpg
+    - assets/logo.png
     - assets/hofcard2.jpg
 
 
