@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import '../Objects/Account.dart';
 import '../Objects/Textbook.dart';
+import 'UserAccount.dart';
 
 class DatabaseRouting {
 
   static final DatabaseRouting _db = DatabaseRouting._internal();
   List<Textbook> textbooks;
-  Account account = new Account.instantiate("Scott Jefferys", null, null, null, 5, "scott.m.jefferys@hofstra.edu",);
+
+  //Account account = new Account.instantiate("Scott Jefferys", null, null, null, 5, "scott.m.jefferys@hofstra.edu",);
 
   factory DatabaseRouting()
   {
@@ -26,142 +27,114 @@ class DatabaseRouting {
     CollectionReference ref = Firestore.instance.collection(collection);
     return await ref.getDocuments();
   }
-/**
-  class AddUser (Account account){
-    print("Database write started");
 
-    final String email;
-    final String id;
-    final String name;
-    final String password;
+  void addTextbook(Textbook t) {
+    // Call the user's CollectionReference to add a new user
+    CollectionReference tbr = Firestore.instance.collection('textbooks');
+    tbr.add({
+      'ISBN': t.ISBN,
+      'author': t.authors,
+      'title': t.title,
+      'edition': t.edition
+    }).then((value) => print("Textbook Added")).catchError((error) =>
+        print("Failed to add textbook: $error"));
+  }
 
-    AddUser(this.email, this.id, this.name, this.password);
-    /*
-      @override
-      Widget build(BuildContext context) {
-      // Create a CollectionReference called users that references the firestore collection
-          CollectionReference users = FirebaseFirestore.instance.collection('users');
+  Future<void> verifyUser(String email, String password) async
+  {
+    // Create a CollectionReference called users that references the firestore collection
+    CollectionReference users = Firestore.instance.collection('users');
+    DocumentSnapshot doc = await users.document(email).get();
+    if (doc.data != null && password == doc.data["password"] as String) {
+      //User is validated
+      Map<String, dynamic> data = doc.data;
+      new UserAccount.instantiate(
+          data['name'], email, data['rating'], data['id'], data['wishlist']);
+      loadHomePage();
+    }
+    else {
+      promptAccountInvalid();
+    }
 
-          Future<void> addUser() {
-            // Call the user's CollectionReference to add a new user
-            return users
-                .add({
+
+    // Call the user's CollectionReference to add a new user
+
+  }
+
+  void loadHomePage() {
+
+  }
+
+  void promptAccountInvalid() {
+
+  }
+
+  void generateUser(String name, String email, String id, String password) async
+  {
+    //Verify email is Hofstra email
+    //After Verification
+    UserAccount account = new UserAccount.instantiate(
+        name, email, null, id, new List<Textbook>());
+    CollectionReference users = Firestore.instance.collection('users');
+    DocumentSnapshot ds = await users.document(email).get();
+    if (ds.exists) {
+      await Firestore.instance.collection('users').document(email).updateData(
+          {
             'email': email,
-            'id': id,
             'name': name,
-            'password': password
-            })
-                .then((value) => print("User Added"))
-                .catchError((error) => print("Failed to add user: $error"));
+            'password': password,
+            'id': id,
+            'rating': 0,
+            'wishlist': account.wishlist,
           }
-
-          return FlatButton(
-            onPressed: addUser,
-            child: Text(
-            "Add User",
-            ),
-          );
-      }
-       */
-
-  }
-
-  class AddTextbook (Account account){
-    print("Database write started");
-
-    final String ISBN;
-    final String author;
-    final String title;
-    final String edition;
-
-    AddTextbook(this.ISBN, this.author, this.title, this.edition);
-    /*
-      @override
-      Widget build(BuildContext context) {
-      // Create a CollectionReference called users that references the firestore collection
-          CollectionReference users = FirebaseFirestore.instance.collection('textbooks');
-
-          Future<void> addTextbook() {
-            // Call the user's CollectionReference to add a new user
-            return textbooks
-                .add({
-            'ISBN': ISBN,
-            'author': author,
-            'title': title,
-            'edition': edition
-            })
-                .then((value) => print("Textbook Added"))
-                .catchError((error) => print("Failed to add textbook: $error"));
-          }
-
-          return FlatButton(
-            onPressed: addTextbook,
-            child: Text(
-            "Add Textbook",
-            ),
-          );
-      }
-       */
-
-  }
-
-    avoid createUser(Account account)
-    {
-      print("Database write started");
-      Firestore.instance.collection("users").document(account.name).setData(
-      {
-        'name': "Dalton Leight",
-      }
-
       );
     }
-**/
-  /**
-     Future<void> generateUser(String name, String email, String imageSRC) async
-     {
-        DocumentSnapshot ds = await Firestore.instance.collection("users").document(email).get();
-        if(ds.data != null)
+  }
+/**
+    users.add
+      (
         {
-          List<dynamic> cCompletions = new List<dynamic>();
-          List<dynamic> bCompletions = new List<dynamic>();
-          cCompletions.addAll(ds.data['cachesCompleted']);
-          bCompletions.addAll(ds.data['badgesCompleted']);
-
-          Account a = new Account.fromDatabase(name, email, imageSRC, ds.data['joinDate'], cCompletions, bCompletions);
+          'documentID': email,
+          'data':
         }
-        else
-        {
-          createUser(Account.instantiate(name, email, imageSRC, Timestamp.now()));
-        }
-      }
 
-      //Updates a users data
-      void updateUser() async
-      {
-        Firestore.instance.collection('users').document('customer1').updateData({'completionCode':'randomizedString'});
-
-      }
-
+    ).then((value) => print("User Added")).catchError((error) =>
+        print("Failed to add user: $error"));
+  }
 **/
+
+
     loadTextbooks() async
-    {
-      textbooks = new List();
-      CollectionReference ref = Firestore.instance.collection('textbooks');
-      QuerySnapshot eventsQuery = await ref.getDocuments();
-      eventsQuery.documents.forEach((document) {
-        textbooks.add(new Textbook.temporary(document['title'], document['author'],document.documentID));
-      });
+  {
+    textbooks = new List();
+    CollectionReference ref = Firestore.instance.collection('textbooks');
+    QuerySnapshot eventsQuery = await ref.getDocuments();
+    eventsQuery.documents.forEach((document) {
+      textbooks.add(new Textbook.temporary(
+          document['title'], document['author'], document.documentID));
     }
+    );
+  }
 
-  /**
-    updateAccount(Account a) async
-    {
-      await Firestore.instance.collection('users').document(a.email).updateData(
-      {
-        'cachesCompleted': a.cacheCompletions,
-        'badgesCompleted': a.badgeCompletions
-      });
+  updateWishlist() async
+  {
+    UserAccount us = new UserAccount();
+    await Firestore.instance.collection('users').document(us.email).updateData(
+        {'wishlist': us.wishlist});
+  }
+
+  updateUser() async
+  {
+    UserAccount account = new UserAccount();
+    CollectionReference users = Firestore.instance.collection('users');
+    DocumentSnapshot ds = await users.document(account.email).get();
+    if (ds.exists) {
+      await Firestore.instance.collection('users').document(account.email).updateData(
+          {
+            'rating': account.rating,
+            'wishlist': account.wishlist,
+          }
+      );
     }
-      **/
-
+  }
 }

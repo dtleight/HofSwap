@@ -7,7 +7,6 @@ import 'Pages/LandingPage.dart';
 import 'Pages/StorePage.dart';
 import 'Singeltons/UserAccount.dart';
 void main() async {
-  new UserAccount.instantiate("Dalton Leight",null,null,null,4.2,"dleight1@pride.hofstra.ed","700000000",new List<Textbook>(),null);
   runApp(MyApp());
   await new DatabaseRouting().init();
 

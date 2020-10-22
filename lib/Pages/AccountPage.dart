@@ -9,7 +9,6 @@ class AccountPage extends StatelessWidget
 {
   UserAccount account = new UserAccount();
   @override
-
   Widget build(BuildContext context)
   {
     //bottom: TabBar(tabs:[Tab(text: account.name,)],),

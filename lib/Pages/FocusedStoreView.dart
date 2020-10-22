@@ -129,7 +129,7 @@ class FocusedStoreView extends StatelessWidget
 
   void sendEmail() async
   {
-    Account sender = new Account.instantiate("Dalton Leight", null, null, null, 0,"dleight1@pride.hofstra.edu");
+    Account sender = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
 
     String username = "HofSwap@gmail.com";
     String password = "HofSwap190";
