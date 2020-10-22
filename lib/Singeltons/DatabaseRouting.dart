@@ -8,8 +8,6 @@ class DatabaseRouting {
   static final DatabaseRouting _db = DatabaseRouting._internal();
   List<Textbook> textbooks;
 
-  //Account account = new Account.instantiate("Scott Jefferys", null, null, null, 5, "scott.m.jefferys@hofstra.edu",);
-
   factory DatabaseRouting()
   {
     return _db;
@@ -55,17 +53,15 @@ class DatabaseRouting {
     else {
       promptAccountInvalid();
     }
+  }
 
-
-    // Call the user's CollectionReference to add a new user
+  void loadHomePage()
+  {
 
   }
 
-  void loadHomePage() {
-
-  }
-
-  void promptAccountInvalid() {
+  void promptAccountInvalid()
+  {
 
   }
 
@@ -76,33 +72,15 @@ class DatabaseRouting {
     UserAccount account = new UserAccount.instantiate(
         name, email, null, id, new List<Textbook>());
     CollectionReference users = Firestore.instance.collection('users');
-    DocumentSnapshot ds = await users.document(email).get();
-    if (ds.exists) {
-      await Firestore.instance.collection('users').document(email).updateData(
-          {
-            'email': email,
-            'name': name,
-            'password': password,
-            'id': id,
-            'rating': 0,
-            'wishlist': account.wishlist,
-          }
-      );
-    }
+    await users.document(email).setData(
+      {
+        'email': email,
+        'name': name,
+        'id':id,
+        'password':password
+      }
+    );
   }
-/**
-    users.add
-      (
-        {
-          'documentID': email,
-          'data':
-        }
-
-    ).then((value) => print("User Added")).catchError((error) =>
-        print("Failed to add user: $error"));
-  }
-**/
-
 
     loadTextbooks() async
   {
@@ -119,8 +97,12 @@ class DatabaseRouting {
   updateWishlist() async
   {
     UserAccount us = new UserAccount();
-    await Firestore.instance.collection('users').document(us.email).updateData(
-        {'wishlist': us.wishlist});
+    await Firestore.instance.collection('users').document(us.email).updateData
+      (
+        {
+          'wishlist': us.wishlist
+        }
+      );
   }
 
   updateUser() async
