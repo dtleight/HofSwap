@@ -7,8 +7,7 @@ class DatabaseRouting {
 
   static final DatabaseRouting _db = DatabaseRouting._internal();
   List<Textbook> textbooks;
-  Account account = new Account.instantiate(
-    "Scott Jefferys", null, null, null, 5, "scott.m.jefferys@hofstra.edu",);
+  Account account = new Account.instantiate("Scott Jefferys", null, null, null, 5, "scott.m.jefferys@hofstra.edu",);
 
   factory DatabaseRouting()
   {
@@ -27,7 +26,7 @@ class DatabaseRouting {
     CollectionReference ref = Firestore.instance.collection(collection);
     return await ref.getDocuments();
   }
-
+/**
   class AddUser (Account account){
     print("Database write started");
 
@@ -116,7 +115,8 @@ class DatabaseRouting {
 
       );
     }
-
+**/
+  /**
      Future<void> generateUser(String name, String email, String imageSRC) async
      {
         DocumentSnapshot ds = await Firestore.instance.collection("users").document(email).get();
@@ -142,7 +142,7 @@ class DatabaseRouting {
 
       }
 
-
+**/
     loadTextbooks() async
     {
       textbooks = new List();
@@ -153,6 +153,7 @@ class DatabaseRouting {
       });
     }
 
+  /**
     updateAccount(Account a) async
     {
       await Firestore.instance.collection('users').document(a.email).updateData(
@@ -161,5 +162,6 @@ class DatabaseRouting {
         'badgesCompleted': a.badgeCompletions
       });
     }
+      **/
 
 }
