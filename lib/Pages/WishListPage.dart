@@ -28,7 +28,7 @@ class _StorePageState extends State
       appBar: AppBar(title: Text("WishList"), backgroundColor: Colors.green,),
       body:ListView.builder(itemCount: new UserAccount().wishlist.length, itemBuilder: (context,index)
       {
-      return buildTextbookCell(new DatabaseRouting().textbooks[0]);
+      return buildTextbookCell(new DatabaseRouting().textbooks[index]);
       }
       ),
 
