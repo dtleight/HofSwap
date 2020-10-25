@@ -4,8 +4,8 @@ import '../Objects/Textbook.dart';
 class UserAccount extends Account
 {
   String hofstraID;
-  List<Textbook> wishlist;
-  List<Textbook> soldBooks;
+  List<String> wishlist;
+  List<String> soldBooks;
   static final UserAccount _account = UserAccount._internal();
 
   factory UserAccount()
@@ -13,7 +13,7 @@ class UserAccount extends Account
     return _account;
   }
 
-  UserAccount.instantiate(String name, String email, double rating, String hofstraID, List<Textbook> wishlist) : super.instantiate(name,email,rating)
+  UserAccount.instantiate(String name, String email, int rating, String hofstraID, List<String> wishlist) : super.instantiate(name,email,rating)
   {
     _account.name = name;
     _account.email = email;

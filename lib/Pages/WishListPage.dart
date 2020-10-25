@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 
@@ -27,7 +28,7 @@ class _StorePageState extends State
       appBar: AppBar(title: Text("WishList"), backgroundColor: Colors.green,),
       body:ListView.builder(itemCount: new UserAccount().wishlist.length, itemBuilder: (context,index)
       {
-      return buildTextbookCell(UserAccount().wishlist[index],);
+      return buildTextbookCell(new DatabaseRouting().textbooks[0]);
       }
       ),
 

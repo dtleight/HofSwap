@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Objects/Textbook.dart';
+import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 class SellersPage extends StatefulWidget
 {
@@ -30,7 +32,8 @@ class _SellersPageState extends State<SellersPage>
   return Scaffold
     (
     appBar: AppBar(title: Text("Seller's Interface"),),
-    body: Column(
+    body: Column
+      (
       children:
       [
       FlatButton(child: Text("Add a textbook"),onPressed: (){openTextbookInterface(context);},)
@@ -65,7 +68,15 @@ class _SellersPageState extends State<SellersPage>
                     ...addField(2, "Edition"),
                     ...addField(3, "Condition"),
                     ...addField(4, "Price"),
-                    Align(alignment: Alignment.bottomRight, child: FlatButton(),)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: FlatButton
+                        (
+                        child: Text("Submit"),
+                        onPressed: ()
+                        {
+                          new DatabaseRouting().addTextbook(new Textbook(textControllers[0].text,['Temporary Author'],int.parse(textControllers[2].text.toString()),textControllers[1].text,textControllers[3].text));
+                        },),)
                   ],
                 ),
               ),

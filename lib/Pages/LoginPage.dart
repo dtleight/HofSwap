@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,7 +10,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> 
 {
-
   List<TextEditingController> textControllers = new List<TextEditingController>();
   @override
   void dispose() {
@@ -22,7 +22,8 @@ class _LoginPageState extends State<LoginPage>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     textControllers.addAll([new TextEditingController(),new TextEditingController()]);
     return Scaffold(
       backgroundColor: Colors.yellow,
@@ -38,7 +39,12 @@ class _LoginPageState extends State<LoginPage>
               Align(alignment:Alignment.center, child:Image(image:AssetImage("assets/logo.png"))),
               Padding(padding: EdgeInsets.all(10),child: Container(height: 50.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "Username",filled:true,labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white,focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[0]),),),
               Padding(padding: EdgeInsets.all(10),child: Container(height: 50.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "Password",filled:true,labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white,focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[1]),),),
-              FlatButton(onPressed: (){new DatabaseRouting().verifyUser(textControllers[0].text, textControllers[1].text);}, child: Text("Submit")),
+              Builder(builder: (context)
+              {
+              return FlatButton(onPressed: (){new DatabaseRouting().verifyUser(textControllers[0].text, textControllers[1].text,context);}, child: Text("Submit"));
+              }
+              ,
+              ),
             ],
           ),
         ),

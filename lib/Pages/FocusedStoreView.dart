@@ -161,9 +161,8 @@ class FocusedStoreView extends StatelessWidget
   ///
   void addToWishlist()
   {
-      new UserAccount().wishlist.add(tb);
+      new UserAccount().wishlist.add(tb.ISBN);
       //Update database
       //Here:
-      print(new UserAccount().wishlist[0].title.toString());
   }
 }

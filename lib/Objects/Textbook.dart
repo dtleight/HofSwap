@@ -4,19 +4,16 @@ class Textbook
   List<dynamic> authors;
   int edition;
   String ISBN;
-  String imageSRC;
-  DateTime publishDate;
-  String estoreLink;
+  String condition;
+  String price;
 
-  Textbook(String title, List<dynamic> authors, int edition, String ISBN, String imageSRC, DateTime publishDate, String estoreLink)
+  Textbook(String title, List<dynamic> authors, int edition, String ISBN, String condition)
   {
     this.title = title;
     this.authors = authors;
     this.edition = edition;
     this.ISBN = ISBN;
-    this.imageSRC = imageSRC;
-    this.publishDate = publishDate;
-    this.estoreLink = estoreLink;
+    this.condition = condition;
   }
   Textbook.temporary(String title, List<dynamic> authors, String ISBN)
   {

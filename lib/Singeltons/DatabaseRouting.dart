@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:hofswap/Pages/LandingPage.dart';
+import 'package:hofswap/Pages/LoginPage.dart';
 import '../Objects/Account.dart';
 import '../Objects/Textbook.dart';
 import 'UserAccount.dart';
@@ -26,53 +29,43 @@ class DatabaseRouting {
     return await ref.getDocuments();
   }
 
-  void addTextbook(Textbook t) {
+  void addTextbook(Textbook t) async{
     // Call the user's CollectionReference to add a new user
-    CollectionReference tbr = Firestore.instance.collection('textbooks');
-    tbr.add({
-      'ISBN': t.ISBN,
-      'author': t.authors,
-      'title': t.title,
-      'edition': t.edition
-    }).then((value) => print("Textbook Added")).catchError((error) =>
-        print("Failed to add textbook: $error"));
+   await Firestore.instance.collection('textbooks').document(t.ISBN).setData(
+       {
+         'title': t.title,
+         'author': t.authors.cast<dynamic>().toList(),
+         'edition': t.edition
+       }
+   );
+    //await tbr.add().then((value) => print("Textbook Added")).catchError((error) => print("Failed to add textbook: $error"));
   }
 
-  Future<void> verifyUser(String email, String password) async
+  Future<void> verifyUser(String id, String password, BuildContext context) async
   {
     // Create a CollectionReference called users that references the firestore collection
     CollectionReference users = Firestore.instance.collection('users');
-    DocumentSnapshot doc = await users.document(email).get();
-    if (doc.data != null && password == doc.data["password"] as String) {
+    DocumentSnapshot doc = await users.document(id).get();
+    if (doc.data != null && password == (doc.data["password"] as String)) {
       //User is validated
       Map<String, dynamic> data = doc.data;
       new UserAccount.instantiate(
-          data['name'], email, data['rating'], data['id'], data['wishlist']);
-      loadHomePage();
+          data['name'], data['email'], data['rating'] , id, data['wishlist'].cast<String>().toList());
+      Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
     }
     else {
-      promptAccountInvalid();
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Invalid account entered"),));
     }
   }
 
-  void loadHomePage()
-  {
-
-  }
-
-  void promptAccountInvalid()
-  {
-
-  }
-
-  void generateUser(String name, String email, String id, String password) async
+  void generateUser(String name, String email, String id, String password, BuildContext context) async
   {
     //Verify email is Hofstra email
     //After Verification
     UserAccount account = new UserAccount.instantiate(
-        name, email, null, id, new List<Textbook>());
+        name, email, null, id, new List<String>());
     CollectionReference users = Firestore.instance.collection('users');
-    await users.document(email).setData(
+    await users.document(id).setData(
       {
         'email': email,
         'name': name,
@@ -80,6 +73,7 @@ class DatabaseRouting {
         'password':password
       }
     );
+    Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
   }
 
     loadTextbooks() async

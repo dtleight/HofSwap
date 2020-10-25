@@ -2,13 +2,13 @@ import 'Textbook.dart';
 class Account
 {
   String name;
-  double rating;
+  int rating;
   String email;
 
   Account()
   {
   }
-  Account.instantiate(String name, String email, double rating)
+  Account.instantiate(String name, String email, int rating)
   {
     this.name = name;
     this.email = email;
