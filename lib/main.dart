@@ -5,6 +5,7 @@ import 'package:hofswap/Containers/PageContainer.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'Objects/Textbook.dart';
 import 'Pages/LoginPage.dart';
+import 'Pages/NewUserPage.dart';
 import 'Singeltons/UserAccount.dart';
 void main() async {
   new UserAccount.instantiate("Dalton Leight", "dleight1@pride.hofstra.edu", 2, "70292000", new List<String>());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
     ),
       //home: PageContainer(),
-      home: LoginPage(),
+      home: NewUserPage(),
     );
   }
 }
