@@ -46,9 +46,9 @@ class DatabaseRouting {
     // Create a CollectionReference called users that references the firestore collection
     CollectionReference users = Firestore.instance.collection('users');
     DocumentSnapshot doc = await users.document(id).get();
-    if (doc.data != null && password == (doc.data["password"] as String)) {
+    if (doc.data != null && password == (doc.data()["password"] as String)) {
       //User is validated
-      Map<String, dynamic> data = doc.data;
+      Map<String, dynamic> data = doc.data();
       new UserAccount.instantiate(
           data['name'], data['email'], data['rating'] , id, data['wishlist'].cast<String>().toList());
       Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
@@ -112,5 +112,9 @@ class DatabaseRouting {
           }
       );
     }
+  }
+  logOffUser() async
+  {
+
   }
 }

@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Pages/LoginPage.dart';
 import 'package:hofswap/Pages/SellersPage.dart';
 import 'package:hofswap/Pages/SettingsPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
@@ -102,6 +104,14 @@ class _LandingPageState extends State<LandingPage>
                   (
                   leading: Icon(Icons.power_settings_new),
                   title: Text('Sign Out'),
+                  onTap: () async{
+                    print("signout");
+                    await FirebaseAuth.instance.signOut();
+                    print("signed user out");
+                    Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LoginPage()));
+                    //
+
+                  },
                 ),
               ],
           ),

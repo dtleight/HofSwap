@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hofswap/Containers/PageContainer.dart';
@@ -7,7 +8,9 @@ import 'Pages/LoginPage.dart';
 import 'Singeltons/UserAccount.dart';
 void main() async {
   new UserAccount.instantiate("Dalton Leight", "dleight1@pride.hofstra.edu", 2, "70292000", new List<String>());
+
   runApp(MyApp());
+  await Firebase.initializeApp();
   await new DatabaseRouting().init();
 
 
