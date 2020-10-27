@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
+import 'package:hofswap/Pages/NewUserPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,7 +21,6 @@ class _LoginPageState extends State<LoginPage>
     }
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context)
   {
@@ -42,10 +42,13 @@ class _LoginPageState extends State<LoginPage>
                 Padding(padding: EdgeInsets.all(10),child: Container(height: 50.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "Password",filled:true,labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white,focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[1]),),),
                 Builder(builder: (context)
                 {
-                return FlatButton(onPressed: (){new DatabaseRouting().verifyUser(textControllers[0].text, textControllers[1].text,context);}, child: Text("Submit"));
+                return FlatButton(onPressed: (){new DatabaseRouting().verifyUser(textControllers[0].text, textControllers[1].text,context);},color: Color.fromARGB(255, 0, 0, 254), child: Text("Submit",style: TextStyle(color: Colors.yellowAccent),));
                 }
                 ,
                 ),
+                SizedBox(height: 10,),
+                FlatButton(onPressed: (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new NewUserPage()));},color: Color.fromARGB(255, 0, 0, 254),child: Text("Create a New Account",style: TextStyle(color: Colors.yellowAccent)),)
+
               ],
             ),
           ),

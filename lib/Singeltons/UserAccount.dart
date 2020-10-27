@@ -13,13 +13,13 @@ class UserAccount extends Account
     return _account;
   }
 
-  UserAccount.instantiate(String name, String email, int rating, String hofstraID, List<String> wishlist) : super.instantiate(name,email,rating)
+  UserAccount.instantiate(String name, String email, int rating, String hofstraID, List<String> wlist) : super.instantiate(name,email,rating)
   {
     _account.name = name;
     _account.email = email;
     _account.rating = rating;
     _account.hofstraID = hofstraID;
-    _account.wishlist = wishlist;
+    _account.wishlist = wlist;
     _account.soldBooks = soldBooks;
   }
   UserAccount._internal();

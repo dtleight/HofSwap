@@ -8,7 +8,7 @@ import 'Pages/LoginPage.dart';
 import 'Pages/NewUserPage.dart';
 import 'Singeltons/UserAccount.dart';
 void main() async {
-  new UserAccount.instantiate("Dalton Leight", "dleight1@pride.hofstra.edu", 2, "70292000", new List<String>());
+  //new UserAccount.instantiate("Dalton Leight", "dleight1@pride.hofstra.edu", 2, "70292000", new List<String>());
 
   runApp(MyApp());
   await Firebase.initializeApp();
@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData
         (
         primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(color: Color.fromARGB(255, 0, 0, 254)),
         visualDensity: VisualDensity.adaptivePlatformDensity,
     ),
-      //home: PageContainer(),
-      home: NewUserPage(),
+      home: LoginPage(),
     );
   }
 }

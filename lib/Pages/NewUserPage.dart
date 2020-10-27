@@ -24,8 +24,9 @@ class _NewUserPageState extends State<NewUserPage>
   @override
   Widget build(BuildContext context)
   {
-    textControllers.addAll([new TextEditingController(),new TextEditingController()]);
+    textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController()]);
     return Scaffold(
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.subdirectory_arrow_left_sharp),onPressed: (){Navigator.pop(context);},),),
       backgroundColor: Colors.yellow,
       body: SingleChildScrollView(
         child: Container(

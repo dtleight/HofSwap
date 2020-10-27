@@ -30,7 +30,7 @@ class DatabaseRouting {
   }
 
   void addTextbook(Textbook t) async{
-    // Call the user's CollectionReference to add a new user
+    // Call the user's CollectionReference to add a new use
    await Firestore.instance.collection('textbooks').document(t.ISBN).setData(
        {
          'title': t.title,
@@ -63,14 +63,18 @@ class DatabaseRouting {
     //Verify email is Hofstra email
     //After Verification
     UserAccount account = new UserAccount.instantiate(
-        name, email, null, id, new List<String>());
+        name, email, 0, id, new List<String>());
+    print(account.wishlist);
+
     CollectionReference users = Firestore.instance.collection('users');
     await users.document(id).setData(
       {
         'email': email,
         'name': name,
         'id':id,
-        'password':password
+        'password':password,
+        'wishlist': [],
+        //'wishlist': account.wishlist.cast<dynamic>().toList(),
       }
     );
     Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));

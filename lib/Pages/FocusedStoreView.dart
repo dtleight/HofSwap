@@ -131,8 +131,8 @@ class FocusedStoreView extends StatelessWidget
   {
     Account sender = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
 
-    String username = "HofSwap@gmail.com";
-    String password = "HofSwap190";
+    String username = "";
+    String password = "";
 
     final smtpServer = gmail(username, password);
     // Creating the Gmail server
@@ -143,7 +143,7 @@ class FocusedStoreView extends StatelessWidget
       ..recipients.add(sender.email) //recipent email
       ..subject = 'I am Interested in Your Textbook!' //subject of the email
       ..text = 'Hello ' + sender.name + "! \n\nI am interested in purchasing your copy of " + tb.title
-          + ". Please let me know if it is still available! \n\nThank you,\n"+ sender.name; //body of the email
+          + ". Please let me know if it is still available! \n\nThank you,\n"+ new UserAccount().name; //body of the email
 
     try {
       final sendReport = await send(message, smtpServer);
