@@ -31,7 +31,7 @@ class _NewUserPageState extends State<NewUserPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.subdirectory_arrow_left_sharp),
+          icon: Icon(Icons.subdirectory_arrow_left),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -79,7 +79,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     width: 159.0,
                     child: TextField(
                         decoration: new InputDecoration(
-                            labelText: "Email",
+                            labelText: "Hofstra Email",
                             filled: true,
                             labelStyle: TextStyle(
                               color: Colors.black,
