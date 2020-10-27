@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/LoginPage.dart';
 import '../Objects/Account.dart';
@@ -58,15 +60,27 @@ class DatabaseRouting {
     }
   }
 
-  void generateUser(String name, String email, String id, String password, BuildContext context) async
+  Future<String> generateUser(String name, String email, String id, String password, BuildContext context) async
   {
-    //Verify email is Hofstra email
-    //After Verification
-    UserAccount account = new UserAccount.instantiate(
-        name, email, 0, id, new List<String>());
-    print(account.wishlist);
 
-    CollectionReference users = Firestore.instance.collection('users');
+    try{
+      UserAccount account = new UserAccount.instantiate(
+          name, email, 0, id, new List<String>());
+      print(account.wishlist);
+
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      await FirebaseAuth.instance.currentUser.sendEmailVerification();
+
+      return null;
+
+    } catch(signUpError) {
+          print(signUpError.message.toString());
+          return signUpError.message.toString();
+    }
+
+   /* CollectionReference users = Firestore.instance.collection('users');
     await users.document(id).setData(
       {
         'email': email,
@@ -76,8 +90,8 @@ class DatabaseRouting {
         'wishlist': [],
         //'wishlist': account.wishlist.cast<dynamic>().toList(),
       }
-    );
-    Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
+    );*/
+    //Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
   }
 
     loadTextbooks() async
