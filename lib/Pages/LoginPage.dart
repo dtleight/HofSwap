@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/NewUserPage.dart';
+import 'package:hofswap/Pages/forgetPasswordPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 class LoginPage extends StatefulWidget {
@@ -113,6 +114,12 @@ class _LoginPageState extends State<LoginPage> {
                   color: Color.fromARGB(255, 0, 0, 254),
                   child: Text("Create a New Account",
                       style: TextStyle(color: Colors.yellowAccent)),
+                ),
+                FlatButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));
+                }, child: Text("forget password", style: TextStyle(color: Colors.black),)
                 )
               ],
             ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/LoginPage.dart';
+import 'package:hofswap/Pages/forgetPasswordPage.dart';
 import '../Objects/Account.dart';
 import '../Objects/Textbook.dart';
 import 'UserAccount.dart';
@@ -73,6 +74,18 @@ class DatabaseRouting {
 
       await FirebaseAuth.instance.currentUser.sendEmailVerification();
 
+      //connect to firestore and save the new user information
+      await Firestore.instance.collection('users').add({
+
+          'email': email,
+          'name': name,
+          'id':id,
+          'password':password,
+          'wishlist': [],
+          //'wishlist': account.wishlist.cast<dynamic>().toList(),
+
+      });
+
       return null;
 
     } catch(signUpError) {
@@ -131,8 +144,9 @@ class DatabaseRouting {
       );
     }
   }
-  logOffUser() async
-  {
 
+  forgetPassword(String email) async{
+    await FirebaseAuth.instance.sendPasswordResetEmail(email:email);
   }
+
 }
