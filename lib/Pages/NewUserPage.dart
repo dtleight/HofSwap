@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
+import 'package:hofswap/Pages/LoginPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 class NewUserPage extends StatefulWidget {
@@ -154,9 +155,14 @@ class _NewUserPageState extends State<NewUserPage> {
 
                           if(result == null) {
                             //open login screen
-                            }
-                          else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => LoginPage()),
+                            );
+                          }
+                          else {
                             //show dialog with the error
+                            _showError(result);
                           }
 
                         },
@@ -168,6 +174,34 @@ class _NewUserPageState extends State<NewUserPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showError(error) async{
+    return showDialog<void>(context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title:  Text ( 'set up new account'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(error),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(onPressed: (){
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            }, child: Text('go to LOG IN'),)
+          ],
+        );
+
+      },
     );
   }
 }
