@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
-import 'package:hofswap/Pages/LoginPage.dart';
-import '../Objects/Account.dart';
 import '../Objects/Textbook.dart';
 import 'UserAccount.dart';
 
@@ -27,13 +24,13 @@ class DatabaseRouting {
 
   Future<QuerySnapshot> loadDatabase(String collection) async
   {
-    CollectionReference ref = Firestore.instance.collection(collection);
-    return await ref.getDocuments();
+    CollectionReference ref = FirebaseFirestore.instance.collection(collection);
+    return await ref.get();
   }
 
   void addTextbook(Textbook t) async{
     // Call the user's CollectionReference to add a new use
-   await Firestore.instance.collection('textbooks').document(t.ISBN).setData(
+   await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).set(
        {
          'title': t.title,
          'author': t.authors.cast<dynamic>().toList(),
@@ -46,8 +43,8 @@ class DatabaseRouting {
   Future<void> verifyUser(String id, String password, BuildContext context) async
   {
     // Create a CollectionReference called users that references the firestore collection
-    CollectionReference users = Firestore.instance.collection('users');
-    DocumentSnapshot doc = await users.document(id).get();
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    DocumentSnapshot doc = await users.doc(id).get();
     if (doc.data != null && password == (doc.data()["password"] as String)) {
       //User is validated
       Map<String, dynamic> data = doc.data();
@@ -72,6 +69,16 @@ class DatabaseRouting {
           .createUserWithEmailAndPassword(email: email, password: password);
 
       await FirebaseAuth.instance.currentUser.sendEmailVerification();
+      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      await users.doc(id).set(
+          {
+            'email': email,
+            'name': name,
+            'id':id,
+            'password':password,
+            'wishlist': [],
+          }
+      );
 
       return null;
 
@@ -79,29 +86,17 @@ class DatabaseRouting {
           print(signUpError.message.toString());
           return signUpError.message.toString();
     }
-
-   /* CollectionReference users = Firestore.instance.collection('users');
-    await users.document(id).setData(
-      {
-        'email': email,
-        'name': name,
-        'id':id,
-        'password':password,
-        'wishlist': [],
-        //'wishlist': account.wishlist.cast<dynamic>().toList(),
-      }
-    );*/
     //Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
   }
 
     loadTextbooks() async
   {
     textbooks = new List();
-    CollectionReference ref = Firestore.instance.collection('textbooks');
-    QuerySnapshot eventsQuery = await ref.getDocuments();
-    eventsQuery.documents.forEach((document) {
+    CollectionReference ref = FirebaseFirestore.instance.collection('textbooks');
+    QuerySnapshot eventsQuery = await ref.get();
+    eventsQuery.docs.forEach((document) {
       textbooks.add(new Textbook.temporary(
-          document['title'], document['author'], document.documentID));
+          document['title'], document['author'], document.id));
     }
     );
   }
@@ -109,7 +104,7 @@ class DatabaseRouting {
   updateWishlist() async
   {
     UserAccount us = new UserAccount();
-    await Firestore.instance.collection('users').document(us.email).updateData
+    await FirebaseFirestore.instance.collection('users').doc(us.email).update
       (
         {
           'wishlist': us.wishlist
@@ -120,10 +115,10 @@ class DatabaseRouting {
   updateUser() async
   {
     UserAccount account = new UserAccount();
-    CollectionReference users = Firestore.instance.collection('users');
-    DocumentSnapshot ds = await users.document(account.email).get();
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    DocumentSnapshot ds = await users.doc(account.email).get();
     if (ds.exists) {
-      await Firestore.instance.collection('users').document(account.email).updateData(
+      await FirebaseFirestore.instance.collection('users').doc(account.email).update(
           {
             'rating': account.rating,
             'wishlist': account.wishlist,
