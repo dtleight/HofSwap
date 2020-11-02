@@ -95,19 +95,21 @@ class DatabaseRouting {
     loadTextbooks() async
   {
     textbooks = new List();
+    textbookse = new Map<String,Textbook>();
     CollectionReference ref = FirebaseFirestore.instance.collection('textbooks');
     QuerySnapshot eventsQuery = await ref.get();
     eventsQuery.docs.forEach((document) {
-      textbooks.add(new Textbook.temporary(
-          document['title'], document['author'], document.id));
+      textbookse[document.id] = new Textbook.temporary(document['title'], document['author'], document.id);
     }
     );
+    textbooks = textbookse.values.toList();
+
   }
 
   updateWishlist() async
   {
     UserAccount us = new UserAccount();
-    await FirebaseFirestore.instance.collection('users').doc(us.email).update
+    await FirebaseFirestore.instance.collection('users').doc(us.hofstraID).update
       (
         {
           'wishlist': us.wishlist

@@ -124,3 +124,49 @@ class _SellersPageState extends State<SellersPage>
     );
   }
  **/
+/**
+    Future<dynamic> openTextbookInterface(BuildContext context)
+    {
+    final _formKey = GlobalKey<FormState>();
+    return showDialog
+    (
+    context: context,
+    builder: (context)
+    {
+    textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),]);
+    return AlertDialog
+    (
+    title: AppBar(title: Text("Enter Information"),),
+    titlePadding: EdgeInsets.all(0),
+    //Text("Enter Information"),
+    scrollable: true,
+    content: Form
+    (
+    child: Column
+    (
+    children:
+    [
+    ...addField(0, "Textbook Title"),
+    ...addField(1, "ISBN Number"),
+    ...addField(2, "Edition"),
+    ...addField(3, "Condition"),
+    ...addField(4, "Price"),
+    Align(
+    alignment: Alignment.bottomRight,
+    child: FlatButton
+    (
+    child: Text("Submit"),
+    onPressed: ()
+    {
+
+    buildTextbookSuggestions(context,textControllers[1].text, textControllers[0].text);
+    //new DatabaseRouting().addTextbook(new Textbook(textControllers[0].text,['Temporary Author'],int.parse(textControllers[2].text.toString()),textControllers[1].text,textControllers[3].text));
+    },),)
+    ],
+    ),
+    ),
+    );
+    }
+    );
+    }
+ **/

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
+import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import '../Objects/Account.dart';
 import 'package:mailer/mailer.dart';
@@ -163,6 +164,6 @@ class FocusedStoreView extends StatelessWidget
   {
       new UserAccount().wishlist.add(tb.ISBN);
       //Update database
-      //Here:
+      new DatabaseRouting().updateWishlist();
   }
 }

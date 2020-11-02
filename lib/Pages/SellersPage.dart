@@ -17,9 +17,12 @@ class _SellersPageState extends State<SellersPage>
 
   _SellersPageState()
   {
+
     textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),]);
+    widgy = constructForm();
   }
   List<TextEditingController> textControllers = new List<TextEditingController>();
+  Widget widgy;
   @override
   void dispose() {
   // Clean up the controller when the widget is disposed.
@@ -37,11 +40,22 @@ class _SellersPageState extends State<SellersPage>
   return Scaffold
     (
     appBar: AppBar(title: Text("Seller's Interface"),),
-    body: Column
+
+    body: AnimatedSwitcher
+      (
+      child: widgy,
+      duration: Duration(seconds: 1),
+    ),
+  );
+  }
+
+  Widget constructForm()
+  {
+    return Column
       (
       children:
       [
-      //FlatButton(child: Text("Add a textbook"),onPressed: (){openTextbookInterface(context);},)
+        //FlatButton(child: Text("Add a textbook"),onPressed: (){openTextbookInterface(context);},)
         Form
           (
           child: Column
@@ -60,63 +74,44 @@ class _SellersPageState extends State<SellersPage>
                   child: Text("Submit"),
                   onPressed: ()
                   {
-                    Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new TextbookPage(textControllers[1].text,textControllers[2].text,textControllers[2].text)));
-                   // buildTextbookSuggestions(context,textControllers[1].text, textControllers[0].text);
+                    setState(() {
+                      print("test");
+                      widgy = constructSuggestions(textControllers[1].text,textControllers[2].text,textControllers[2].text);
+                    });
+                    // buildTextbookSuggestions(context,textControllers[1].text, textControllers[0].text);
                     //new DatabaseRouting().addTextbook(new Textbook(textControllers[0].text,['Temporary Author'],int.parse(textControllers[2].text.toString()),textControllers[1].text,textControllers[3].text));
                   },),)
             ],
           ),
         ),
       ],
-    )
-  );
+    );
   }
-/**
-  Future<dynamic> openTextbookInterface(BuildContext context)
-  {
-    final _formKey = GlobalKey<FormState>();
-    return showDialog
-      (
-        context: context,
-        builder: (context)
-        {
-          textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),]);
-        return AlertDialog
-          (
-            title: AppBar(title: Text("Enter Information"),),
-            titlePadding: EdgeInsets.all(0),
-            //Text("Enter Information"),
-            scrollable: true,
-            content: Form
-              (
-                child: Column
-                (
-                  children:
-                  [
-                    ...addField(0, "Textbook Title"),
-                    ...addField(1, "ISBN Number"),
-                    ...addField(2, "Edition"),
-                    ...addField(3, "Condition"),
-                    ...addField(4, "Price"),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: FlatButton
-                        (
-                        child: Text("Submit"),
-                        onPressed: ()
-                        {
 
-                          buildTextbookSuggestions(context,textControllers[1].text, textControllers[0].text);
-                          //new DatabaseRouting().addTextbook(new Textbook(textControllers[0].text,['Temporary Author'],int.parse(textControllers[2].text.toString()),textControllers[1].text,textControllers[3].text));
-                        },),)
-                  ],
-                ),
-              ),
+
+  Widget constructSuggestions(String isbn,String title, String author)
+  {
+    return FutureBuilder(future: TextbookBuilder().queryTextbook(isbn, title, author),
+      builder: (BuildContext context, AsyncSnapshot<List<Textbook>> snapshot)
+      {
+        print(snapshot.data.toString());
+        if (snapshot.hasData) {
+          return ListView.builder(itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              print("Build Textbook Cell call");
+              return TextbookBuilder().buildTextbookCell(
+                  snapshot.data[index], () {
+                print(snapshot.data[index].title);
+              });
+            },
           );
         }
-      );
+        return Scaffold();
+      },
+    );
   }
-**/
+
+
   List<Widget> addField(int index,String text)
   {
     return
@@ -155,58 +150,4 @@ class _SellersPageState extends State<SellersPage>
     );
   }
 }
-class TextbookPage extends StatefulWidget
-{
-  String isbn;
-  String title;
-  String author;
-  TextbookPage(String isbn, String title,String author)
-  {
-    this.isbn = isbn;
-    this.title = title;
-    this.author = author;
-  }
-  @override
-  State<StatefulWidget> createState() => _TextbookPageState(isbn,title, author);
-}
 
-class _TextbookPageState extends State<TextbookPage>
-{
-  String isbn;
-  String title;
-  String author;
-    _TextbookPageState(String isbn, String title, String author)
-    {
-      this.isbn = isbn;
-      this.title = title;
-      this.author = author;
-    }
-
-  @override
-  Widget build(BuildContext context)
-  {
-
-    return Scaffold
-      (
-        appBar  : AppBar(title: Text("Select your Textbook"),),
-        body: FutureBuilder(future: TextbookBuilder().queryTextbook(isbn, title, author),
-        builder: (BuildContext context, AsyncSnapshot<List<Textbook>> snapshot)
-        {
-          if (snapshot.hasData) {
-            return ListView.builder(itemCount: snapshot.data.length,
-              itemBuilder: (context, index) {
-                print("Build Textbook Cell call");
-                return TextbookBuilder().buildTextbookCell(
-                    snapshot.data[index], () {
-                  print(snapshot.data[index].title);
-                });
-              },
-            );
-          }
-          return Scaffold();
-        },
-        ),
-    );
-
-  }
-}

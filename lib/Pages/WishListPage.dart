@@ -26,10 +26,10 @@ class _StorePageState extends State
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("WishList"), backgroundColor: Colors.green,),
+      appBar: AppBar(title: Text("WishList"),),
       body:ListView.builder(itemCount: new UserAccount().wishlist.length, itemBuilder: (context,index)
       {
-        return TextbookBuilder().buildTextbookCell(new DatabaseRouting().textbooks[index],(){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(new DatabaseRouting().textbooks[index])));});
+        return TextbookBuilder().buildTextbookCell(new DatabaseRouting().textbookse[new UserAccount().wishlist[index]],(){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(new DatabaseRouting().textbookse[new UserAccount().wishlist[index]])));});
         //return TextbookBuilder().buildTextbookCell(new DatabaseRouting().textbooks[index],(){print("Ham and cheese sandwiches");});
       }
       ),
