@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../Objects/Textbook.dart';
 
 ///
@@ -9,7 +11,7 @@ class TextbookAPILoader
   Textbook book;
   TextbookAPILoader(List<Textbook> books)
   {
-    this.books = books;
+    this.books = books.sublist(0,min(10,books.length));
     this.book = books[0];
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/FocusedStoreView.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Utilities/TextbookAPILoader.dart';
+import 'package:hofswap/Utilities/TextbookBuilder.dart';
 import '../Objects/Textbook.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -100,7 +101,18 @@ class _StorePageState extends State<StorePage> {
       ),
     );
   }
-Container buildTextbookCell(Textbook tb){
+Container buildTextbookCell(Textbook tb) {
+  return TextbookBuilder().buildTextbookCell(tb, () {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(tb)));
+  }, [
+    Text(tb.title, style: TextStyle(fontWeight: FontWeight.bold),),
+    Text(tb.authors[0]),
+    Text("Seller: Dalton Leight",),
+    Text("Price: \$99.99")
+  ]);
+}
+  /**
     return Container(height: 150.0, width: 500.0, child:
     GestureDetector(
       child: Card
@@ -140,8 +152,7 @@ Container buildTextbookCell(Textbook tb){
         onTap: () { Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(tb)));}
       )
     );
-
-}
+**/
   ///
   /// FetchBook handles retrieving the JSON information from the API call and instantiating a textbook object(for later use)
   /// it then returns the name of the book

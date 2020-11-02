@@ -119,7 +119,9 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));
-                }, child: Text("forget password", style: TextStyle(color: Colors.black),)
+                },
+                    child: Text("Forgot Password", style: TextStyle(color: Colors.yellowAccent),),
+                    color: Color.fromARGB(255, 0, 0, 254),
                 )
               ],
             ),

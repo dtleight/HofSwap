@@ -12,6 +12,8 @@ class DatabaseRouting {
 
   static final DatabaseRouting _db = DatabaseRouting._internal();
   List<Textbook> textbooks;
+  Map<String,Textbook> textbookse;
+
 
   factory DatabaseRouting()
   {
@@ -68,8 +70,7 @@ class DatabaseRouting {
           name, email, 0, id, new List<String>());
       print(account.wishlist);
 
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
       await FirebaseAuth.instance.currentUser.sendEmailVerification();
       CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -77,24 +78,11 @@ class DatabaseRouting {
           {
             'email': email,
             'name': name,
-            'id':id,
+            'rating':0,
             'password':password,
             'wishlist': [],
           }
       );
-
-      //connect to firestore and save the new user information
-      await Firestore.instance.collection('users').add({
-
-          'email': email,
-          'name': name,
-          'id':id,
-          'password':password,
-          'wishlist': [],
-          //'wishlist': account.wishlist.cast<dynamic>().toList(),
-
-      });
-
       return null;
 
     } catch(signUpError) {
