@@ -23,7 +23,7 @@ class _LandingPageState extends State<LandingPage>
   Widget build(BuildContext context) {
     return Scaffold
       (
-      appBar: AppBar(title: Text("Landing Page"),),
+      appBar: AppBar(title: Text("Home"),),
         drawer: Drawer
           (
             child: ListView
