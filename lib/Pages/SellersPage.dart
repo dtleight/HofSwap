@@ -172,18 +172,16 @@ class TextbookPage extends StatefulWidget
 
 class _TextbookPageState extends State<TextbookPage>
 {
+  String isbn;
+  String title;
+  String author;
     _TextbookPageState(String isbn, String title, String author)
     {
-      init(isbn,title,author);
+      this.isbn = isbn;
+      this.title = title;
+      this.author = author;
     }
-  List<Textbook> queriedTextbooks = new List<Textbook>();
 
-  void init(String isbn, String title, String author) async
-  {
-    queriedTextbooks = await TextbookBuilder().queryTextbook(isbn, title,author);
-    print(queriedTextbooks);
-    this.build(context);
-  }
   @override
   Widget build(BuildContext context)
   {
@@ -191,15 +189,23 @@ class _TextbookPageState extends State<TextbookPage>
     return Scaffold
       (
         appBar  : AppBar(title: Text("Select your Textbook"),),
-        body:  ListView.builder(itemCount: queriedTextbooks.length,
-            itemBuilder: (context, index) {
-              print("Build Textbook Cell call");
-              return TextbookBuilder().buildTextbookCell(
-                  queriedTextbooks[index], () {
-                print(queriedTextbooks[index].title);
-              });
-            },
-          ),
+        body: FutureBuilder(future: TextbookBuilder().queryTextbook(isbn, title, author),
+        builder: (BuildContext context, AsyncSnapshot<List<Textbook>> snapshot)
+        {
+          if (snapshot.hasData) {
+            return ListView.builder(itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                print("Build Textbook Cell call");
+                return TextbookBuilder().buildTextbookCell(
+                    snapshot.data[index], () {
+                  print(snapshot.data[index].title);
+                });
+              },
+            );
+          }
+          return Scaffold();
+        },
+        ),
     );
 
   }
