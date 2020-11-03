@@ -194,11 +194,11 @@ class _NewUserPageState extends State<NewUserPage> {
           actions: <Widget>[
             TextButton(onPressed: (){
               Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            }, child: Text('go to LOG IN'),)
+            //  Navigator.push(
+                //context,
+                //MaterialPageRoute(builder: (context) => NewUserPage()),
+            //  );
+            }, child: Text('Please try again'),)
           ],
         );
 
