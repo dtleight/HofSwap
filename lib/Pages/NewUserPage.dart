@@ -79,6 +79,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 50.0,
                     width: 159.0,
                     child: TextField(
+
                         decoration: new InputDecoration(
                             labelText: "Hofstra Email",
                             filled: true,

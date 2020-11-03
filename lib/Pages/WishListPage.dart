@@ -30,7 +30,6 @@ class _StorePageState extends State
       body:ListView.builder(itemCount: new UserAccount().wishlist.length, itemBuilder: (context,index)
       {
         return TextbookBuilder().buildTextbookCell(new DatabaseRouting().textbookse[new UserAccount().wishlist[index]],(){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(new DatabaseRouting().textbookse[new UserAccount().wishlist[index]])));});
-        //return TextbookBuilder().buildTextbookCell(new DatabaseRouting().textbooks[index],(){print("Ham and cheese sandwiches");});
       }
       ),
     );

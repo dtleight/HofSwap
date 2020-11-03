@@ -64,9 +64,7 @@ class _SellersPageState extends State<SellersPage>
             [
               ...addField(0, "Textbook Title"),
               ...addField(1, "ISBN Number"),
-              ...addField(2, "Edition"),
-              ...addField(3, "Condition"),
-              ...addField(4, "Price"),
+              ...addField(2, "Author"),
               Align(
                 alignment: Alignment.bottomRight,
                 child: FlatButton
@@ -75,11 +73,47 @@ class _SellersPageState extends State<SellersPage>
                   onPressed: ()
                   {
                     setState(() {
-                      print("test");
                       widgy = constructSuggestions(textControllers[1].text,textControllers[2].text,textControllers[2].text);
                     });
                     // buildTextbookSuggestions(context,textControllers[1].text, textControllers[0].text);
                     //new DatabaseRouting().addTextbook(new Textbook(textControllers[0].text,['Temporary Author'],int.parse(textControllers[2].text.toString()),textControllers[1].text,textControllers[3].text));
+                  },),)
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  Widget constructForm2(Textbook tb)
+  {
+    return Column
+      (
+      children:
+      [
+        //FlatButton(child: Text("Add a textbook"),onPressed: (){openTextbookInterface(context);},)
+        Form
+          (
+          child: Column
+            (
+            children:
+            [
+              ...addField(3, "Condition"), //Change to some form of multiple choice
+              ...addField(4, "Asking Price"),
+
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FlatButton
+                  (
+                  child: Text("Submit"),
+                  onPressed: ()
+                  {
+                    setState(() {
+                      //Confirm page
+                        print("Textbook is" + tb.title + " , " + tb.ISBN);
+                        //Add textbook to database
+                        //Send a toast to let the user know the book was added.
+                        //Send back to home page
+                    });
                   },),)
             ],
           ),
@@ -98,10 +132,10 @@ class _SellersPageState extends State<SellersPage>
         if (snapshot.hasData) {
           return ListView.builder(itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
-              print("Build Textbook Cell call");
               return TextbookBuilder().buildTextbookCell(
-                  snapshot.data[index], () {
-                print(snapshot.data[index].title);
+                  snapshot.data[index], () { setState(() {
+                widgy = constructForm2(snapshot.data[index]);
+                  });
               });
             },
           );
