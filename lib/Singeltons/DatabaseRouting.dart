@@ -91,7 +91,7 @@ class DatabaseRouting {
     //Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
   }
 
-    loadTextbooks() async
+  loadTextbooks() async
   {
     textbooks = new List();
     textbookse = new Map<String,Textbook>();
@@ -134,5 +134,9 @@ class DatabaseRouting {
   forgetPassword(String email) async{
     await FirebaseAuth.instance.sendPasswordResetEmail(email:email);
   }
+
+  //updatePassword(){
+  // note to self: change password
+  //}
 
 }
