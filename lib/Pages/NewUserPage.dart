@@ -147,9 +147,9 @@ class _NewUserPageState extends State<NewUserPage> {
 
                           //call firebase to create new user
                           //show error if exists
-                          if(textControllers[1].text.length > 17) {
-                            if(textControllers[1].text.substring(textControllers[1].text.length-18,textControllers[1].text.length) == "@pride.hofstra.edu") {
-                              if (textControllers[2].text.length == 9) {
+                          if(textControllers[1].text.length > 17) { //makes sure email is at least long enough
+                            if(textControllers[1].text.substring(textControllers[1].text.length-18,textControllers[1].text.length) == "@pride.hofstra.edu") { //make sure the email is provided by Hofstra
+                              if (textControllers[2].text.length == 9 && textControllers[2].text.substring(0,2)== "70" && num.tryParse(textControllers[2].text) != null) { //make sure the Hofstra ID is correct length, starts with 70 and is only numbers
                                 String result = await new DatabaseRouting()
                                     .generateUser(
                                     textControllers[0].text,
