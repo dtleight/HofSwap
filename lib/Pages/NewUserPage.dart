@@ -148,31 +148,36 @@ class _NewUserPageState extends State<NewUserPage> {
                           //call firebase to create new user
                           //show error if exists
                           if(textControllers[1].text.length > 17) {
-                            if (textControllers[2].text.length == 9) {
-                              String result = await new DatabaseRouting()
-                                  .generateUser(
-                                  textControllers[0].text,
-                                  textControllers[1].text,
-                                  textControllers[2].text,
-                                  textControllers[3].text,
-                                  context);
+                            if(textControllers[1].text.substring(textControllers[1].text.length-18,textControllers[1].text.length) == "@pride.hofstra.edu") {
+                              if (textControllers[2].text.length == 9) {
+                                String result = await new DatabaseRouting()
+                                    .generateUser(
+                                    textControllers[0].text,
+                                    textControllers[1].text,
+                                    textControllers[2].text,
+                                    textControllers[3].text,
+                                    context);
 
-                              if (result == null) {
-                                //open login screen
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()),
-                                );
+                                if (result == null) {
+                                  //open login screen
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
+                                  );
+                                }
+                                else {
+                                  //show dialog with the error
+                                  _showError(result);
+                                }
                               }
                               else {
-                                //show dialog with the error
-                                _showError(result);
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text("Invalid Hofstra ID"),));
                               }
-                            }
-                            else {
+                            }else{
                               Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text("Invalid Hofstra ID"),));
+                                content: Text("Please type in a hofstra email"),));
                             }
                           }
                           else{
@@ -180,7 +185,7 @@ class _NewUserPageState extends State<NewUserPage> {
                                 content: Text("Invalid email"),));
                           }
 
-                          
+
 
                         },
 
