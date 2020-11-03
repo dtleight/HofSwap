@@ -40,6 +40,7 @@ class _SellersPageState extends State<SellersPage>
   return Scaffold
     (
     appBar: AppBar(title: Text("Seller's Interface"),),
+    backgroundColor: Colors.yellow,
 
     body: AnimatedSwitcher
       (
@@ -65,10 +66,12 @@ class _SellersPageState extends State<SellersPage>
               ...addField(0, "Textbook Title"),
               ...addField(1, "ISBN Number"),
               ...addField(2, "Author"),
+
               Align(
                 alignment: Alignment.bottomRight,
                 child: FlatButton
                   (
+
                   child: Text("Submit"),
                   onPressed: ()
                   {
