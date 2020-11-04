@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
@@ -88,11 +89,19 @@ class _LoginPageState extends State<LoginPage> {
                 Builder(
                   builder: (context) {
                     return FlatButton(
-                        onPressed: () {
-                          new DatabaseRouting().verifyUser(
-                              textControllers[0].text,
-                              textControllers[1].text,
-                              context);
+                        onPressed: () async  {
+
+                          final snapShot = await FirebaseFirestore.instance.collection('users').doc(textControllers[0].text).get();
+                          if(snapShot.exists) {
+                            new DatabaseRouting().verifyUser(
+                                textControllers[0].text,
+                                textControllers[1].text,
+                                context);
+                          }
+                          else{
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text("An account with this Hofstra ID has not been created"),));
+                          }
                         },
                         color: Color.fromARGB(255, 0, 0, 254),
                         child: Text(
