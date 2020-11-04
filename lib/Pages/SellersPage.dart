@@ -61,6 +61,7 @@ class _SellersPageState extends State<SellersPage>
           (
           child: Column
             (
+
             children:
             [
               ...addField(0, "Textbook Title"),
@@ -68,7 +69,8 @@ class _SellersPageState extends State<SellersPage>
               ...addField(2, "Author"),
 
               Align(
-                alignment: Alignment.bottomRight,
+                //alignment: Alignment.bottomCenter,
+
                 child: FlatButton
                   (
                   color: Color.fromARGB(255, 0, 0, 254),

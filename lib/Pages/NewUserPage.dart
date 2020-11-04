@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
@@ -147,67 +149,76 @@ class _NewUserPageState extends State<NewUserPage> {
 
                           //call firebase to create new user
                           //show error if exists
-                          if(textControllers[0].text != "") {
-                            if (textControllers[1].text.length >
-                                17) { //makes sure email is at least long enough
-                              if (textControllers[1].text.substring(
-                                  textControllers[1].text.length - 18,
-                                  textControllers[1].text.length) ==
-                                  "@pride.hofstra.edu") { //make sure the email is provided by Hofstra
-                                if (textControllers[2].text.length == 9 &&
-                                    textControllers[2].text.substring(0, 2) ==
-                                        "70" &&
-                                    num.tryParse(textControllers[2].text) !=
-                                        null) { //make sure the Hofstra ID is correct length, starts with 70 and is only numbers
-                                  if (textControllers[3].text.length >= 6) {
-                                    String result = await new DatabaseRouting()
-                                        .generateUser(
-                                        textControllers[0].text,
-                                        textControllers[1].text,
-                                        textControllers[2].text,
-                                        textControllers[3].text,
-                                        context);
+                          final snapShot = await FirebaseFirestore.instance.collection('users').doc(textControllers[2].text).get();
+                          if(!snapShot.exists) {
+                            if (textControllers[0].text != "") {
+                              if (textControllers[1].text.length >
+                                  17) { //makes sure email is at least long enough
+                                if (textControllers[1].text.substring(
+                                    textControllers[1].text.length - 18,
+                                    textControllers[1].text.length) ==
+                                    "@pride.hofstra.edu") { //make sure the email is provided by Hofstra
+                                  if (textControllers[2].text.length == 9 &&
+                                      textControllers[2].text.substring(0, 2) ==
+                                          "70" &&
+                                      num.tryParse(textControllers[2].text) !=
+                                          null) { //make sure the Hofstra ID is correct length, starts with 70 and is only numbers
+                                    if (textControllers[3].text.length >= 6) {
+                                      String result = await new DatabaseRouting()
+                                          .generateUser(
+                                          textControllers[0].text,
+                                          textControllers[1].text,
+                                          textControllers[2].text,
+                                          textControllers[3].text,
+                                          context);
 
-                                    if (result == null) {
-                                      //open login screen
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => LoginPage()),
-                                      );
+                                      if (result == null) {
+                                        //open login screen
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginPage()),
+                                        );
+                                      }
+                                      else {
+                                        //show dialog with the error
+                                        _showError(result);
+                                      }
                                     }
                                     else {
-                                      //show dialog with the error
-                                      _showError(result);
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                "Your Password should contain at least 6 characters"),));
                                     }
                                   }
+
                                   else {
                                     Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text(
-                                          "Your Password should contain at least 6 characters"),));
+                                      content: Text("Invalid Hofstra ID"),));
                                   }
                                 }
-
                                 else {
                                   Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text("Invalid Hofstra ID"),));
+                                    content: Text(
+                                        "Please type in a hofstra email"),));
                                 }
                               }
                               else {
                                 Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text(
-                                      "Please type in a hofstra email"),));
+                                  content: Text("Invalid email"),));
                               }
                             }
                             else {
                               Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text("Invalid email"),));
+                                content: Text("Please enter a name"),));
                             }
                           }
                           else{
                             Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("Please enter a name"),));
-                           }
+                              content: Text("This Hofstra ID already is in use"),));
+                          }
                           },
 
 
