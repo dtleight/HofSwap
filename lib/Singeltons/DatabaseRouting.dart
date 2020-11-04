@@ -67,7 +67,7 @@ class DatabaseRouting {
 
     try{
       UserAccount account = new UserAccount.instantiate(
-          name, email, 0, id, new List<String>());
+          name, email, 5, id, new List<String>());
 
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
@@ -77,7 +77,7 @@ class DatabaseRouting {
           {
             'email': email,
             'name': name,
-            'rating':0,
+            'rating':5,
             'password':password,
             'wishlist': [],
           }

@@ -28,6 +28,7 @@ class AccountPage extends StatelessWidget
               )
         ],
       ),
+      backgroundColor: Colors.yellow,
       body:  Column(children:
       [ SizedBox(height: 15,),
         Center(
@@ -43,6 +44,7 @@ class AccountPage extends StatelessWidget
               (
               borderOnForeground: false,
               elevation:  0,
+              color: Colors.yellow,
               child: Column
                 (
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,9 +71,7 @@ class AccountPage extends StatelessWidget
                   SizedBox(height: 15,),
                   Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),
-                  Text("View People You Follow " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  SizedBox(height: 15,),
-                  Text("View People Who Follow You " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+
                 ]
             )
         ))

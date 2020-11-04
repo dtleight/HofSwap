@@ -61,7 +61,6 @@ class _SellersPageState extends State<SellersPage>
           (
           child: Column
             (
-
             children:
             [
               ...addField(0, "Textbook Title"),

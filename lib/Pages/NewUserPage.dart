@@ -150,8 +150,8 @@ class _NewUserPageState extends State<NewUserPage> {
                           //call firebase to create new user
                           //show error if exists
                           final snapShot = await FirebaseFirestore.instance.collection('users').doc(textControllers[2].text).get();
-                          if(!snapShot.exists) {
-                            if (textControllers[0].text != "") {
+                          if(!snapShot.exists) { //make sure the Hofstra ID is not currently used
+                            if (textControllers[0].text != "") { //makes sure that Name is not left blank
                               if (textControllers[1].text.length >
                                   17) { //makes sure email is at least long enough
                                 if (textControllers[1].text.substring(
