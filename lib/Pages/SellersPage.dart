@@ -71,8 +71,11 @@ class _SellersPageState extends State<SellersPage>
                 alignment: Alignment.bottomRight,
                 child: FlatButton
                   (
-
-                  child: Text("Submit"),
+                  color: Color.fromARGB(255, 0, 0, 254),
+                  child: Text(
+                  "Submit",
+                  style: TextStyle(color: Colors.yellowAccent)
+                  ),
                   onPressed: ()
                   {
                     setState(() {
@@ -154,7 +157,7 @@ class _SellersPageState extends State<SellersPage>
     return
     [
       Text(text),
-      Padding(padding: EdgeInsets.all(10),child: Container(height: 50.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white,focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index]),),)
+      Padding(padding: EdgeInsets.all(10),child: Container(height: 50.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index]),),)
       ];
   }
 
