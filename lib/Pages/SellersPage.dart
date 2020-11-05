@@ -80,7 +80,7 @@ class _SellersPageState extends State<SellersPage>
                   onPressed: ()
                   {
                     setState(() {
-                      widgy = constructSuggestions(textControllers[1].text,textControllers[2].text,textControllers[2].text);
+                      widgy = constructSuggestions(textControllers[1].text,textControllers[0].text,textControllers[2].text);
                     });
                     // buildTextbookSuggestions(context,textControllers[1].text, textControllers[0].text);
                     //new DatabaseRouting().addTextbook(new Textbook(textControllers[0].text,['Temporary Author'],int.parse(textControllers[2].text.toString()),textControllers[1].text,textControllers[3].text));
@@ -128,7 +128,36 @@ class _SellersPageState extends State<SellersPage>
       ],
     );
   }
-
+  Widget confirmBook(Textbook tb)
+  {
+    return Center(
+      child: Column
+        (
+        children:
+        [
+          Text(tb.title,textScaleFactor: 2,),
+          Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
+          Text(tb.authors.toString().substring(1,tb.authors.toString().length-1)),
+          Text(tb.ISBN),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FlatButton
+              (
+              child: Text("Confirm"),
+              onPressed: ()
+              {
+                setState(() {
+                  //Confirm page
+                  widgy = constructForm2(tb);
+                  //Add textbook to database
+                  //Send a toast to let the user know the book was added.
+                  //Send back to home page
+                });
+              },),)
+        ],
+      ),
+    );
+  }
 
   Widget constructSuggestions(String isbn,String title, String author)
   {
@@ -141,7 +170,7 @@ class _SellersPageState extends State<SellersPage>
             itemBuilder: (context, index) {
               return TextbookBuilder().buildTextbookCell(
                   snapshot.data[index], () { setState(() {
-                widgy = constructForm2(snapshot.data[index]);
+                widgy = confirmBook(snapshot.data[index]);
                   });
               });
             },
