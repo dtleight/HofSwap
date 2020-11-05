@@ -190,7 +190,7 @@ class _NewUserPageState extends State<NewUserPage> {
                                       Scaffold.of(context).showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                                "Your Password should contain at least 6 characters"),));
+                                                "Your Password must contain at least 6 characters"),));
                                     }
                                   }
 
