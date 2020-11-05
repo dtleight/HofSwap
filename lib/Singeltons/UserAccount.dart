@@ -6,6 +6,7 @@ class UserAccount extends Account
   String hofstraID;
   List<String> wishlist;
   List<String> soldBooks;
+  String email;
   static final UserAccount _account = UserAccount._internal();
 
   factory UserAccount()

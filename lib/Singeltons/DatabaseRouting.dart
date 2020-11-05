@@ -138,5 +138,9 @@ class DatabaseRouting {
   //updatePassword(){
   // note to self: change password
   //}
-
+  Future<List<String>> getHofswapInformation() async
+  {
+    DocumentSnapshot data = await FirebaseFirestore.instance.collection('private_data').doc("hofswap_info").get();
+    return [data['username'],data['password']];
+  }
 }

@@ -130,21 +130,18 @@ class FocusedStoreView extends StatelessWidget
 
   void sendEmail() async
   {
-    Account sender = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
-
-    String username = "";
-    String password = "";
-
-    final smtpServer = gmail(username, password);
+    Account seller = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
+    List<String> info = await new DatabaseRouting().getHofswapInformation();
+    final smtpServer = gmail(info[0], info[1]);
     // Creating the Gmail server
 
     // Create our email message.
     final message = Message()
-      ..from = Address(username)
-      ..recipients.add(sender.email) //recipent email
+      ..from = Address(info[0])
+      ..recipients.add(seller.email) //recipent email
       ..subject = 'I am Interested in Your Textbook!' //subject of the email
-      ..text = 'Hello ' + sender.name + "! \n\nI am interested in purchasing your copy of " + tb.title
-          + ". Please let me know if it is still available! \n\nThank you,\n"+ new UserAccount().name; //body of the email
+      ..text = 'Hello ' + seller.name + "! \n\nI am interested in purchasing your copy of " + tb.title
+          + ". Please let me know if it is still available by emailing me at " + new UserAccount().email +"! \n\nThank you,\n"+ new UserAccount().name; //body of the email
 
     try {
       final sendReport = await send(message, smtpServer);
