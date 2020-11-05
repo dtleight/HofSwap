@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Objects/Account.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
@@ -26,7 +27,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     textControllers
-        .addAll([new TextEditingController(), new TextEditingController()]);
+        .addAll([new TextEditingController(), new TextEditingController(), new TextEditingController()]);
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -49,6 +50,28 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                           alignment: Alignment.center,
                           child: Image(image: AssetImage("assets/logo.png"))),
                       Text("Fill in the Following Information:"),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Container(
+                              height: 50.0,
+                              width: 159.0,
+                              child: TextField(
+                                  decoration: new InputDecoration(
+                                      labelText: "Hofstra Email",
+                                      filled: true,
+                                      labelStyle: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black, width: 1.0)),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black, width: 1.0))),
+                                  controller: textControllers[2]),
+                            ),
+                          ),
                       Padding(
                             padding: EdgeInsets.all(10),
                             child: Container(
@@ -71,7 +94,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                   controller: textControllers[0]),
                             ),
                           ),
-                          Padding(
+                         Padding(
                             padding: EdgeInsets.all(10),
                             child: Container(
                               height: 50.0,
@@ -107,8 +130,10 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                             snapShot.exists) {
                                           if (textControllers[1].text.length >=
                                               6) {
-                                            FirebaseFirestore.instance.collection("users").doc(textControllers[0].text).update({'password': textControllers[1].text});
+                                         await new DatabaseRouting().forgetPassword(textControllers[2].text);
+                                            //FirebaseFirestore.instance.collection("users").doc(textControllers[0].text).update({'password': result});
                                             resetNum++;
+
                                             // ignore: missing_return
                                             //textControllers[0].text, context);
                                           }
@@ -140,4 +165,32 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                             )
                                  ])))));
   }
+ /* void sendEmail() async
+  {
+    Account sender = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
+
+    String username = "";
+    String password = "";
+
+    final smtpServer = gmail(username, password);
+    // Creating the Gmail server
+
+    // Create our email message.
+    final message = Message()
+      ..from = Address(username)
+      ..recipients.add(sender.email) //recipent email
+      ..subject = 'I am Interested in Your Textbook!' //subject of the email
+      ..text = 'Hello ' + sender.name + "! \n\nI am interested in purchasing your copy of " + tb.title
+          + ". Please let me know if it is still available! \n\nThank you,\n"+ new UserAccount().name; //body of the email
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString()); //print if the email is sent
+      isSuccessful = true;
+    } on MailerException catch (e) {
+      print('Message not sent. \n'+ e.toString()); //print if the email is not sent
+      // e.toString() will show why the email is not sending
+    }
+
+  } */
 }
