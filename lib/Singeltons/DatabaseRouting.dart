@@ -50,7 +50,11 @@ class DatabaseRouting {
     // Create a CollectionReference called users that references the firestore collection
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     DocumentSnapshot doc = await users.doc(id).get();
-    if (doc.data != null && password == (doc.data()["password"] as String)) {
+    String emil = doc.data()['email'];
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emil, password: password);
+    //FirebaseAuth.instance.sendPasswordResetEmail(email: null)
+
+    if (userCredential.user!=null) {
       //User is validated
       Map<String, dynamic> data = doc.data();
       new UserAccount.instantiate(
@@ -72,14 +76,16 @@ class DatabaseRouting {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
       await FirebaseAuth.instance.currentUser.sendEmailVerification();
+
       CollectionReference users = FirebaseFirestore.instance.collection('users');
       await users.doc(id).set(
           {
+            'id':FirebaseAuth.instance.currentUser.uid,
             'email': email,
             'name': name,
             'rating':5,
-            'password':password,
             'wishlist': [],
+            'verified': FirebaseAuth.instance.currentUser.emailVerified
           }
       );
       return null;
@@ -133,6 +139,7 @@ class DatabaseRouting {
 
   forgetPassword(String email) async{
     await FirebaseAuth.instance.sendPasswordResetEmail(email:email);
+
   }
 
   //updatePassword(){

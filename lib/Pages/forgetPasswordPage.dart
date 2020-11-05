@@ -94,7 +94,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                   controller: textControllers[0]),
                             ),
                           ),
-                         Padding(
+                        /* Padding(
                             padding: EdgeInsets.all(10),
                             child: Container(
                               height: 50.0,
@@ -115,7 +115,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                               color: Colors.black, width: 1.0))),
                                   controller: textControllers[1]),
                             ),
-                          ),
+                          ),*/
                             Builder(
                               builder: (context) {
                                 return FlatButton(
@@ -128,8 +128,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                                 0, 2) == "70" && num.tryParse(
                                             textControllers[0].text) != null &&
                                             snapShot.exists) {
-                                          if (textControllers[1].text.length >=
-                                              6) {
+                                          if (true) {
                                          await new DatabaseRouting().forgetPassword(textControllers[2].text);
                                             //FirebaseFirestore.instance.collection("users").doc(textControllers[0].text).update({'password': result});
                                             resetNum++;

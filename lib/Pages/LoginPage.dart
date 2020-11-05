@@ -94,8 +94,8 @@ class _LoginPageState extends State<LoginPage> {
                           final snapShot = await FirebaseFirestore.instance.collection('users').doc(textControllers[0].text).get();
                           if(snapShot.exists) {
                             new DatabaseRouting().verifyUser(
-                                textControllers[0].text,
-                                textControllers[1].text,
+                                textControllers[0].text,//univ id
+                                textControllers[1].text,//password
                                 context);
                           }
                           else{
