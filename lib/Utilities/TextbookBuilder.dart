@@ -54,7 +54,7 @@ class TextbookBuilder
   }
   Future<Textbook> fetchBook(String ISBN) async
   {
-    final response = await http.get('https://www.googleapis.com/books/v1/volumes?q=+isbn='+ ISBN + '&key=AIzaSyB_mPqjpcjaEV1Wu593EY8czEAsuF-K_Nw');
+    final response = await http.get('https://www.googleapis.com/books/v1/volumes?q=+isbn='+ ISBN + '&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json
       return TextbookAPILoader.fromJson(json.decode(response.body)).book;
@@ -68,7 +68,7 @@ class TextbookBuilder
   Future<Textbook> searchQuery(String string) async
   {
     String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
-    String str = "https://www.googleapis.com/books/v1/volumes?q=+" + queryParams + "&key=AIzaSyB_mPqjpcjaEV1Wu593EY8czEAsuF-K_Nw";
+    String str = "https://www.googleapis.com/books/v1/volumes?q=+" + queryParams + "&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk";
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json
@@ -85,7 +85,7 @@ class TextbookBuilder
   Future<List<Textbook>> queryTextbook(String isbn,String title,String authors) async
   {
     //String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
-    String str = "https://www.googleapis.com/books/v1/volumes?q=+isbn="+ isbn??"" +"+title="+title??""+"+inauthor="+authors??""+"&key=AIzaSyB_mPqjpcjaEV1Wu593EY8czEAsuF-K_Nw";
+    String str = "https://www.googleapis.com/books/v1/volumes?q=+isbn="+ isbn??"" +"+title="+title??""+"+inauthor="+authors??""+"&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk";
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json
