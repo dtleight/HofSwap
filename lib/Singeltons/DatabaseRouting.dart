@@ -33,16 +33,34 @@ class DatabaseRouting {
     return await ref.get();
   }
 
-  void addTextbook(Textbook t) async{
+  /**
+   * Code to be modified to check if textbook exists
+   */
+  void addTextbook(Textbook t, String condition, String price, ) async{
     // Call the user's CollectionReference to add a new use
-   await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).set(
-       {
-         'title': t.title,
-         'author': t.authors.cast<dynamic>().toList(),
-         'edition': t.edition
-       }
-   );
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).get();
+    if(documentSnapshot.data() != null)
+      {
+        print("Textbook found in database");
+      }
+    else
+      {
+        await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).set(
+            {
+              'title': t.title,
+              'author': t.authors.cast<dynamic>().toList(),
+              //'edition': t.edition
+              'sale_log' :  {
+                new UserAccount().email: {
+                  'condition' : condition,
+                  'price' : price,
+                }
+              }
+            }
+        );
+      }
     //await tbr.add().then((value) => print("Textbook Added")).catchError((error) => print("Failed to add textbook: $error"));
+
   }
 
   Future<void> verifyUser(String id, String password, BuildContext context) async

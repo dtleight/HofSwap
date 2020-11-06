@@ -120,9 +120,9 @@ class TextbookBuilder
           queryParams = queryParams + "+" + prefixes[i] + params[i];
         }
     }
-    String querParams = ["isbn="+ isbn,"+title="+title, "+inauthor="+authors].toString();
     //String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
     String str = "https://www.googleapis.com/books/v1/volumes?q="+ queryParams +"+&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk";
+    print(str);
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json

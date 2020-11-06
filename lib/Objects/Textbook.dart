@@ -30,7 +30,13 @@ class Textbook
   {
     try
     {
-      return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors']??['No Author'],json['volumeInfo']['industryIdentifiers'][0]['identifier']);
+      if (json['volumeInfo']['industryIdentifiers'][0]['type'] == "ISBN_13")
+        {
+          return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors']??['No Author'],json['volumeInfo']['industryIdentifiers'][0]['identifier']);
+        }
+      else {
+        return Textbook.temporary(json['volumeInfo']['title'], json['volumeInfo']['authors'] ?? ['No Author'], json['volumeInfo']['industryIdentifiers'][1]['identifier']);
+      }
     }
     catch(Exception)
   {
