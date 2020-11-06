@@ -120,7 +120,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                               builder: (context) {
                                 return FlatButton(
                                     onPressed: () async {
-                                      if(textControllers[0].text != "" && textControllers[1].text != "") {
+                                     if(textControllers[0].text != "" && textControllers[2].text != "") {
                                         if (resetNum < 2) {
                                           if (textControllers[0].text.length ==
                                               9 &&
@@ -192,7 +192,8 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                             SnackBar(
                                               content: Text(
                                                   "Please fill all of the boxes"),));
-                                      }
+                                      }  
+
 
                                     },
                                     child: Text("submit")

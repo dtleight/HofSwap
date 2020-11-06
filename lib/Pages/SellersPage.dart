@@ -134,7 +134,9 @@ class _SellersPageState extends State<SellersPage>
                   {
                     setState(() {
                       //Confirm page
+                        tb.generateNewSeller(tb,textControllers[3].text,textControllers[4].text);
                         new DatabaseRouting().addTextbook(tb,textControllers[3].text,textControllers[4].text);
+
                         //Add textbook to database
                         //Send a toast to let the user know the book was added.
                         //Send back to home page
