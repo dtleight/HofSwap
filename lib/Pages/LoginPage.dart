@@ -91,17 +91,28 @@ class _LoginPageState extends State<LoginPage> {
                     return FlatButton(
                         onPressed: () async  {
 
-                          final snapShot = await FirebaseFirestore.instance.collection('users').doc(textControllers[0].text).get();
-                          if(snapShot.exists) {
-                            new DatabaseRouting().verifyUser(
-                                textControllers[0].text,//univ id
-                                textControllers[1].text,//password
-                                context);
+                          if(textControllers[0].text != "" && textControllers[1].text != "") {
+                            final snapShot = await FirebaseFirestore.instance
+                                .collection('users').doc(
+                                textControllers[0].text).get();
+                            if (snapShot.exists) {
+                              new DatabaseRouting().verifyUser(
+                                  textControllers[0].text, //univ id
+                                  textControllers[1].text, //password
+                                  context);
+                            }
+                            else {
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                    "An account with this Hofstra ID has not been created"),));
+                            }
                           }
                           else{
                             Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("An account with this Hofstra ID has not been created"),));
+                                content: Text(
+                                    "Please fill all of the boxes"),));
                           }
+
                         },
                         color: Color.fromARGB(255, 0, 0, 254),
                         child: Text(

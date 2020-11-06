@@ -120,44 +120,78 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                               builder: (context) {
                                 return FlatButton(
                                     onPressed: () async {
-                                      final snapShot = await FirebaseFirestore.instance.collection('users').doc(textControllers[0].text).get();
-                                      if(resetNum <2) {
-                                        if (textControllers[0].text.length ==
-                                            9 &&
-                                            textControllers[0].text.substring(
-                                                0, 2) == "70" && num.tryParse(
-                                            textControllers[0].text) != null &&
-                                            snapShot.exists) {
-                                          if (true) {
-                                         await new DatabaseRouting().forgetPassword(textControllers[2].text);
-                                            //FirebaseFirestore.instance.collection("users").doc(textControllers[0].text).update({'password': result});
-                                            resetNum++;
-                                         Scaffold.of(context).showSnackBar(
-                                             SnackBar(
-                                               content: Text(
-                                                   "Please Check Your Email to change your password"),));
+                                      if(textControllers[0].text != "" && textControllers[1].text != "") {
+                                        if (resetNum < 2) {
+                                          if (textControllers[0].text.length ==
+                                              9 &&
+                                              textControllers[0].text.substring(
+                                                  0, 2) == "70" && num.tryParse(
+                                              textControllers[0].text) !=
+                                              null) {
+                                            final snapShot = await FirebaseFirestore
+                                                .instance.collection('users')
+                                                .doc(textControllers[0].text)
+                                                .get();
+                                            if (snapShot.exists) {
+                                              String em = snapShot['email'];
+                                              if (textControllers[2].text ==
+                                                  em) {
+                                                if (true) {
+                                                  await new DatabaseRouting()
+                                                      .forgetPassword(
+                                                      textControllers[2].text);
+                                                  //FirebaseFirestore.instance.collection("users").doc(textControllers[0].text).update({'password': result});
+                                                  resetNum++;
+                                                  Scaffold.of(context)
+                                                      .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                            "Please Check Your Email to change your password"),));
 
-                                            // ignore: missing_return
-                                            //textControllers[0].text, context);
+                                                  // ignore: missing_return
+                                                  //textControllers[0].text, context);
+                                                }
+                                                else {
+                                                  Scaffold.of(context)
+                                                      .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                            "Your Password must contain at least 6 characters"),));
+                                                }
+                                              }
+                                              else {
+                                                Scaffold.of(context)
+                                                    .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                          "This is not the correct email"),));
+                                              }
+                                            }
+                                            else {
+                                              Scaffold.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                        "Not a valid Hofstra ID"),));
+                                            }
                                           }
                                           else {
                                             Scaffold.of(context).showSnackBar(
                                                 SnackBar(
                                                   content: Text(
-                                                      "Your Password must contain at least 6 characters"),));
+                                                      "Not a valid Hofstra ID"),));
                                           }
-                                        }
-                                        else {
+                                        } else {
                                           Scaffold.of(context).showSnackBar(
                                               SnackBar(
                                                 content: Text(
-                                                    "Not a valid Hofstra ID"),));
+                                                    "You cannot reset your password again"),));
                                         }
-                                      }else{
+                                      }
+                                      else{
                                         Scaffold.of(context).showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                  "You cannot reset your password again"),));
+                                                  "Please fill all of the boxes"),));
                                       }
 
                                     },
