@@ -164,7 +164,6 @@ class _SellersPageState extends State<SellersPage>
     return FutureBuilder(future: TextbookBuilder().queryTextbook(isbn, title, author),
       builder: (BuildContext context, AsyncSnapshot<List<Textbook>> snapshot)
       {
-        print(snapshot.data.toString());
         if (snapshot.hasData) {
           return ListView.builder(itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
@@ -210,7 +209,6 @@ class _SellersPageState extends State<SellersPage>
                   itemBuilder: (context, index) {
                     return TextbookBuilder().buildTextbookCell(
                         queriedTextbooks[index], () {
-                     print("textbook");
                     });
                   },
                 ),

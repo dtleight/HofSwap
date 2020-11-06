@@ -132,6 +132,10 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                          await new DatabaseRouting().forgetPassword(textControllers[2].text);
                                             //FirebaseFirestore.instance.collection("users").doc(textControllers[0].text).update({'password': result});
                                             resetNum++;
+                                         Scaffold.of(context).showSnackBar(
+                                             SnackBar(
+                                               content: Text(
+                                                   "Please Check Your Email to change your password"),));
 
                                             // ignore: missing_return
                                             //textControllers[0].text, context);

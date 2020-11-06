@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Textbook
 {
   String title;
@@ -28,12 +30,17 @@ class Textbook
   {
     try
     {
-      return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors'],json['volumeInfo']['industryIdentifiers'][0]['identifier']);
+      return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors']??['No Author'],json['volumeInfo']['industryIdentifiers'][0]['identifier']);
     }
     catch(Exception)
   {
 
   }
-  return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors'],"");
+  return Textbook.temporary(json['volumeInfo']['title'],json['volumeInfo']['authors']??['No Author'],"");
+  }
+
+  String getDisplayAuthors(int n)
+  {
+    return authors.sublist(0, min(n,authors.length)).toString();
   }
 }
