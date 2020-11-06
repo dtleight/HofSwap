@@ -62,7 +62,7 @@ class TextbookBuilder
                               (
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
-                                children: children ??[Text(tb.title,style: TextStyle(fontWeight: FontWeight.bold),),Text(tb.authors[0]),]
+                                children: children ??[Text(tb.title,style: TextStyle(fontWeight: FontWeight.bold),),Text(tb.getDisplayAuthors(3)),]
                             ),
                           )
                       )),
@@ -107,7 +107,9 @@ class TextbookBuilder
 
   Future<List<Textbook>> queryTextbook(String isbn,String title,String authors) async
   {
-    print(isbn + title + authors);
+    ///
+    /// Processes query parameters to remove null queries
+    ///
     String queryParams = "";
     List<String> prefixes = ["isbn=","title=","inauthor="];
     List<String> params = [isbn,title,authors];
@@ -117,12 +119,10 @@ class TextbookBuilder
         {
           queryParams = queryParams + "+" + prefixes[i] + params[i];
         }
-      print(queryParams);
     }
     String querParams = ["isbn="+ isbn,"+title="+title, "+inauthor="+authors].toString();
     //String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
     String str = "https://www.googleapis.com/books/v1/volumes?q="+ queryParams +"+&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk";
-    print(str);
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json
