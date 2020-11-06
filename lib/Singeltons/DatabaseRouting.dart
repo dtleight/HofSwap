@@ -36,12 +36,24 @@ class DatabaseRouting {
   /**
    * Code to be modified to check if textbook exists
    */
-  void addTextbook(Textbook t, String condition, String price, ) async{
-    // Call the user's CollectionReference to add a new use
+  void addTextbook(Textbook t, String condition, String price, ) async
+  {
+    // Call the user's CollectionReference to add a new user
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).get();
     if(documentSnapshot.data() != null)
       {
         print("Textbook found in database");
+        Map<String, dynamic> appendMap = documentSnapshot.data()['sale_log'];
+        appendMap[new UserAccount().email] = {'condition': condition, 'price':price};
+        print(appendMap);
+        await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).set(
+            {
+              'title': t.title,
+              'author': t.authors.cast<dynamic>().toList(),
+              //'edition': t.edition
+              'sale_log' : appendMap,
+            }
+        );
       }
     else
       {
@@ -50,13 +62,8 @@ class DatabaseRouting {
               'title': t.title,
               'author': t.authors.cast<dynamic>().toList(),
               //'edition': t.edition
-              'sale_log' :  {
-                new UserAccount().email: {
-                  'condition' : condition,
-                  'price' : price,
-                }
-              }
-            }
+              'sale_log' : {new UserAccount().email:{'condition':condition, 'price': price}}
+      }
         );
       }
     //await tbr.add().then((value) => print("Textbook Added")).catchError((error) => print("Failed to add textbook: $error"));
@@ -122,7 +129,7 @@ class DatabaseRouting {
     CollectionReference ref = FirebaseFirestore.instance.collection('textbooks');
     QuerySnapshot eventsQuery = await ref.get();
     eventsQuery.docs.forEach((document) {
-      textbookse[document.id] = new Textbook.temporary(document['title'], document['author'], document.id);
+      textbookse[document.id] = new Textbook.temporary(document['title'], document['author'], document.id, document['sale_log']);
     }
     );
     textbooks = textbookse.values.toList();
