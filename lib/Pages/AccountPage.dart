@@ -14,6 +14,7 @@ class AccountPage extends StatelessWidget
     //bottom: TabBar(tabs:[Tab(text: account.name,)],),
     return Scaffold
       (
+      backgroundColor: Colors.yellow,
       appBar: AppBar(
         title: Text("My Account"),
         actions:

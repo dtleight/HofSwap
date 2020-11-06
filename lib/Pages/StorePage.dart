@@ -42,6 +42,7 @@ class _StorePageState extends State<StorePage> {
   Widget build(BuildContext context) {
     DatabaseRouting db = new DatabaseRouting();
     return new Scaffold(
+      backgroundColor: Colors.yellow,
       appBar: AppBar(
         actions: [
           Visibility(

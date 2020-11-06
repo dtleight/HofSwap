@@ -26,6 +26,7 @@ class _StorePageState extends State
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.yellow,
       appBar: AppBar(title: Text("WishList"),),
       body:ListView.builder(itemCount: new UserAccount().wishlist.length, itemBuilder: (context,index)
       {

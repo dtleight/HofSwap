@@ -63,9 +63,16 @@ class _SellersPageState extends State<SellersPage>
             (
             children:
             [
-              ...addField(0, "Textbook Title"),
-              ...addField(1, "ISBN Number"),
-              ...addField(2, "Author"),
+                  TextField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                    labelText: '   Please Enter the Following Information:'
+              ),
+              ),
+              ...addField(1, "Textbook Title"),
+              ...addField(2, "ISBN Number"),
+              ...addField(3, "Author"),
 
               Align(
                 //alignment: Alignment.bottomCenter,
@@ -104,14 +111,25 @@ class _SellersPageState extends State<SellersPage>
             (
             children:
             [
+              TextField(
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                    labelText: '   Please Choose from the Following Menus:'
+                ),
+              ),
               ...addField(3, "Condition"), //Change to some form of multiple choice
               ...addField(4, "Asking Price"),
 
               Align(
-                alignment: Alignment.bottomRight,
+                alignment: Alignment.bottomCenter,
                 child: FlatButton
                   (
-                  child: Text("Submit"),
+                  color: Color.fromARGB(255, 0, 0, 254),
+                  child: Text(
+                      "Submit",
+                      style: TextStyle(color: Colors.yellowAccent)
+                  ),
                   onPressed: ()
                   {
                     setState(() {
@@ -140,10 +158,14 @@ class _SellersPageState extends State<SellersPage>
           Text(tb.authors.toString().substring(1,tb.authors.toString().length-1)),
           Text(tb.ISBN),
           Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.bottomCenter,
             child: FlatButton
               (
-              child: Text("Confirm"),
+              color: Color.fromARGB(255, 0, 0, 254),
+              child: Text(
+                  "Confirm",
+                  style: TextStyle(color: Colors.yellowAccent)
+              ),
               onPressed: ()
               {
                 setState(() {
@@ -186,7 +208,7 @@ class _SellersPageState extends State<SellersPage>
     return
     [
       Text(text),
-      Padding(padding: EdgeInsets.all(10),child: Container(height: 50.0, width: 159.0,child: TextField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index]),),)
+      Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child: TextField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index]),),)
       ];
   }
 
