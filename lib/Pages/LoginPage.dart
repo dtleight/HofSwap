@@ -90,17 +90,19 @@ class _LoginPageState extends State<LoginPage> {
                   children:
                   [
                     Spacer(flex: 1),
-                    Expanded(flex: 6,child: buildButton("Create New Account", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new NewUserPage()));})),
+                    Expanded(flex: 6, child: buildButton("Create New Account", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new NewUserPage()));})),
                     Spacer(flex: 1),
-                    Expanded(flex: 6,child: buildButton("Forgot Password", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));})),
+                    Expanded(flex: 6, child: buildButton("Forgot Password", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));})),
                     Spacer(flex: 1),
                   ]
               ),
             ),
+
             Flexible(flex: 2,
               child: Builder(
                 builder: (context) {
-                  return FlatButton(
+
+                    return FlatButton(
                       onPressed: () async  {
                               print(textControllers[0].text);
                         if(textControllers[0].text != "" && textControllers[1].text != "") {
