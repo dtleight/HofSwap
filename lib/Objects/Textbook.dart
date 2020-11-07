@@ -69,13 +69,13 @@ class Textbook
 
   String getMinMaxPrice()
   {
-    int m2 = 0;
-    int m1 = 99999999999;
+    double m2 = 0;
+    double m1 = 99999999999;
     print(sale_log.values);
     for(Map<String,dynamic > m in sale_log.values)
       {
-        m2 = max(m2, m['price']);
-        m1 = min(m1, m['price']);
+        m2 = max(m2, double.parse(m['price'].toString()));
+        m1 = min(m1, double.parse(m['price'].toString()));
       }
     return "" + m1.toString() + " - " + m2.toString() ;
   }

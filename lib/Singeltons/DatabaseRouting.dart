@@ -36,7 +36,7 @@ class DatabaseRouting {
   /**
    * Code to be modified to check if textbook exists
    */
-  void addTextbook(Textbook t, String condition, String price, ) async
+  void addTextbook(Textbook t, String condition, double price, ) async
   {
     // Call the user's CollectionReference to add a new user
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).get();
@@ -45,7 +45,7 @@ class DatabaseRouting {
       {
         print("Textbook found in database");
         Map<String, dynamic> appendMap = documentSnapshot.data()['sale_log'];
-        appendMap[new UserAccount().email] = {'condition': condition, 'price':price as double};
+        appendMap[new UserAccount().email] = {'condition': condition, 'price': price};
         print(appendMap);
         await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).set(
             {

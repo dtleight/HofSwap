@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
+import 'package:hofswap/Popouts/SellersPopout.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
 
@@ -101,6 +102,7 @@ class _SellersPageState extends State<SellersPage>
       ],
     );
   }
+  /**
   Widget constructForm2(Textbook tb)
   {
     return Column
@@ -122,7 +124,9 @@ class _SellersPageState extends State<SellersPage>
                     labelText: '   Please Choose from the Following Menus:'
                 ),
               ),
-              buildDropDownList(),
+              StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {return buildDropDownList();},),
+              //buildDropDown(),
               //...addField(3, "Condition"), //Change to some form of multiple choice
               ...addField(4, "Asking Price",(value) {if(double.tryParse(value) != null){return null;}else{return "Invalid Price";}},),
 
@@ -157,6 +161,7 @@ class _SellersPageState extends State<SellersPage>
       ],
     );
   }
+      **/
   Widget confirmBook(Textbook tb)
   {
     return Center(
@@ -181,7 +186,14 @@ class _SellersPageState extends State<SellersPage>
               {
                 setState(() {
                   //Confirm page
-                  widgy = constructForm2(tb);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context)
+                      {
+                        return SellersPopout(tb);
+                      }
+                  );
+                  //widgy = constructForm2(tb);
                   //Add textbook to database
                   //Send a toast to let the user know the book was added.
                   //Send back to home page
@@ -248,23 +260,6 @@ class _SellersPageState extends State<SellersPage>
               )
           );
         }
-    );
-  }
-  StatefulWidget buildDropDownList()
-  {
-    return DropdownButton<String>(
-        value: placeholderValue,
-        items: [generateDropDownItem("Mint"),generateDropDownItem("Great"),generateDropDownItem("Good"),generateDropDownItem("Okay"),generateDropDownItem("Bad"),],
-        onChanged: (String newValue) {setState(() {placeholderValue = newValue; print(placeholderValue); print(newValue);});});
-  }
-
-  DropdownMenuItem<String> generateDropDownItem(String text)
-  {
-    return DropdownMenuItem
-      (
-       child: Text(text),
-      value: text,
-
     );
   }
 }
