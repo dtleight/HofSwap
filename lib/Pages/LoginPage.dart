@@ -89,18 +89,20 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:
                   [
-                    buildButton("Create New Account", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new NewUserPage()));}),
-                    buildButton("Forgot Password", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));}),
+                    Spacer(flex: 1),
+                    Expanded(flex: 6,child: buildButton("Create New Account", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new NewUserPage()));})),
+                    Spacer(flex: 1),
+                    Expanded(flex: 6,child: buildButton("Forgot Password", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));})),
+                    Spacer(flex: 1),
                   ]
               ),
             ),
             Flexible(flex: 2,
               child: Builder(
                 builder: (context) {
-
                   return FlatButton(
                       onPressed: () async  {
-
+                              print(textControllers[0].text);
                         if(textControllers[0].text != "" && textControllers[1].text != "") {
                           final snapShot = await FirebaseFirestore.instance
                               .collection('users').doc(
@@ -131,70 +133,12 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
             ),
-
-              // child: FlatButton
-              //   (
-              //   onPressed: () {
-              //     Navigator.push(
-              //         context,
-              //         new MaterialPageRoute(
-              //             builder: (ctxt) => new NewUserPage()));
-              //   },
-              //   color: Color.fromARGB(255, 0, 0, 254),
-              //   child: Text("Create New Account",
-              //       style: TextStyle(color: Colors.yellowAccent)),
-              // ),
           ]
       ),
     );
-
-/**
-
-
-
-        Builder(
-        builder: (context) {
-
-        return FlatButton(
-        onPressed: () async  {
-
-        if(textControllers[0].text != "" && textControllers[1].text != "") {
-        final snapShot = await FirebaseFirestore.instance
-        .collection('users').doc(
-        textControllers[0].text).get();
-        if (snapShot.exists) {
-        new DatabaseRouting().verifyUser(
-        textControllers[0].text, //univ id
-        textControllers[1].text, //password
-        context);
-        }
-        else {
-        Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(
-        "An account with this Hofstra ID has not been created"),));
-        }
-        }
-        else{
-        Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(
-        "Please fill all of the boxes"),));
-        };
-        },
-        color: Color.fromARGB(255, 0, 0, 254),
-        child: Text(
-        "Submit",
-        style: TextStyle(color: Colors.yellowAccent),
-        ));
-        },
-        ),
-        ],
-        ),
-        ),
-        );
-        }
-     **/
   }
-  Widget buildButton(String text, Function onPressed){
+  Widget buildButton(String text, Function onPressed)
+  {
       return FlatButton(
         onPressed: onPressed,
         color: Color.fromARGB(255, 0, 0, 254),

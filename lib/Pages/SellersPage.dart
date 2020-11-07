@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
@@ -23,6 +24,8 @@ class _SellersPageState extends State<SellersPage>
   }
   List<TextEditingController> textControllers = new List<TextEditingController>();
   Widget widgy;
+  String placeholderValue = "Good";
+
   @override
   void dispose() {
   // Clean up the controller when the widget is disposed.
@@ -107,6 +110,7 @@ class _SellersPageState extends State<SellersPage>
         //FlatButton(child: Text("Add a textbook"),onPressed: (){openTextbookInterface(context);},)
         Form
           (
+          key: _formKey,
           child: Column
             (
             children:
@@ -118,8 +122,9 @@ class _SellersPageState extends State<SellersPage>
                     labelText: '   Please Choose from the Following Menus:'
                 ),
               ),
-              ...addField(3, "Condition"), //Change to some form of multiple choice
-              ...addField(4, "Asking Price"),
+              buildDropDownList(),
+              //...addField(3, "Condition"), //Change to some form of multiple choice
+              ...addField(4, "Asking Price",(value) {if(double.tryParse(value) != null){return null;}else{return "Invalid Price";}},),
 
               Align(
                 alignment: Alignment.bottomCenter,
@@ -134,9 +139,13 @@ class _SellersPageState extends State<SellersPage>
                   {
                     setState(() {
                       //Confirm page
-                        tb.generateNewSeller(tb,textControllers[3].text,textControllers[4].text);
-                        new DatabaseRouting().addTextbook(tb,textControllers[3].text,textControllers[4].text);
-
+                      if (_formKey.currentState.validate()) {
+                        tb.generateNewSeller(tb, textControllers[3].text,
+                            textControllers[4].text);
+                        new DatabaseRouting().addTextbook(
+                            tb, textControllers[3].text,
+                            textControllers[4].text);
+                      }
                         //Add textbook to database
                         //Send a toast to let the user know the book was added.
                         //Send back to home page
@@ -205,12 +214,12 @@ class _SellersPageState extends State<SellersPage>
   }
 
 
-  List<Widget> addField(int index,String text)
+  List<Widget> addField(int index,String text, [Function validation])
   {
     return
     [
       Text(text),
-      Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child: TextField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index]),),)
+      Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child: TextFormField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index], validator: validation),),)
       ];
   }
 
@@ -239,6 +248,23 @@ class _SellersPageState extends State<SellersPage>
               )
           );
         }
+    );
+  }
+  StatefulWidget buildDropDownList()
+  {
+    return DropdownButton<String>(
+        value: placeholderValue,
+        items: [generateDropDownItem("Mint"),generateDropDownItem("Great"),generateDropDownItem("Good"),generateDropDownItem("Okay"),generateDropDownItem("Bad"),],
+        onChanged: (String newValue) {setState(() {placeholderValue = newValue; print(placeholderValue); print(newValue);});});
+  }
+
+  DropdownMenuItem<String> generateDropDownItem(String text)
+  {
+    return DropdownMenuItem
+      (
+       child: Text(text),
+      value: text,
+
     );
   }
 }

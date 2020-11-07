@@ -40,11 +40,12 @@ class DatabaseRouting {
   {
     // Call the user's CollectionReference to add a new user
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).get();
+    //Modify to one line  false?print("no"):print("true");
     if(documentSnapshot.data() != null)
       {
         print("Textbook found in database");
         Map<String, dynamic> appendMap = documentSnapshot.data()['sale_log'];
-        appendMap[new UserAccount().email] = {'condition': condition, 'price':price};
+        appendMap[new UserAccount().email] = {'condition': condition, 'price':price as double};
         print(appendMap);
         await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).set(
             {
