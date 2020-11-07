@@ -20,110 +20,126 @@ class FocusedStoreView extends StatelessWidget
   {
     return Scaffold
       (
+      backgroundColor: Colors.yellow,
         appBar: AppBar(title: Text(tb.title + " by " + tb.authors[0].toString()),),
         body: Padding(
           padding: EdgeInsets.fromLTRB(10,10,0,0),
           child:
-          Row(
-            children:
-            [
-             Flexible(child: Column
-               (
-                children:
-                [
-                  Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" + tb.ISBN +"-M.jpg"),),
-                ],
-               ),
-               flex: 4,
-             ),
-             //Flexible(child: SizedBox(),flex: 8,),
-              Flexible(child: FractionallySizedBox(widthFactor: 0.6,heightFactor: 1.0,),),
-             Flexible(
-               child: Column
-               (
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children:
-               [
-                  Column
-                   (
-                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                   mainAxisSize: MainAxisSize.max,
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: <Widget>
-                   [
-                     Row(children: [Text("Title: "),Text( tb.title),]),
-                     Row(children: [Text("Authors: "), Text(tb.authors[0]),]),
-                     Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
-                     Row(children: [Text("Price: "), Text("99.99"),]),
-                     Row(children: [Text("Condition: "), Text("Horrible"),]),
-                     Row(
-                       mainAxisSize: MainAxisSize.min,
-                       children: [
-                         Icon(Icons.star, color: Colors.green[500]),
-                         Icon(Icons.star, color: Colors.green[500]),
-                         Icon(Icons.star, color: Colors.green[500]),
-                         Icon(Icons.star, color: Colors.black),
-                         Icon(Icons.star, color: Colors.black),
-                       ],
-                     )
-                   ],
-                 ),
-                 Flexible(child: Row(
+          Column(
+            children: [
+              Flexible(flex: 1,
+                child: Row(
                   children:
-                    [
-                      Container
-                        (
-                        height: 50,
-                        width: 90,
-                        child: FlatButton
-                          (
-                            child: Text("Add to Wishlist"),
-                            onPressed: () {return addToWishlist();},
-                            color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                      ),
-                      SizedBox(width: 10,),
-                      Container(
-                        height: 50,
-                        width: 90,
-                        child:FlatButton
-                          (
-                            child: Text("Contact Seller"),
-                            color: Colors.blueAccent,
-                            onPressed: ()
-                            {
-                              sendEmail();
-                              if (isSuccessful)
-                                {
-                                  showDialog(context: context, builder: (context)
+                  [
+                   Flexible(child: Column
+                     (
+                      children:
+                      [
+                        Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" + tb.ISBN +"-M.jpg"),),
+                      ],
+                     ),
+                     flex: 4,
+                   ),
+                   //Flexible(child: SizedBox(),flex: 8,),
+                    Flexible(child: FractionallySizedBox(widthFactor: 0.6,heightFactor: 1.0,),),
+                   Flexible(
+                     child: Column
+                     (
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children:
+                     [
+                        Column
+                         (
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         mainAxisSize: MainAxisSize.max,
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: <Widget>
+                         [
+                           Row(children: [Text("Title: "),Text( tb.title),]),
+                           Row(children: [Text("Authors: "), Text(tb.authors[0]),]),
+                           Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
+                           Row(children: [Text("Price: "), Text("99.99"),]),
+                           Row(children: [Text("Condition: "), Text("Horrible"),]),
+                           Row(
+                             mainAxisSize: MainAxisSize.min,
+                             children: [
+                               Icon(Icons.star, color: Colors.green[500]),
+                               Icon(Icons.star, color: Colors.green[500]),
+                               Icon(Icons.star, color: Colors.green[500]),
+                               Icon(Icons.star, color: Colors.black),
+                               Icon(Icons.star, color: Colors.black),
+                             ],
+                           )
+                         ],
+                       ),
+                       Flexible(child: Row(
+                        children:
+                          [
+                            Container
+                              (
+                              height: 50,
+                              width: 90,
+                              child: FlatButton
+                                (
+                                  child: Text("Add to Wishlist"),
+                                  onPressed: () {return addToWishlist();},
+                                  color: Colors.blueAccent,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                                ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              height: 50,
+                              width: 90,
+                              child:FlatButton
+                                (
+                                  child: Text("Contact Seller"),
+                                  color: Colors.blueAccent,
+                                  onPressed: ()
                                   {
-                                    isSuccessful = false;
-                                    return AlertDialog(content:
-                                    Column
-                                      (
-                                      children:
-                                      [
-                                        Text("Email sent successfully"),
-                                      ]
-                                      ),
-                                    );
-                                  }
-                                  );
-                                }
-                            },
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                        ),
-                  ]
-                 ),
-                 ),
-               ],
-             ),
-               flex: 8,
-             ),
+                                    sendEmail();
+                                    if (isSuccessful)
+                                      {
+                                        showDialog(context: context, builder: (context)
+                                        {
+                                          isSuccessful = false;
+                                          return AlertDialog(content:
+                                          Column
+                                            (
+                                            children:
+                                            [
+                                              Text("Email sent successfully"),
+                                            ]
+                                            ),
+                                          );
+                                        }
+                                        );
+                                      }
+                                  },
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                                ),
+                              ),
+                        ]
+                       ),
+                       ),
+                     ],
+                   ),
+                     flex: 8,
+                   ),
+                  ],
+                  ),
+              ),
+              Flexible(flex: 2,
+                child: ListView.builder(
+                    itemCount: tb.sale_log.values.length,
+                    itemBuilder: (BuildContext context, int i)
+                    {
+                      return buildSaleableTextbook(tb.sale_log.values.toList()[i]);
+                    }
+                ),
+              )
             ],
-            )
+          )
           ),
       );
   }
@@ -162,5 +178,22 @@ class FocusedStoreView extends StatelessWidget
       new UserAccount().wishlist.add(tb.ISBN);
       //Update database
       new DatabaseRouting().updateWishlist();
+  }
+
+  Widget buildSaleableTextbook(Map<String, dynamic> sale_info)
+  {
+    return Container(height: 150.0, width: 500.0,
+        child: Card
+          (
+            child:Row
+              (
+                children:
+                [
+                  Text(sale_info['price'].toString()),
+                  Text(sale_info['condition'])
+                  ]
+            )
+        ),
+    );
   }
 }

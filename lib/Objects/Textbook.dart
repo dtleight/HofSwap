@@ -9,16 +9,13 @@ class Textbook
   Map<String, dynamic> sale_log;
   int edition;
   String ISBN;
-  String condition;
-  String price;
 
-  Textbook(String title, List<dynamic> authors, int edition, String ISBN, String condition)
+  Textbook(String title, List<dynamic> authors, int edition, String ISBN)
   {
     this.title = title;
     this.authors = authors;
     this.edition = edition;
     this.ISBN = ISBN;
-    this.condition = condition;
   }
   generateNewSeller(Textbook tb, String condition, String price)
   {
@@ -71,12 +68,11 @@ class Textbook
   {
     double m2 = 0;
     double m1 = 99999999999;
-    print(sale_log.values);
     for(Map<String,dynamic > m in sale_log.values)
       {
         m2 = max(m2, double.parse(m['price'].toString()));
         m1 = min(m1, double.parse(m['price'].toString()));
       }
-    return "" + m1.toString() + " - " + m2.toString() ;
+    return m1==m2?m2.toStringAsFixed(2):m1.toStringAsFixed(2) + " - " + m2.toStringAsFixed(2) ;
   }
 }
