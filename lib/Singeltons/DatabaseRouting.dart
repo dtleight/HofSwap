@@ -186,4 +186,18 @@ class DatabaseRouting {
     return FirebaseFirestore.instance.collection('textbooks').doc(isbn).update(
         {'sale_log': FieldValue.delete()}).whenComplete(() {});
   }
+
+  updateUserName(String value) async
+  {
+    UserAccount account = new UserAccount();
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    DocumentSnapshot ds = await users.doc(account.hofstraID).get();
+    if (ds.exists) {
+      await FirebaseFirestore.instance.collection('users').doc(account.hofstraID).update(
+          {
+           "name" :  value
+          }
+      );
+    }
+  }
 }
