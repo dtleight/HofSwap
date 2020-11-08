@@ -11,7 +11,7 @@ class AccountPage extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    //bottom: TabBar(tabs:[Tab(text: account.name,)],),
+    print(new UserAccount().soldBooks);
     return Scaffold
       (
       backgroundColor: Colors.yellow,
@@ -29,7 +29,8 @@ class AccountPage extends StatelessWidget
               )
         ],
       ),
-      body:  Column(children:
+      body:  Column(
+        children:
       [ SizedBox(height: 15,),
         Center(
           child: CircleAvatar(
@@ -67,40 +68,7 @@ class AccountPage extends StatelessWidget
                   ),
                   SizedBox(height: 30,),
                   Text("My Selling Page " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  ListView.builder
-                    (
-                      scrollDirection:Axis.horizontal, 
-                      itemCount: new UserAccount().soldBooks.length,
-                      itemBuilder: (BuildContext context, int index)
-                      {
-                        return ListTile
-                        (
-                          onTap: ()
-                          {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context)
-                              {
-                                return AlertDialog(
-                                  content: Column(
-                                    children: [
-                                      Text("Do you wish to delete this textbook?"),
-                                      FlatButton(
-                                          onPressed: ()
-                                          {
-                                            //Remove textbook from database
-                                          },
-                                          child: Text("Confirm")
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                              );
-                          },
-                        );
-                      }
-                    ),
+
                   SizedBox(height: 15,),
                   Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),
@@ -109,8 +77,45 @@ class AccountPage extends StatelessWidget
                   Text("View People Who Follow You " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ]
             )
-        ))
-      ],),
+        )
+        ),
+        Flexible(flex: 2,
+            child: ListView.builder
+            (
+            scrollDirection:Axis.horizontal,
+            itemCount: new UserAccount().soldBooks.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container
+                (
+                height: 400,
+                width: 150,
+                child: GestureDetector(onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            children: [
+                              Text("Do you wish to delete this textbook?"),
+                              FlatButton(
+                                  onPressed: () {
+                                    //Remove textbook from database
+                                  },
+                                  child: Text("Confirm")
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                  );
+                },
+                ),
+              );
+            }
+            ),
+            ),
+      ],
+            ),
     );
   }
 }

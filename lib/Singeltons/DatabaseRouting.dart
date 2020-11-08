@@ -59,7 +59,7 @@ class DatabaseRouting {
         /// Add a reference to the user of their sold textbook
         ///
         us.addSaleTextbook(t.ISBN);
-        await FirebaseFirestore.instance.collection('users').doc(us.hofstraID).set(
+        await FirebaseFirestore.instance.collection('users').doc(us.hofstraID).update(
         {
           'soldBooks': us.soldBooks,
         }
@@ -205,7 +205,7 @@ class DatabaseRouting {
       'sale_log': textbookse[isbn].sale_log,
     }
     );
-    await FirebaseFirestore.instance.collection('users').doc(new UserAccount().hofstraID).set
+    await FirebaseFirestore.instance.collection('users').doc(new UserAccount().hofstraID).update
       (
       {
         'soldTextbooks': new UserAccount().soldBooks
