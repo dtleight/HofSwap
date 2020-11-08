@@ -67,6 +67,40 @@ class AccountPage extends StatelessWidget
                   ),
                   SizedBox(height: 30,),
                   Text("My Selling Page " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  ListView.builder
+                    (
+                      scrollDirection:Axis.horizontal, 
+                      itemCount: new UserAccount().soldBooks.length,
+                      itemBuilder: (BuildContext context, int index)
+                      {
+                        return ListTile
+                        (
+                          onTap: ()
+                          {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context)
+                              {
+                                return AlertDialog(
+                                  content: Column(
+                                    children: [
+                                      Text("Do you wish to delete this textbook?"),
+                                      FlatButton(
+                                          onPressed: ()
+                                          {
+                                            //Remove textbook from database
+                                          },
+                                          child: Text("Confirm")
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
+                              );
+                          },
+                        );
+                      }
+                    ),
                   SizedBox(height: 15,),
                   Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),

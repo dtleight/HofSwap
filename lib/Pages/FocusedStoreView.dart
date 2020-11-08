@@ -7,7 +7,6 @@ import '../Objects/Account.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:http/http.dart' as http;
-//temp
 
 class FocusedStoreView extends StatelessWidget
 {
