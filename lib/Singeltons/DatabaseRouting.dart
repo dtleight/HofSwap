@@ -182,8 +182,8 @@ class DatabaseRouting {
     return [data['username'],data['password']];
   }
 
-  Future<void> deleteTextbook(String isbn){
-    return FirebaseFirestore.instance.collection('textbooks').doc(isbn).delete();
-
+  Future<void> deleteTextbook(String isbn) {
+    return FirebaseFirestore.instance.collection('textbooks').doc(isbn).update(
+        {'sale_log': FieldValue.delete()}).whenComplete(() {});
   }
 }
