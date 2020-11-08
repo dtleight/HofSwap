@@ -77,19 +77,24 @@ class DatabaseRouting {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     DocumentSnapshot doc = await users.doc(id).get();
     String emil = doc.data()['email'];
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emil, password: password);
-    //FirebaseAuth.instance.sendPasswordResetEmail(email: null)
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emil, password: password);
+      //FirebaseAuth.instance.sendPasswordResetEmail(email: null)
 
-    if (userCredential.user!=null) {
+
       //User is validated
       Map<String, dynamic> data = doc.data();
       new UserAccount.instantiate(
-          data['name'], data['email'], data['rating'] , id, data['wishlist'].cast<String>().toList());
-      Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
+          data['name'], data['email'], data['rating'], id,
+          data['wishlist'].cast<String>().toList());
+      Navigator.push(
+          context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
+    }catch(_) {
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text("This Password is Incorrect"),));
     }
-    else {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Invalid account entered"),));
-    }
+
   }
 
   Future<String> generateUser(String name, String email, String id, String password, BuildContext context) async
