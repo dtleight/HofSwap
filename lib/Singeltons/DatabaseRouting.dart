@@ -181,4 +181,9 @@ class DatabaseRouting {
     DocumentSnapshot data = await FirebaseFirestore.instance.collection('private_data').doc("hofswap_info").get();
     return [data['username'],data['password']];
   }
+
+  Future<void> deleteTextbook(String isbn){
+    return FirebaseFirestore.instance.collection('textbooks').doc(isbn).delete();
+
+  }
 }

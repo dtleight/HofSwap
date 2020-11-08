@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/LoginPage.dart';
+import 'package:hofswap/Pages/MyBooksSelling.dart';
 import 'package:hofswap/Pages/SellersPage.dart';
 import 'package:hofswap/Pages/SettingsPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
@@ -81,6 +82,15 @@ class _LandingPageState extends State<LandingPage>
                       {
                       Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new SellersPage()));
                       }
+                ),
+                ListTile
+                  (
+                    leading: Icon(Icons.menu_book_rounded),
+                    title: Text('My Book\'s Selling'),
+                    onTap: ()
+                    {
+                      Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new MyBooksSelling()));
+                    }
                 ),
                 ListTile
                   (
