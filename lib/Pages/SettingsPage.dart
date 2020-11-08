@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/changePicturePage.dart';
 import 'package:hofswap/Pages/changePassword.dart';
+import 'package:hofswap/theme_state.dart';
+import 'package:provider/provider.dart';
+import 'package:hofswap/Pages/changeUsername.dart';
 
 class SettingsPage extends StatelessWidget
 {
@@ -16,12 +19,12 @@ class SettingsPage extends StatelessWidget
       //textControllers[1],
     ]);
     return Scaffold(
-      appBar: AppBar(title: Text("Settings"),backgroundColor: Colors.green,),
+      appBar: AppBar(title: Text("Settings")),
       body: Column(
         children:[
           Text('Change New User Name'),
           FlatButton(onPressed: (){
-
+              Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangeUserName()));
               }, child: Text('Change Name'), color: Color.fromARGB(255,0,0,254),),
           Text('Change User picture'),
           FlatButton(onPressed: () {
@@ -33,17 +36,12 @@ class SettingsPage extends StatelessWidget
               }, child: Text('Change Password'), color: Color.fromARGB(255, 0, 0, 254),),
           Text('Change To Dark Mode'),
           FlatButton(onPressed: () {
+            ThemeState provider = Provider.of<ThemeState>(context,listen: false);
+            provider.changeTheme();
 
-              }, child: Text('DarkMode'),color: Color.fromARGB(255, 0, 0, 254),),
+          }, child: Text('DarkMode'),color: Color.fromARGB(255, 0, 0, 254),),
         ] ,
       ),
-
-
       );
   }
-
-  Future<void> _showChangePassword(newPassword) async{
-  }
-
-
 }
