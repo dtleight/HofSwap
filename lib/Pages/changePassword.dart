@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 class ChangePassword extends StatelessWidget {
@@ -39,6 +40,7 @@ class ChangePassword extends StatelessWidget {
           FlatButton(onPressed:(){
             _changePassword(textController.text);
             //new DatabaseRouting().updateUserName(value)
+            Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
 
 
           }, child: Text('Submit New Password'),color: Colors.blue,)

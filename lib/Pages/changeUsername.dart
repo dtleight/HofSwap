@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
+import 'LandingPage.dart';
+
 
 class ChangeUserName extends StatelessWidget {
   ChangeUserName();
@@ -37,8 +39,11 @@ class ChangeUserName extends StatelessWidget {
             ),
           ),
           FlatButton(onPressed: () {
+
             new DatabaseRouting().updateUserName(textController.text);
+            Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
           }, child: Text('Submit New Name'), color: Colors.blue,)
+
         ],
       ),
 

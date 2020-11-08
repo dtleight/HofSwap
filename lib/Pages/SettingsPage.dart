@@ -23,23 +23,24 @@ class SettingsPage extends StatelessWidget
       body: Column(
         children:[
           Text('Change New User Name'),
+          //TextStyle(color: Colors.yellow),
           FlatButton(onPressed: (){
               Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangeUserName()));
-              }, child: Text('Change Name'), color: Color.fromARGB(255,0,0,254),),
+              }, child: Text('Change Name'), color: Color.fromARGB(255,0,0,254), textColor: Colors.yellow,),
           Text('Change User picture'),
           FlatButton(onPressed: () {
              Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangePicturePage()));
-             },color: Color.fromARGB(255,0,0,254), child: Text('Change Picture'),),
+             },color: Color.fromARGB(255,0,0,254),  textColor: Colors.yellow, child: Text('Change Picture'),),
           Text('Change Password'),
           FlatButton(onPressed: (){
               Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangePassword()));
-              }, child: Text('Change Password'), color: Color.fromARGB(255, 0, 0, 254),),
-          Text('Change To Dark Mode'),
+              }, child: Text('Change Password'), color: Color.fromARGB(255, 0, 0, 254), textColor: Colors.yellow),
+          Text('Switch Between Light and Dark Mood'),
           FlatButton(onPressed: () {
             ThemeState provider = Provider.of<ThemeState>(context,listen: false);
             provider.changeTheme();
 
-          }, child: Text('DarkMode'),color: Color.fromARGB(255, 0, 0, 254),),
+          }, child: Text('Switch'),color: Color.fromARGB(255, 0, 0, 254), textColor: Colors.yellow),
         ] ,
       ),
       );
