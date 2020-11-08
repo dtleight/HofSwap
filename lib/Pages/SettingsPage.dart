@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/changePicturePage.dart';
-import 'package:hofswap/Pages/changePassword.dart';
 
 class SettingsPage extends StatelessWidget
 {
@@ -29,7 +28,7 @@ class SettingsPage extends StatelessWidget
              },color: Color.fromARGB(255,0,0,254), child: Text('Change Picture'),),
           Text('Change Password'),
           FlatButton(onPressed: (){
-              Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangePassword()));
+            
               }, child: Text('Change Password'), color: Color.fromARGB(255, 0, 0, 254),),
           Text('Change To Dark Mode'),
           FlatButton(onPressed: () {
@@ -43,7 +42,7 @@ class SettingsPage extends StatelessWidget
   }
 
   Future<void> _showChangePassword(newPassword) async{
-  }
 
+  }
 
 }
