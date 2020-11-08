@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     return FlatButton(
                       onPressed: () async  {
-                              print(textControllers[0].text);
+
                         if(textControllers[0].text != "" && textControllers[1].text != "") {
                           final snapShot = await FirebaseFirestore.instance
                               .collection('users').doc(
@@ -114,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                                 textControllers[0].text, //univ id
                                 textControllers[1].text, //password
                                 context);
+
                           }
                           else {
                             Scaffold.of(context).showSnackBar(SnackBar(
