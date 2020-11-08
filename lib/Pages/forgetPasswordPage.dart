@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hofswap/Objects/Account.dart';
-import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 

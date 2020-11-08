@@ -181,4 +181,14 @@ class DatabaseRouting {
     DocumentSnapshot data = await FirebaseFirestore.instance.collection('private_data').doc("hofswap_info").get();
     return [data['username'],data['password']];
   }
+
+  changePassword(String oldPassword, String newPassword, String code) async{
+    await FirebaseAuth.instance.verifyPasswordResetCode(code);
+    await FirebaseAuth.instance.confirmPasswordReset(newPassword: newPassword);
+  }
+
+  updataUeserName(String name) async{
+    /// cawait Firestore.instance;
+  }
+
 }
