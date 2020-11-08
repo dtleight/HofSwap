@@ -115,7 +115,8 @@ class AccountPage extends StatelessWidget
                             children: [
                               Text("Do you want to delete this textbook?"),
                               FlatButton(
-                                  onPressed: () {
+                                  onPressed: ()
+                                  {
                                     //Remove textbook from database
                                   },
                                   child: Text("Confirm")
