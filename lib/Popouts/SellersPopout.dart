@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Pages/SellersPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
@@ -66,6 +67,18 @@ class _SellersPopoutState extends State<SellersPopout>
                         if (_formKey.currentState.validate()) {
                           textbook.generateNewSeller(textbook, placeholderValue, textEditingController.text);
                           new DatabaseRouting().addTextbook(textbook, placeholderValue, double.parse(textEditingController.text));
+
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          Fluttertoast.showToast(
+                              msg: "Textbook added to database",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.black38,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
                         }
                         //Add textbook to database
                         //Send a toast to let the user know the book was added.

@@ -5,6 +5,7 @@ import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Popouts/SellersPopout.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
+import 'package:http/http.dart' as http;
 
 class SellersPage extends StatefulWidget
 {
@@ -45,123 +46,67 @@ class _SellersPageState extends State<SellersPage>
     (
     appBar: AppBar(title: Text("Seller's Interface"),),
     backgroundColor: Colors.yellow,
-
-    body: AnimatedSwitcher
-      (
-      child: widgy,
-      duration: Duration(seconds: 1),
+    body: Column(
+      children: [
+        Flexible( flex: 1,
+          child: AnimatedSwitcher
+              (
+              child: widgy,
+              duration: Duration(seconds: 1),
+            ),
+        ),
+      ],
     ),
   );
   }
 
   Widget constructForm()
   {
-    return Column
-      (
-      children:
-      [
-        //FlatButton(child: Text("Add a textbook"),onPressed: (){openTextbookInterface(context);},)
-        Form
-          (
-          child: Column
-            (
-            children:
-            [
-                  TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-                    labelText: '   Please Enter the Following Information:'
-              ),
-              ),
-              ...addField(1, "Textbook Title"),
-              ...addField(2, "ISBN Number"),
-              ...addField(3, "Author"),
-
-              Align(
-                //alignment: Alignment.bottomCenter,
-
-                child: FlatButton
-                  (
-                  color: Color.fromARGB(255, 0, 0, 254),
-                  child: Text(
-                  "Submit",
-                  style: TextStyle(color: Colors.yellowAccent)
+    return SingleChildScrollView(
+      child: Column
+        (
+        children:
+        [
+            Form
+              (
+              child: Column
+                (
+                children:
+                [
+                      TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                        labelText: '   Please Enter the Following Information:'
                   ),
-                  onPressed: ()
-                  {
-                    setState(() {
-                      widgy = constructSuggestions(textControllers[1].text,textControllers[0].text,textControllers[2].text);
-                    });
-                    // buildTextbookSuggestions(context,textControllers[1].text, textControllers[0].text);
-                    //new DatabaseRouting().addTextbook(new Textbook(textControllers[0].text,['Temporary Author'],int.parse(textControllers[2].text.toString()),textControllers[1].text,textControllers[3].text));
-                  },),)
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-  /**
-  Widget constructForm2(Textbook tb)
-  {
-    return Column
-      (
-      children:
-      [
-        //FlatButton(child: Text("Add a textbook"),onPressed: (){openTextbookInterface(context);},)
-        Form
-          (
-          key: _formKey,
-          child: Column
-            (
-            children:
-            [
-              TextField(
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-                    labelText: '   Please Choose from the Following Menus:'
-                ),
-              ),
-              StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {return buildDropDownList();},),
-              //buildDropDown(),
-              //...addField(3, "Condition"), //Change to some form of multiple choice
-              ...addField(4, "Asking Price",(value) {if(double.tryParse(value) != null){return null;}else{return "Invalid Price";}},),
+                  ),
+                  ...addField(1, "Textbook Title"),
+                  ...addField(2, "ISBN Number"),
+                  ...addField(3, "Author"),
 
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: FlatButton
-                  (
-                  color: Color.fromARGB(255, 0, 0, 254),
-                  child: Text(
+                  Align(
+                    //alignment: Alignment.bottomCenter,
+
+                    child: FlatButton
+                      (
+                      color: Color.fromARGB(255, 0, 0, 254),
+                      child: Text(
                       "Submit",
                       style: TextStyle(color: Colors.yellowAccent)
-                  ),
-                  onPressed: ()
-                  {
-                    setState(() {
-                      //Confirm page
-                      if (_formKey.currentState.validate()) {
-                        tb.generateNewSeller(tb, textControllers[3].text,
-                            textControllers[4].text);
-                        new DatabaseRouting().addTextbook(
-                            tb, textControllers[3].text,
-                            textControllers[4].text);
-                      }
-                        //Add textbook to database
-                        //Send a toast to let the user know the book was added.
-                        //Send back to home page
-                    });
-                  },),)
-            ],
-          ),
-        ),
-      ],
+                      ),
+                      onPressed: ()
+                      {
+                        setState(() {
+                          widgy = constructSuggestions(textControllers[1].text,textControllers[0].text,textControllers[2].text);
+                        });
+                      },),),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
-      **/
   Widget confirmBook(Textbook tb)
   {
     return Center(
@@ -170,7 +115,27 @@ class _SellersPageState extends State<SellersPage>
         children:
         [
           Text(tb.title,textScaleFactor: 2,),
-          Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
+          Expanded(child: FutureBuilder(
+            // Paste your image URL inside the htt.get method as a parameter
+            future: http.get(
+                "http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
+            builder: (BuildContext context, AsyncSnapshot<http.Response> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return Text("No connection");
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                  return CircularProgressIndicator();
+                case ConnectionState.done:
+                  if (snapshot.data.bodyBytes.toString().length <= 10000)
+                    return Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",fit: BoxFit.contain,);
+                  // when we get the data from the http call, we give the bodyBytes to Image.memory for showing the image
+                  return Image.memory(snapshot.data.bodyBytes, fit: BoxFit.contain);
+              }
+              return null; // unreachable
+            },
+          ),flex:3),
+          //Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
           Text(tb.authors.toString().substring(1,tb.authors.toString().length-1)),
           Text(tb.ISBN),
           Align(
@@ -193,10 +158,6 @@ class _SellersPageState extends State<SellersPage>
                         return SellersPopout(tb);
                       }
                   );
-                  //widgy = constructForm2(tb);
-                  //Add textbook to database
-                  //Send a toast to let the user know the book was added.
-                  //Send back to home page
                 });
               },),)
         ],
