@@ -48,6 +48,7 @@ class _SellersPopoutState extends State<SellersPopout>
                   ),
                 ),
                 StatefulBuilder(
+
                   builder: (BuildContext context, StateSetter setState) {return buildDropDownList();},),
                 ...addField(4, "Asking Price",(value) {if(double.tryParse(value) != null){return null;}else{return "Invalid Price";}},),
 

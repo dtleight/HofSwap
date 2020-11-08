@@ -182,13 +182,8 @@ class DatabaseRouting {
     return [data['username'],data['password']];
   }
 
-  changePassword(String oldPassword, String newPassword, String code) async{
-    await FirebaseAuth.instance.verifyPasswordResetCode(code);
-    await FirebaseAuth.instance.confirmPasswordReset(newPassword: newPassword);
-  }
+  Future<void> deleteTextbook(String isbn){
+    return FirebaseFirestore.instance.collection('textbooks').doc(isbn).delete();
 
-  updataUeserName(String name) async{
-    /// cawait Firestore.instance;
   }
-
 }
