@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Popouts/SellersPopout.dart';
-import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
 import 'package:http/http.dart' as http;
 
@@ -135,7 +133,6 @@ class _SellersPageState extends State<SellersPage>
               return null; // unreachable
             },
           ),flex:3),
-          //Image.network("http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
           Text(tb.authors.toString().substring(1,tb.authors.toString().length-1)),
           Text(tb.ISBN),
           Align(

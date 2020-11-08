@@ -6,6 +6,7 @@ import 'package:hofswap/Singeltons/UserAccount.dart';
 import '../Objects/Account.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:http/http.dart' as http;
 
 class FocusedStoreView extends StatelessWidget
 {
@@ -35,7 +36,26 @@ class FocusedStoreView extends StatelessWidget
                      (
                       children:
                       [
-                        Image(image: NetworkImage("http://covers.openlibrary.org/b/isbn/" + tb.ISBN +"-M.jpg"),),
+                        FutureBuilder(
+                          // Paste your image URL inside the htt.get method as a parameter
+                          future: http.get(
+                              "http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
+                          builder: (BuildContext context, AsyncSnapshot<http.Response> snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                return Text("No connection");
+                              case ConnectionState.active:
+                              case ConnectionState.waiting:
+                                return CircularProgressIndicator();
+                              case ConnectionState.done:
+                                if (snapshot.data.bodyBytes.toString().length <= 10000)
+                                  return Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",fit: BoxFit.contain,);
+                                // when we get the data from the http call, we give the bodyBytes to Image.memory for showing the image
+                                return Image.memory(snapshot.data.bodyBytes, fit: BoxFit.contain);
+                            }
+                            return null; // unreachable
+                          },
+                        ),
                       ],
                      ),
                      flex: 4,
