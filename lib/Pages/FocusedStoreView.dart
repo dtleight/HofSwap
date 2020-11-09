@@ -20,6 +20,8 @@ class FocusedStoreView extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
+    int len;
+    tb.sale_log ==null?len=0:len=tb.sale_log.values.length;
     return Scaffold
       (
       backgroundColor: Colors.yellow,
@@ -118,7 +120,7 @@ class FocusedStoreView extends StatelessWidget
               Text("Purchase Options",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),),
               Flexible(flex: 2,
                 child: ListView.builder(
-                    itemCount: tb.sale_log.values.length,
+                    itemCount: len,
                     itemBuilder: (BuildContext context, int i)
                     {
                       return buildSaleableTextbook(tb.sale_log.values.toList()[i], tb.sale_log.keys.toList()[i]);

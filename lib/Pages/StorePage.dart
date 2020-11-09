@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/FocusedStoreView.dart';
+import 'package:hofswap/Popouts/SearchPopout.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Utilities/TextbookAPILoader.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
@@ -72,6 +73,8 @@ class _StorePageState extends State<StorePage> {
               child: GestureDetector(
                 child: Icon(Icons.search),
                 onTap: () async {
+                  showDialog(context: context, builder: (context){return SearchPopout();});
+                  /**
                   updateSearch();
                   if (!isSearchEnabled) {
                     Textbook t = await searchQuery(myController.text);
@@ -95,6 +98,7 @@ class _StorePageState extends State<StorePage> {
                           );
                         });
                   }
+                  **/
                 },
               ))
         ],
