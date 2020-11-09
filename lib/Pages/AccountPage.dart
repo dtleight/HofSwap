@@ -143,7 +143,9 @@ class AccountPage extends StatelessWidget
                               FlatButton(
                                   onPressed: ()
                                   {
+                                    new DatabaseRouting().deleteTextbook(new UserAccount().email, tb.ISBN,index);
                                     //Remove textbook from database
+                                    Navigator.pop(context);
                                   },
                                   child: Text("Confirm")
                               )

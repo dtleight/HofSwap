@@ -198,18 +198,22 @@ class DatabaseRouting {
   ///
   /// Removes a textbook from the textbook collection and also removes it from the user account reference.
   ///
-  void deleteTextbook(String email, String isbn) async
+  void deleteTextbook(String email, String isbn, int index) async
   {
-    textbookse[isbn].sale_log.remove(email);
-    await FirebaseFirestore.instance.collection('textbooks').doc(isbn).update(
+    Map<String,dynamic> temp = textbookse[isbn].sale_log.remove(email);
+    print(textbookse[isbn].sale_log);
+    new UserAccount().soldBooks.removeAt(index);
+    textbookse[isbn].sale_log.keys.length == 0?await FirebaseFirestore.instance.collection('textbooks').doc(isbn).delete():await FirebaseFirestore.instance.collection('textbooks').doc(isbn).update({'sale_log': textbookse[isbn].sale_log,});
+    /**await FirebaseFirestore.instance.collection('textbooks').doc(isbn).update(
     {
       'sale_log': textbookse[isbn].sale_log,
     }
     );
+        **/
     await FirebaseFirestore.instance.collection('users').doc(new UserAccount().hofstraID).update
       (
       {
-        'soldTextbooks': new UserAccount().soldBooks
+        'soldBooks': new UserAccount().soldBooks
       }
     );
         //{'sale_log': FieldValue.delete()}).whenComplete(() {});
