@@ -76,8 +76,8 @@ class FocusedStoreView extends StatelessWidget
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: <Widget>
                          [
-                           Row(children: [Text("Title: "),Text( tb.title, style: TextStyle(color: Colors.black),),]),
-                           Row(children: [Text("Authors: "), Text(tb.authors[0], style: TextStyle(color: Colors.black),),]),
+                           Row(children: [Text("Title: ", style: TextStyle(color : Colors.black),),Text( tb.title, style: TextStyle(color: Colors.black),),]),
+                           Row(children: [Text("Authors: ", style: TextStyle(color : Colors.black)), Text(tb.authors[0], style: TextStyle(color: Colors.black),),]),
                            //Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
                            //Row(children: [Text("Price: "), Text("99.99"),]),
                            //Row(children: [Text("Condition: "), Text("Horrible"),]),
@@ -177,7 +177,7 @@ class FocusedStoreView extends StatelessWidget
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:
                     [
-                      Text("Book Information",style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black),),
+                      Text("Book Information",),
                       Text("Price: \$" + sale_info['price'].toString()),
                       Text("Condition: " + sale_info['condition']),
                     ],
