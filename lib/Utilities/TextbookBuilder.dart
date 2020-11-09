@@ -112,6 +112,7 @@ class TextbookBuilder
     String queryParams = "";
     List<String> prefixes = ["isbn=","title=","inauthor="];
     List<String> params = [isbn,title,authors];
+    print(params);
     for (int i = 0; i <= 2; i++)
     {
       if(params[i] != "")

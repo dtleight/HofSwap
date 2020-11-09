@@ -176,7 +176,7 @@ class FocusedStoreView extends StatelessWidget
                     children:
                     [
                       Text("Book Information",style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black),),
-                      Text("Price: " + sale_info['price'].toString()),
+                      Text("Price: \$" + sale_info['price'].toString()),
                       Text("Condition: " + sale_info['condition']),
                     ],
                   ),
