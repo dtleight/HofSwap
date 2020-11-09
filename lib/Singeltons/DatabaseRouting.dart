@@ -114,7 +114,8 @@ class DatabaseRouting {
             'name': name,
             'rating':5,
             'wishlist': [],
-            'verified': FirebaseAuth.instance.currentUser.emailVerified
+            'verified': FirebaseAuth.instance.currentUser.emailVerified,
+            'soldBooks': [],
           }
       );
       return null;
