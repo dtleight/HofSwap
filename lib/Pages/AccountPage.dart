@@ -138,6 +138,7 @@ class AccountPage extends StatelessWidget
                       builder: (BuildContext context) {
                         return AlertDialog(
                           content: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Text("Do you want to delete this textbook?"),
                               FlatButton(

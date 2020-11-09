@@ -55,16 +55,18 @@ class DatabaseRouting {
               'sale_log' : {us.email:{'condition':condition, 'price': price}}
       }
         );
-        ///
-        /// Add a reference to the user of their sold textbook
-        ///
-        us.addSaleTextbook(t.ISBN);
-        await FirebaseFirestore.instance.collection('users').doc(us.hofstraID).update(
+
+      }
+    ///
+    /// Add a reference to the user of their sold textbook
+    ///
+    us.addSaleTextbook(t.ISBN);
+    print(us.soldBooks);
+    await FirebaseFirestore.instance.collection('users').doc(us.hofstraID).update(
         {
           'soldBooks': us.soldBooks,
         }
-      );
-      }
+    );
   }
 
   ///
