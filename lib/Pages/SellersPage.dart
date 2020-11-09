@@ -71,12 +71,8 @@ class _SellersPageState extends State<SellersPage>
                 (
                 children:
                 [
-                      TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        labelStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-                        labelText: '   Please Enter the Following Information:'
-                  ),
+
+                      Text('   Please Enter the Following Information:', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   ...addField(0, "Textbook Title"),
                   ...addField(1, "ISBN Number"),
