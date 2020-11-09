@@ -61,7 +61,7 @@ class Textbook
 
   String getDisplayAuthors(int n)
   {
-    return authors.sublist(0, min(n,authors.length)).toString();
+    return authors.sublist(0, min(n,authors.length)).toString().substring(1,authors.sublist(0, min(n,authors.length)).toString().length-1);
   }
 
   String getMinMaxPrice()

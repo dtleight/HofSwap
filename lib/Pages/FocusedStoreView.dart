@@ -20,6 +20,8 @@ class FocusedStoreView extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
+    int len;
+    tb.sale_log ==null?len=0:len=tb.sale_log.values.length;
     return Scaffold
       (
       backgroundColor: Colors.yellow,
@@ -63,7 +65,7 @@ class FocusedStoreView extends StatelessWidget
                    ),
                    //Flexible(child: SizedBox(),flex: 8,),
                     Flexible(child: FractionallySizedBox(widthFactor: 0.6,heightFactor: 1.0,),),
-                   Flexible(
+                   Expanded(
                      child: Column
                      (
                      crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,8 +81,8 @@ class FocusedStoreView extends StatelessWidget
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: <Widget>
                              [
-                               Row(children: [Text("Title: " + tb.title + "\n", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),]),
-                               Row(children: [Text("Authors: " + tb.authors[0], style: TextStyle(color: Colors.black),),]),
+                               Row(children: [Flexible(child: Text("Title: " + tb.title + "\n", overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),]),
+                               Row(children: [Flexible(child: Text("Authors: " + tb.getDisplayAuthors(tb.authors.length),overflow: TextOverflow.ellipsis,maxLines: 2, style: TextStyle(color: Colors.black),)),]),
                                //Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
                                //Row(children: [Text("Price: "), Text("99.99"),]),
                                //Row(children: [Text("Condition: "), Text("Horrible"),]),
@@ -104,7 +106,6 @@ class FocusedStoreView extends StatelessWidget
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                                 ),
                             ),
-                            SizedBox(width: 10,),
                         ]
                        ),
                        ),
@@ -118,7 +119,7 @@ class FocusedStoreView extends StatelessWidget
               Text("Purchase Options",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),),
               Flexible(flex: 2,
                 child: ListView.builder(
-                    itemCount: tb.sale_log.values.length,
+                    itemCount: len,
                     itemBuilder: (BuildContext context, int i)
                     {
                       return buildSaleableTextbook(tb.sale_log.values.toList()[i], tb.sale_log.keys.toList()[i]);
