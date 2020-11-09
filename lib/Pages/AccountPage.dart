@@ -4,6 +4,7 @@ import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Pages/changePicturePage.dart';
+import 'package:http/http.dart' as http;
 
 import 'SettingsPage.dart';
 
@@ -76,18 +77,19 @@ class AccountPage extends StatelessWidget
                   ),
                   SizedBox(height: 30,),
                   Text("My Selling Page " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-
+/**
                   SizedBox(height: 15,),
                   Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),
                   Text("View People You Follow " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),
                   Text("View People Who Follow You " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+    **/
                 ]
             )
         )
         ),
-        Flexible(flex: 2,
+        Flexible(flex: 1,
             child: ListView.builder
             (
             scrollDirection:Axis.horizontal,
@@ -96,19 +98,36 @@ class AccountPage extends StatelessWidget
               Textbook tb = new DatabaseRouting().textbookse[new UserAccount().soldBooks[index]];
               return Container
                 (
-                height: 400,
+                height: 500,
                 width: 200,
                 child: GestureDetector(
                   child:  Card
                     (
                     child: Row(children: [
-                      Flexible(
-                        child: Image(
-                          image:NetworkImage("https://images-na.ssl-images-amazon.com/images/I/41j96R1fUfL._SX352_BO1,204,203,200_.jpg"),
+                      Flexible(flex:2,
+                        child: FutureBuilder(
+                          // Paste your image URL inside the htt.get method as a parameter
+                          future: http.get(
+                              "http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
+                          builder: (BuildContext context, AsyncSnapshot<http.Response> snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                return Text("No connection");
+                              case ConnectionState.active:
+                              case ConnectionState.waiting:
+                                return CircularProgressIndicator();
+                              case ConnectionState.done:
+                                if (snapshot.data.bodyBytes.toString().length <= 10000)
+                                  return Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",fit: BoxFit.contain,);
+                                // when we get the data from the http call, we give the bodyBytes to Image.memory for showing the image
+                                return Image.memory(snapshot.data.bodyBytes, fit: BoxFit.contain);
+                            }
+                            return null; // unreachable
+                          },
                         ),
                       ),
                       Flexible(flex: 2,
-                          child:Column(children: [Flexible(child: Text("ISBN: " + tb.ISBN),), Flexible(child: Text("Title: " + tb.title ))],)
+                          child:Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [Flexible(child: Text("ISBN: " + tb.ISBN),), Flexible(child: Text("Title: " + tb.title ))],)
                       )
                     ],
                     ),
