@@ -129,7 +129,7 @@ class _StorePageState extends State<StorePage> {
           new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(tb)));
     }, [
       Text(
-        tb.title,
+        tb.title, maxLines: 2, overflow: TextOverflow.ellipsis,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       Text(tb.authors[0]),
