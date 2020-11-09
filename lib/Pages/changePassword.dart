@@ -17,6 +17,7 @@ class ChangePassword extends StatelessWidget {
         backgroundColor: Colors.blue,),
       body: Column(
         children: [
+          SizedBox(height: 100,),
           Container(
             height: 80.0,
             width: 200.0,
@@ -41,9 +42,7 @@ class ChangePassword extends StatelessWidget {
             _changePassword(textController.text);
             //new DatabaseRouting().updateUserName(value)
             Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
-
-
-          }, child: Text('Submit New Password'),color: Colors.blue,)
+            }, child: Text('Submit New Password'),color: Colors.blue,)
         ],
       ),
 

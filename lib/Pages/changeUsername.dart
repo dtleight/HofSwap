@@ -18,6 +18,7 @@ class ChangeUserName extends StatelessWidget {
         backgroundColor: Colors.blue,),
       body: Column(
         children: [
+          SizedBox(height: 100,),
           Container(
             height: 80.0,
             width: 200.0,
@@ -42,7 +43,7 @@ class ChangeUserName extends StatelessWidget {
 
             new DatabaseRouting().updateUserName(textController.text);
             Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
-          }, child: Text('Submit New Name'), color: Colors.blue,)
+            }, child: Text('Submit New Name'), color: Colors.blue,)
 
         ],
       ),

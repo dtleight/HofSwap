@@ -22,19 +22,23 @@ class SettingsPage extends StatelessWidget
       appBar: AppBar(title: Text("Settings")),
       body: Column(
         children:[
+          SizedBox(height: 80,),
           Text('Change New User Name'),
           //TextStyle(color: Colors.yellow),
           FlatButton(onPressed: (){
               Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangeUserName()));
               }, child: Text('Change Name'), color: Color.fromARGB(255,0,0,254), textColor: Colors.yellow,),
+          SizedBox(height: 10,),
           Text('Change User picture'),
           FlatButton(onPressed: () {
              Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangePicturePage()));
              },color: Color.fromARGB(255,0,0,254),  textColor: Colors.yellow, child: Text('Change Picture'),),
+          SizedBox(height: 10,),
           Text('Change Password'),
           FlatButton(onPressed: (){
               Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangePassword()));
               }, child: Text('Change Password'), color: Color.fromARGB(255, 0, 0, 254), textColor: Colors.yellow),
+          SizedBox(height: 10,),
           Text('Switch Between Light and Dark Mood'),
           FlatButton(onPressed: () {
             ThemeState provider = Provider.of<ThemeState>(context,listen: false);

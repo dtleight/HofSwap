@@ -71,7 +71,7 @@ class _SellersPageState extends State<SellersPage>
                 (
                 children:
                 [
-
+                      SizedBox(height: 20,),
                       Text('   Please Enter the Following Information:', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   ...addField(0, "Textbook Title"),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
+import 'package:hofswap/Pages/changePicturePage.dart';
 
 import 'SettingsPage.dart';
 
@@ -34,10 +35,16 @@ class AccountPage extends StatelessWidget
         children:
       [ SizedBox(height: 15,),
         Center(
+          child: GestureDetector(
+            onTap: (){
+              Navigator.push(context, new MaterialPageRoute(
+                  builder: (ctext) => new ChangePicturePage()));
+            },
           child: CircleAvatar(
             backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg"),
             radius: 100,
-          ),
+
+          ),),
         ),
         SizedBox(height: 20,),
         Align(
