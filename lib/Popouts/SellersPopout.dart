@@ -31,6 +31,7 @@ class _SellersPopoutState extends State<SellersPopout>
 
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.yellow,
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
          return Form
@@ -40,7 +41,7 @@ class _SellersPopoutState extends State<SellersPopout>
               (
               children:
               [
-                Text('Please Choose a Condition of Your Book:',
+                Text('Please Choose a Condition and Enter a Price:', textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 StatefulBuilder(
@@ -91,6 +92,7 @@ class _SellersPopoutState extends State<SellersPopout>
   Widget buildDropDownList()
   {
     return DropdownButton<String>(
+      dropdownColor: Colors.white,
         value: placeholderValue,
         items: [generateDropDownItem("Mint"),generateDropDownItem("Great"),generateDropDownItem("Good"),generateDropDownItem("Okay"),generateDropDownItem("Bad"),],
         onChanged: (String newValue) {setState(() {
