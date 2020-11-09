@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
@@ -124,7 +125,7 @@ class FocusedStoreView extends StatelessWidget
       );
   }
 
-  void sendEmail(String email) async
+  Future<String> sendEmail(String email) async
   {
     Account seller = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
     List<String> info = await new DatabaseRouting().getHofswapInformation();
@@ -142,9 +143,10 @@ class FocusedStoreView extends StatelessWidget
     try {
       final sendReport = await send(message, smtpServer);
       print('Message sent: ' + sendReport.toString()); //print if the email is sent
-      isSuccessful = true;
+      return "Message sent sucessfully";
     } on MailerException catch (e) {
       print('Message not sent. \n'+ e.toString()); //print if the email is not sent
+      return e.toString();
       // e.toString() will show why the email is not sending
     }
 
@@ -187,27 +189,18 @@ class FocusedStoreView extends StatelessWidget
                       (
                       child: Text("Contact Seller"),
                       color: Colors.blueAccent,
-                      onPressed: ()
+                   onPressed: () async
                       {
-                        sendEmail(email);
-                        if (isSuccessful)
-                        {
-                          /**showDialog(context: context, builder: (context)
-                          {
-                            isSuccessful = false;
-                            return AlertDialog(content:
-                            Column
-                              (
-                                children:
-                                [
-                                  Text("Email sent successfully"),
-                                ]
-                            ),
-                            );
-                          }
+                        String str = await sendEmail(email);
+                          Fluttertoast.showToast(
+                              msg: "Email sent",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.black38,
+                              textColor: Colors.white,
+                              fontSize: 16.0
                           );
-                          **/
-                        }
                       },
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                     ),
