@@ -67,6 +67,7 @@ class _SellersPageState extends State<SellersPage>
         [
             Form
               (
+              key: _formKey,
               child: Column
                 (
                 children:
@@ -74,9 +75,9 @@ class _SellersPageState extends State<SellersPage>
                       SizedBox(height: 20,),
                       Text('   Please Enter the Following Information:', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  ...addField(0, "Textbook Title"),
-                  ...addField(1, "ISBN Number"),
-                  ...addField(2, "Author"),
+                  ...addField(0, "Textbook Title",(value){if(value =="" && textControllers[1].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),
+                  ...addField(1, "ISBN Number",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),
+                  ...addField(2, "Author",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[1].text == ""){return "One field needs a value";}return null;}),
 
                   Align(
                     //alignment: Alignment.bottomCenter,
@@ -91,7 +92,8 @@ class _SellersPageState extends State<SellersPage>
                       onPressed: ()
                       {
                         setState(() {
-                          widgy = constructSuggestions(textControllers[1].text,textControllers[0].text,textControllers[2].text);
+                          if(_formKey.currentState.validate())
+                            widgy = constructSuggestions(textControllers[1].text,textControllers[0].text,textControllers[2].text);
                         });
                       },),),
                 ],
