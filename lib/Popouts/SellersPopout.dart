@@ -40,7 +40,7 @@ class _SellersPopoutState extends State<SellersPopout>
               (
               children:
               [
-                Text('Please Choose from the Following Menus:',
+                Text('Please Choose a Condition of Your Book:',
                       style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 StatefulBuilder(

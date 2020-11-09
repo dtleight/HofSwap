@@ -69,21 +69,27 @@ class FocusedStoreView extends StatelessWidget
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children:
                      [
-                        Column
-                         (
-                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                         mainAxisSize: MainAxisSize.max,
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>
-                         [
-                           Row(children: [Text("Title: ", style: TextStyle(color : Colors.black),),Text( tb.title, style: TextStyle(color: Colors.black),),]),
-                           Row(children: [Text("Authors: ", style: TextStyle(color : Colors.black)), Text(tb.authors[0], style: TextStyle(color: Colors.black),),]),
-                           //Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
-                           //Row(children: [Text("Price: "), Text("99.99"),]),
-                           //Row(children: [Text("Condition: "), Text("Horrible"),]),
-                         ],
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column
+                             (
+                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                             mainAxisSize: MainAxisSize.max,
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: <Widget>
+                             [
+                               Row(children: [Text("Title: " + tb.title + "\n", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),]),
+                               Row(children: [Text("Authors: " + tb.authors[0], style: TextStyle(color: Colors.black),),]),
+                               //Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
+                               //Row(children: [Text("Price: "), Text("99.99"),]),
+                               //Row(children: [Text("Condition: "), Text("Horrible"),]),
+                             ],
                        ),
+                          ),
+                        ),
                        Flexible(child: Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
                         children:
                           [
                             Container
@@ -109,7 +115,7 @@ class FocusedStoreView extends StatelessWidget
                   ],
                   ),
               ),
-              Text("Purchase Options",style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black),),
+              Text("Purchase Options",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),),
               Flexible(flex: 2,
                 child: ListView.builder(
                     itemCount: tb.sale_log.values.length,
@@ -172,37 +178,43 @@ class FocusedStoreView extends StatelessWidget
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:
                 [
-                  Column
-                    (
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                    [
-                      Text("Book Information",),
-                      Text("Price: \$" + sale_info['price'].toString()),
-                      Text("Condition: " + sale_info['condition']),
-                    ],
-                  ),
-                  Container(
-                    height: 50,
-                    width: 90,
-                    child:FlatButton
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column
                       (
-                      child: Text("Contact Seller"),
-                      color: Colors.blueAccent,
-                   onPressed: () async
-                      {
-                        String str = await sendEmail(email);
-                          Fluttertoast.showToast(
-                              msg: "Email sent",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.black38,
-                              textColor: Colors.white,
-                              fontSize: 16.0
-                          );
-                      },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                      [
+                        Text("Book Information: \n", style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text("Price: \$" + sale_info['price'].toString()),
+                        Text("Condition: " + sale_info['condition']),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 50,
+                      width: 90,
+                      child:FlatButton
+                        (
+                        child: Text("Contact Seller"),
+                        color: Colors.blueAccent,
+                     onPressed: () async
+                        {
+                          String str = await sendEmail(email);
+                            Fluttertoast.showToast(
+                                msg: "Email sent",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.black38,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
+                        },
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                      ),
                     ),
                   ),
                   ]
