@@ -7,7 +7,6 @@ import '../Objects/Account.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:http/http.dart' as http;
-//temp
 
 class FocusedStoreView extends StatelessWidget
 {
@@ -76,21 +75,11 @@ class FocusedStoreView extends StatelessWidget
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: <Widget>
                          [
-                           Row(children: [Text("Title: "),Text( tb.title),]),
-                           Row(children: [Text("Authors: "), Text(tb.authors[0]),]),
-                           Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
-                           Row(children: [Text("Price: "), Text("99.99"),]),
-                           Row(children: [Text("Condition: "), Text("Horrible"),]),
-                           Row(
-                             mainAxisSize: MainAxisSize.min,
-                             children: [
-                               Icon(Icons.star, color: Colors.green[500]),
-                               Icon(Icons.star, color: Colors.green[500]),
-                               Icon(Icons.star, color: Colors.green[500]),
-                               Icon(Icons.star, color: Colors.black),
-                               Icon(Icons.star, color: Colors.black),
-                             ],
-                           )
+                           Row(children: [Text("Title: "),Text( tb.title, style: TextStyle(color: Colors.black),),]),
+                           Row(children: [Text("Authors: "), Text(tb.authors[0], style: TextStyle(color: Colors.black),),]),
+                           //Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
+                           //Row(children: [Text("Price: "), Text("99.99"),]),
+                           //Row(children: [Text("Condition: "), Text("Horrible"),]),
                          ],
                        ),
                        Flexible(child: Row(
@@ -109,37 +98,6 @@ class FocusedStoreView extends StatelessWidget
                                 ),
                             ),
                             SizedBox(width: 10,),
-                            Container(
-                              height: 50,
-                              width: 90,
-                              child:FlatButton
-                                (
-                                  child: Text("Contact Seller"),
-                                  color: Colors.blueAccent,
-                                  onPressed: ()
-                                  {
-                                    sendEmail();
-                                    if (isSuccessful)
-                                      {
-                                        showDialog(context: context, builder: (context)
-                                        {
-                                          isSuccessful = false;
-                                          return AlertDialog(content:
-                                          Column
-                                            (
-                                            children:
-                                            [
-                                              Text("Email sent successfully"),
-                                            ]
-                                            ),
-                                          );
-                                        }
-                                        );
-                                      }
-                                  },
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                              ),
                         ]
                        ),
                        ),
@@ -150,12 +108,13 @@ class FocusedStoreView extends StatelessWidget
                   ],
                   ),
               ),
+              Text("Purchase Options",style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black),),
               Flexible(flex: 2,
                 child: ListView.builder(
                     itemCount: tb.sale_log.values.length,
                     itemBuilder: (BuildContext context, int i)
                     {
-                      return buildSaleableTextbook(tb.sale_log.values.toList()[i]);
+                      return buildSaleableTextbook(tb.sale_log.values.toList()[i], tb.sale_log.keys.toList()[i]);
                     }
                 ),
               )
@@ -165,7 +124,7 @@ class FocusedStoreView extends StatelessWidget
       );
   }
 
-  void sendEmail() async
+  void sendEmail(String email) async
   {
     Account seller = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
     List<String> info = await new DatabaseRouting().getHofswapInformation();
@@ -175,7 +134,7 @@ class FocusedStoreView extends StatelessWidget
     // Create our email message.
     final message = Message()
       ..from = Address(info[0])
-      ..recipients.add(seller.email) //recipent email
+      ..recipients.add(email) //recipent email
       ..subject = 'I am Interested in Your Textbook!' //subject of the email
       ..text = 'Hello ' + seller.name + "! \n\nI am interested in purchasing your copy of " + tb.title
           + ". Please let me know if it is still available by emailing me at " + new UserAccount().email +"! \n\nThank you,\n"+ new UserAccount().name; //body of the email
@@ -201,17 +160,58 @@ class FocusedStoreView extends StatelessWidget
       new DatabaseRouting().updateWishlist();
   }
 
-  Widget buildSaleableTextbook(Map<String, dynamic> sale_info)
+  Widget buildSaleableTextbook(Map<String, dynamic> sale_info, String email)
   {
-    return Container(height: 150.0, width: 500.0,
+    return Container(height: 100.0, width: 500.0,
         child: Card
           (
             child:Row
               (
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:
                 [
-                  Text(sale_info['price'].toString()),
-                  Text(sale_info['condition'])
+                  Column
+                    (
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:
+                    [
+                      Text("Book Information",style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black),),
+                      Text("Price: \$" + sale_info['price'].toString()),
+                      Text("Condition: " + sale_info['condition']),
+                    ],
+                  ),
+                  Container(
+                    height: 50,
+                    width: 90,
+                    child:FlatButton
+                      (
+                      child: Text("Contact Seller"),
+                      color: Colors.blueAccent,
+                      onPressed: ()
+                      {
+                        sendEmail(email);
+                        if (isSuccessful)
+                        {
+                          /**showDialog(context: context, builder: (context)
+                          {
+                            isSuccessful = false;
+                            return AlertDialog(content:
+                            Column
+                              (
+                                children:
+                                [
+                                  Text("Email sent successfully"),
+                                ]
+                            ),
+                            );
+                          }
+                          );
+                          **/
+                        }
+                      },
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                  ),
                   ]
             )
         ),

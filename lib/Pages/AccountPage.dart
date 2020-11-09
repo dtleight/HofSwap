@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hofswap/Objects/Account.dart';
+import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
+import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 import 'SettingsPage.dart';
 
@@ -11,7 +12,7 @@ class AccountPage extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    //bottom: TabBar(tabs:[Tab(text: account.name,)],),
+    print(new UserAccount().soldBooks);
     return Scaffold
       (
       backgroundColor: Colors.yellow,
@@ -29,7 +30,8 @@ class AccountPage extends StatelessWidget
               )
         ],
       ),
-      body:  Column(children:
+      body:  Column(
+        children:
       [ SizedBox(height: 15,),
         Center(
           child: CircleAvatar(
@@ -67,6 +69,7 @@ class AccountPage extends StatelessWidget
                   ),
                   SizedBox(height: 30,),
                   Text("My Selling Page " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+
                   SizedBox(height: 15,),
                   Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),
@@ -75,8 +78,62 @@ class AccountPage extends StatelessWidget
                   Text("View People Who Follow You " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                 ]
             )
-        ))
-      ],),
+        )
+        ),
+        Flexible(flex: 2,
+            child: ListView.builder
+            (
+            scrollDirection:Axis.horizontal,
+            itemCount: new UserAccount().soldBooks.length,
+            itemBuilder: (BuildContext context, int index) {
+              Textbook tb = new DatabaseRouting().textbookse[new UserAccount().soldBooks[index]];
+              return Container
+                (
+                height: 400,
+                width: 200,
+                child: GestureDetector(
+                  child:  Card
+                    (
+                    child: Row(children: [
+                      Flexible(
+                        child: Image(
+                          image:NetworkImage("https://images-na.ssl-images-amazon.com/images/I/41j96R1fUfL._SX352_BO1,204,203,200_.jpg"),
+                        ),
+                      ),
+                      Flexible(flex: 2,
+                          child:Column(children: [Flexible(child: Text("ISBN: " + tb.ISBN),), Flexible(child: Text("Title: " + tb.title ))],)
+                      )
+                    ],
+                    ),
+                  ),
+                  onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            children: [
+                              Text("Do you want to delete this textbook?"),
+                              FlatButton(
+                                  onPressed: ()
+                                  {
+                                    //Remove textbook from database
+                                  },
+                                  child: Text("Confirm")
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                  );
+                },
+                ),
+              );
+            }
+            ),
+            ),
+      ],
+            ),
     );
   }
 }

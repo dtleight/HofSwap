@@ -27,26 +27,15 @@ class DatabaseRouting {
     await loadTextbooks();
   }
 
-  Future<QuerySnapshot> loadDatabase(String collection) async
-  {
-    CollectionReference ref = FirebaseFirestore.instance.collection(collection);
-    return await ref.get();
-  }
-
-  /**
-   * Code to be modified to check if textbook exists
-   */
   void addTextbook(Textbook t, String condition, double price, ) async
   {
+    UserAccount us = new UserAccount();
     // Call the user's CollectionReference to add a new user
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).get();
-    //Modify to one line  false?print("no"):print("true");
     if(documentSnapshot.data() != null)
       {
-        print("Textbook found in database");
         Map<String, dynamic> appendMap = documentSnapshot.data()['sale_log'];
-        appendMap[new UserAccount().email] = {'condition': condition, 'price': price};
-        print(appendMap);
+        appendMap[us.email] = {'condition': condition, 'price': price};
         await FirebaseFirestore.instance.collection('textbooks').doc(t.ISBN).set(
             {
               'title': t.title,
@@ -63,14 +52,24 @@ class DatabaseRouting {
               'title': t.title,
               'author': t.authors.cast<dynamic>().toList(),
               //'edition': t.edition
-              'sale_log' : {new UserAccount().email:{'condition':condition, 'price': price}}
+              'sale_log' : {us.email:{'condition':condition, 'price': price}}
       }
         );
+        ///
+        /// Add a reference to the user of their sold textbook
+        ///
+        us.addSaleTextbook(t.ISBN);
+        await FirebaseFirestore.instance.collection('users').doc(us.hofstraID).update(
+        {
+          'soldBooks': us.soldBooks,
+        }
+      );
       }
-    //await tbr.add().then((value) => print("Textbook Added")).catchError((error) => print("Failed to add textbook: $error"));
-
   }
 
+  ///
+  /// Confirm that the user is able to use the database
+  ///
   Future<void> verifyUser(String id, String password, BuildContext context) async
   {
     // Create a CollectionReference called users that references the firestore collection
@@ -81,28 +80,27 @@ class DatabaseRouting {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emil, password: password);
       //FirebaseAuth.instance.sendPasswordResetEmail(email: null)
-
-
       //User is validated
       Map<String, dynamic> data = doc.data();
       new UserAccount.instantiate(
           data['name'], data['email'], data['rating'], id,
-          data['wishlist'].cast<String>().toList());
+          data['wishlist'].cast<String>().toList(),data['soldBooks'].cast<String>().toList());
       Navigator.push(
           context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
     }catch(_) {
       Scaffold.of(context).showSnackBar(
           SnackBar(content: Text("This Password is Incorrect"),));
     }
-
   }
-
+  ///
+  /// Create a new user in the database
+  ///
   Future<String> generateUser(String name, String email, String id, String password, BuildContext context) async
   {
 
     try{
       UserAccount account = new UserAccount.instantiate(
-          name, email, 5, id, new List<String>());
+          name, email, 5, id, new List<String>(), new List<String>());
 
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
@@ -127,7 +125,9 @@ class DatabaseRouting {
     }
     //Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
   }
-
+  ///
+  /// Pulls all textbook data from the database
+  ///
   loadTextbooks() async
   {
     textbooks = new List();
@@ -142,6 +142,9 @@ class DatabaseRouting {
 
   }
 
+  ///
+  /// Adds wishlist data from the user acccount to the database
+  ///
   updateWishlist() async
   {
     UserAccount us = new UserAccount();
@@ -153,6 +156,9 @@ class DatabaseRouting {
       );
   }
 
+  ///
+  /// Updates user rating and wishlist
+  ///
   updateUser() async
   {
     UserAccount account = new UserAccount();
@@ -168,6 +174,9 @@ class DatabaseRouting {
     }
   }
 
+  ///
+  /// Code to handle a password reset
+  ///
   forgetPassword(String email) async{
     await FirebaseAuth.instance.sendPasswordResetEmail(email:email);
 
@@ -176,9 +185,46 @@ class DatabaseRouting {
   //updatePassword(){
   // note to self: change password
   //}
+  ///
+  /// Code to pull email credentials from the database
+  ///
   Future<List<String>> getHofswapInformation() async
   {
     DocumentSnapshot data = await FirebaseFirestore.instance.collection('private_data').doc("hofswap_info").get();
     return [data['username'],data['password']];
+  }
+
+  ///
+  /// Removes a textbook from the textbook collection and also removes it from the user account reference.
+  ///
+  void deleteTextbook(String email, String isbn) async
+  {
+    textbookse[isbn].sale_log.remove(email);
+    await FirebaseFirestore.instance.collection('textbooks').doc(isbn).update(
+    {
+      'sale_log': textbookse[isbn].sale_log,
+    }
+    );
+    await FirebaseFirestore.instance.collection('users').doc(new UserAccount().hofstraID).update
+      (
+      {
+        'soldTextbooks': new UserAccount().soldBooks
+      }
+    );
+        //{'sale_log': FieldValue.delete()}).whenComplete(() {});
+  }
+
+  updateUserName(String value) async
+  {
+    UserAccount account = new UserAccount();
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    DocumentSnapshot ds = await users.doc(account.hofstraID).get();
+    if (ds.exists) {
+      await FirebaseFirestore.instance.collection('users').doc(account.hofstraID).update(
+          {
+           "name" :  value
+          }
+      );
+    }
   }
 }

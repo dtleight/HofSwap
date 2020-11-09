@@ -14,7 +14,7 @@ class UserAccount extends Account
     return _account;
   }
 
-  UserAccount.instantiate(String name, String email, int rating, String hofstraID, List<String> wlist) : super.instantiate(name,email,rating)
+  UserAccount.instantiate(String name, String email, int rating, String hofstraID, List<String> wlist, List<String> soldBooks) : super.instantiate(name,email,rating)
   {
     _account.name = name;
     _account.email = email;
@@ -32,6 +32,10 @@ class UserAccount extends Account
     return this.name;
   }
 
+  void addSaleTextbook(String ISBN)
+  {
+    soldBooks.add(ISBN);
+  }
 
 
 }

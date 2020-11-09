@@ -19,7 +19,7 @@ class _SellersPageState extends State<SellersPage>
   _SellersPageState()
   {
 
-    textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),new TextEditingController(),]);
+    textControllers.addAll([new TextEditingController(),new TextEditingController(),new TextEditingController()]);
     widgy = constructForm();
   }
   List<TextEditingController> textControllers = new List<TextEditingController>();
@@ -78,9 +78,9 @@ class _SellersPageState extends State<SellersPage>
                         labelText: '   Please Enter the Following Information:'
                   ),
                   ),
-                  ...addField(1, "Textbook Title"),
-                  ...addField(2, "ISBN Number"),
-                  ...addField(3, "Author"),
+                  ...addField(0, "Textbook Title"),
+                  ...addField(1, "ISBN Number"),
+                  ...addField(2, "Author"),
 
                   Align(
                     //alignment: Alignment.bottomCenter,

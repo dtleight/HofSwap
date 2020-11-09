@@ -67,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 70.0,
                   width: 250,
                   child: TextField(
+
                       decoration: new InputDecoration(
                           labelText: "Password",
                           filled: true,

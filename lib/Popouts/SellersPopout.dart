@@ -40,16 +40,12 @@ class _SellersPopoutState extends State<SellersPopout>
               (
               children:
               [
-                TextField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-                      labelText: '   Please Choose from the Following Menus:'
+                Text('Please Choose from the Following Menus:',
+                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                ),
                 StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {return buildDropDownList();},),
-                ...addField(4, "Asking Price",(value) {if(double.tryParse(value) != null){return null;}else{return "Invalid Price";}},),
+                ...addField(4, "Asking Price",(value) {if(double.tryParse(value) != null && double.tryParse(value)>0.00){return null;}else{return "Invalid Price";}},),
 
                 Align(
                   alignment: Alignment.bottomCenter,
