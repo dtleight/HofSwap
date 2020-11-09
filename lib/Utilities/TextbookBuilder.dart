@@ -61,7 +61,7 @@ class TextbookBuilder
                               (
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
-                                children: children ??[Text(tb.title,style: TextStyle(fontWeight: FontWeight.bold),),Text(tb.getDisplayAuthors(3)),]
+                                children: children ??[Text(tb.title,maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),Text(tb.getDisplayAuthors(3),maxLines: 2,overflow: TextOverflow.ellipsis),]
                             ),
                           )
                       )),

@@ -35,6 +35,7 @@ class _SearchPopoutState extends State<SearchPopout>
   Widget build(BuildContext context)
   {
       return AlertDialog(
+        backgroundColor: Colors.yellow,
         content: Scaffold(
             backgroundColor: Colors.yellow,
             body: AnimatedSwitcher(
@@ -99,12 +100,13 @@ class _SearchPopoutState extends State<SearchPopout>
         if (snapshot.hasData) {
           return ListView.builder(itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return TextbookBuilder().buildTextbookCell(
-                    snapshot.data[index], () {
-                  Navigator.push(context, new MaterialPageRoute(
-                      builder: (ctxt) => new FocusedStoreView(
-                          snapshot.data[index])));
-                });
+               return TextbookBuilder().buildTextbookCell(
+                      snapshot.data[index], () {
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder: (ctxt) => new FocusedStoreView(
+                            snapshot.data[index])));
+                  }
+                );
               });
         }
         return Scaffold();
