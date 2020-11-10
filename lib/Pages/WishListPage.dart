@@ -28,20 +28,31 @@ class _StorePageState extends State {
       appBar: AppBar(
         title: Text("WishList"),
       ),
-      body: ListView.builder(
-          itemCount: new UserAccount().wishlist.length,
-          itemBuilder: (context, index) {
-            return TextbookBuilder().buildTextbookCell(
-                new DatabaseRouting()
-                    .textbookse[new UserAccount().wishlist[index]], () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (ctxt) => new FocusedStoreView(
-                          new DatabaseRouting()
-                              .textbookse[new UserAccount().wishlist[index]])));
-            });
-          }),
+      body: FutureBuilder(
+          future:  TextbookBuilder().runQueries(new UserAccount().wishlist),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<Textbook>> snapshot) {
+            if(snapshot.hasData) {
+              return ListView.builder(itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return TextbookBuilder().buildTextbookCell(
+                        snapshot.data[index], () {
+                      Navigator.push(context, new MaterialPageRoute(
+                          builder: (ctxt) =>
+                          new FocusedStoreView(
+                              snapshot.data[index])));
+                    }
+                    );
+                  }
+              );
+            }
+            else
+              {
+                return CircularProgressIndicator();
+              }
+          }
+
+      ),
     );
   }
 }
