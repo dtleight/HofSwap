@@ -85,7 +85,7 @@ class _LandingPageState extends State<LandingPage>
                 ListTile
                   (
                     leading: Icon(Icons.beenhere),
-                    title: Text('WishList'),
+                    title: Text('Wishlist'),
                     onTap: ()
                     {
                       Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new WishListPage()));
