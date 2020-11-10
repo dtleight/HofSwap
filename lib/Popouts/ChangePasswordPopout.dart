@@ -31,6 +31,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
             width: 200.0,
             child: TextField(
                 style: TextStyle(color: Colors.black),
+                obscureText: true,
                 decoration: new InputDecoration(
                     labelText: "New Password",
                     filled: true,
@@ -52,6 +53,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
             width: 200.0,
             child: TextField(
                 style: TextStyle(color: Colors.black),
+              obscureText: true,
                 decoration: new InputDecoration(
                     labelText: "Confirm Password",
                     filled: true,

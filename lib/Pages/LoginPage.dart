@@ -69,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 250,
                   child: TextField(
                       style: TextStyle(color: Colors.black),
+                            obscureText: true,
                       decoration: new InputDecoration(
                           labelText: "Password",
                           filled: true,
