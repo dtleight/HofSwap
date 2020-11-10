@@ -30,6 +30,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
             height: 80.0,
             width: 200.0,
             child: TextField(
+                obscureText: true,
                 decoration: new InputDecoration(
                     labelText: "New Password",
                     filled: true,
@@ -50,6 +51,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
             height: 80.0,
             width: 200.0,
             child: TextField(
+              obscureText: true,
                 decoration: new InputDecoration(
                     labelText: "Confirm Password",
                     filled: true,

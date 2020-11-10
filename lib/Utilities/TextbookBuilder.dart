@@ -13,7 +13,6 @@ class TextbookBuilder
   {
 
   }
-  //Widget[] childen
   Widget buildTextbookCell(Textbook tb, Function() clickable, [List<Widget> children])
   {
     return Container(height: 150.0, width: 500.0, child:

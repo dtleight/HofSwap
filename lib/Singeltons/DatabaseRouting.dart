@@ -91,7 +91,7 @@ class DatabaseRouting {
           context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
     }catch(_) {
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text("This Password is Incorrect"),));
+          SnackBar(content: Text("This Password is Incorrect or you haven't validated your account"),));
     }
   }
   ///

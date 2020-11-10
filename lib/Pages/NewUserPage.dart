@@ -126,6 +126,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 50.0,
                     width: 159.0,
                     child: TextField(
+                      obscureText: true,
                         decoration: new InputDecoration(
                             labelText: "Password",
                             filled: true,

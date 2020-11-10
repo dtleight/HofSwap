@@ -134,7 +134,6 @@ class FocusedStoreView extends StatelessWidget
 
   Future<String> sendEmail(String email) async
   {
-    Account seller = new Account.instantiate("Dalton Leight","dleight1@pride.hofstra.edu",0);
     List<String> info = await new DatabaseRouting().getHofswapInformation();
     final smtpServer = gmail(info[0], info[1]);
     // Creating the Gmail server
@@ -144,7 +143,7 @@ class FocusedStoreView extends StatelessWidget
       ..from = Address(info[0])
       ..recipients.add(email) //recipent email
       ..subject = 'I am Interested in Your Textbook!' //subject of the email
-      ..text = 'Hello ' + seller.name + "! \n\nI am interested in purchasing your copy of " + tb.title
+      ..text = 'Hello!\n\nI am interested in purchasing your copy of ' + tb.title
           + ". Please let me know if it is still available by emailing me at " + new UserAccount().email +"! \n\nThank you,\n"+ new UserAccount().name; //body of the email
 
     try {
