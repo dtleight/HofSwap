@@ -61,7 +61,7 @@ class _SearchPopoutState extends State<SearchPopout>
               children:
               [
                 SizedBox(height: 20,),
-                Text('   Please Enter the Following Information:', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                Text('Please Enter a Topic to Search By:', textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 ...addField(0, "Textbook Title",(value){if(value =="" && textControllers[1].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),
                 ...addField(1, "ISBN Number",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),

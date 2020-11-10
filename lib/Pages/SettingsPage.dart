@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/changePicturePage.dart';
-import 'package:hofswap/Pages/changePassword.dart';
+import 'package:hofswap/Popouts/ChangePasswordPopout.dart';
 import 'package:hofswap/theme_state.dart';
 import 'package:provider/provider.dart';
-import 'package:hofswap/Pages/changeUsername.dart';
+import 'package:hofswap/Popouts/ChangeNamePopout.dart';
 
 class SettingsPage extends StatelessWidget
 {
@@ -29,7 +29,7 @@ class SettingsPage extends StatelessWidget
               trailing: Icon(Icons.more_vert),
               onTap: ()
                 {
-                Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangeUserName()));
+                  showDialog(context: context, builder: (context){return ChangeNamePopout();});
                 },
             ),
           ),
@@ -49,7 +49,7 @@ class SettingsPage extends StatelessWidget
               trailing: Icon(Icons.more_vert),
               onTap: ()
                 {
-                Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangePassword()));
+                  showDialog(context: context, builder: (context){return ChangePasswordPopout();});
                 },
             ),
           ),

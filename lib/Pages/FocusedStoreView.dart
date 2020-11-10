@@ -100,7 +100,7 @@ class FocusedStoreView extends StatelessWidget
                               width: 90,
                               child: FlatButton
                                 (
-                                  child: Text("Add to Wishlist"),
+                                  child: Text("Add to Wishlist", textAlign: TextAlign.center),
                                   onPressed: () {return addToWishlist();},
                                   color: Colors.blueAccent,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
@@ -187,8 +187,8 @@ class FocusedStoreView extends StatelessWidget
                       children:
                       [
                         Text("Book Information: \n", style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text("Price: \$" + sale_info['price'].toString()),
-                        Text("Condition: " + sale_info['condition']),
+                        Text("     Price: \$" + sale_info['price'].toString()),
+                        Text("     Condition: " + sale_info['condition']),
                       ],
                     ),
                   ),
@@ -199,7 +199,7 @@ class FocusedStoreView extends StatelessWidget
                       width: 90,
                       child:FlatButton
                         (
-                        child: Text("Contact Seller"),
+                        child: Text("Contact Seller", textAlign: TextAlign.center),
                         color: Colors.blueAccent,
                      onPressed: () async
                         {
