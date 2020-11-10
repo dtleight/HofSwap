@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/LoginPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
@@ -176,6 +177,16 @@ class _NewUserPageState extends State<NewUserPage> {
                                             textControllers[2].text,
                                             textControllers[3].text,
                                             context);
+
+                                        Fluttertoast.showToast(
+                                            msg: "Account Created. Go to your email and Verify your account",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.black38,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0
+                                        );
 
                                         if (result == null) {
                                           //open login screen

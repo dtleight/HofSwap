@@ -101,7 +101,18 @@ class FocusedStoreView extends StatelessWidget
                               child: FlatButton
                                 (
                                   child: Text("Add to Wishlist", textAlign: TextAlign.center),
-                                  onPressed: () {return addToWishlist();},
+                                  onPressed: () {
+                                    Fluttertoast.showToast(
+                                        msg: "Textbook has been added to Wishlist",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.black38,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0
+                                    );
+                                    return addToWishlist();
+                                    },
                                   color: Colors.blueAccent,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                                 ),

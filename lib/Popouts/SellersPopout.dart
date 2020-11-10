@@ -68,7 +68,7 @@ class _SellersPopoutState extends State<SellersPopout>
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Fluttertoast.showToast(
-                              msg: "Textbook added to database",
+                              msg: "Textbook added to the Store",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
