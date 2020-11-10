@@ -102,7 +102,15 @@ class TextbookBuilder
       throw Exception('Failed to load book');
     }
   }
-
+ Future<List<Textbook>> runQueries(List<String> isbns) async
+  {
+    List<Textbook> textbooks = new List<Textbook>();
+    for(String string in isbns)
+      {
+        textbooks.add((await queryTextbook(string, "", ""))[0]);
+      }
+    return textbooks;
+  }
 
   Future<List<Textbook>> queryTextbook(String isbn,String title,String authors) async
   {
@@ -112,7 +120,6 @@ class TextbookBuilder
     String queryParams = "";
     List<String> prefixes = ["isbn=","title=","inauthor="];
     List<String> params = [isbn,title,authors];
-    print(params);
     for (int i = 0; i <= 2; i++)
     {
       if(params[i] != "")
@@ -122,7 +129,6 @@ class TextbookBuilder
     }
     //String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
     String str = "https://www.googleapis.com/books/v1/volumes?q="+ queryParams +"+&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk";
-    print(str);
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json
