@@ -47,13 +47,15 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                       Align(
                           alignment: Alignment.center,
                           child: Image(image: AssetImage("assets/logo.png"))),
-                      Text("Fill in the Following Information:"),
+                      Text("Please Enter the Following Information:", textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Container(
-                              height: 50.0,
-                              width: 159.0,
+                              height: 70.0,
+                              width: 250.0,
                               child: TextField(
+                                  style: TextStyle(color: Colors.black),
                                   decoration: new InputDecoration(
                                       labelText: "Hofstra Email",
                                       filled: true,
@@ -73,9 +75,10 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                       Padding(
                             padding: EdgeInsets.all(10),
                             child: Container(
-                              height: 50.0,
-                              width: 159.0,
+                              height: 70.0,
+                              width: 250.0,
                               child: TextField(
+                                  style: TextStyle(color: Colors.black),
                                   decoration: new InputDecoration(
                                       labelText: "Hofstra ID",
                                       filled: true,
@@ -117,6 +120,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                             Builder(
                               builder: (context) {
                                 return FlatButton(
+                                  color: Colors.blueAccent,
                                     onPressed: () async {
                                      if(textControllers[0].text != "" && textControllers[2].text != "") {
                                         if (resetNum < 2) {
@@ -194,7 +198,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
 
 
                                     },
-                                    child: Text("submit")
+                                    child: Text("Submit", style: TextStyle(color: Colors.white))
 
                                   );
                               }

@@ -73,8 +73,9 @@ class _SellersPageState extends State<SellersPage>
                 children:
                 [
                       SizedBox(height: 20,),
-                      Text('Please Enter the Following Information:', textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+                      Text('Please Enter the Following Information:', textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                      SizedBox(height: 40,),
                   ...addField(0, "Textbook Title",(value){if(value =="" && textControllers[1].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),
                   ...addField(1, "ISBN Number",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),
                   ...addField(2, "Author",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[1].text == ""){return "One field needs a value";}return null;}),
@@ -186,7 +187,7 @@ class _SellersPageState extends State<SellersPage>
   {
     return
     [
-      Text(text, style: TextStyle(color: Colors.black)),
+      Text(text, style: TextStyle(color: Colors.black, fontSize: 15)),
       Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child: TextFormField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index], validator: validation),),)
       ];
   }

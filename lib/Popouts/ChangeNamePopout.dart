@@ -22,7 +22,7 @@ class _ChangeNamePopoutState extends State<ChangeNamePopout>
 
           return AlertDialog(
             backgroundColor: Colors.yellow,
-            title: Text('Change Your Name'),
+            title: Text('Change Your Name', textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -30,6 +30,7 @@ class _ChangeNamePopoutState extends State<ChangeNamePopout>
                   height: 80.0,
                   width: 200.0,
                   child: TextField(
+                      style: TextStyle(color: Colors.black),
                       decoration: new InputDecoration(
                           labelText: "New Name",
                           filled: true,
@@ -48,8 +49,27 @@ class _ChangeNamePopoutState extends State<ChangeNamePopout>
                 ),
                 FlatButton(onPressed: () {
                   new DatabaseRouting().updateUserName(textController.text);
-                  Navigator.push(context, new MaterialPageRoute(
-                      builder: (ctxt) => new LandingPage()));
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Name Successfully Changed", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.push(context, new MaterialPageRoute(
+                                      builder: (ctxt) => new LandingPage()));
+                                },
+                                child: Text("Continue", style: TextStyle(color: Colors.white)), color: Colors.blueAccent
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+
                 }, child: Text('Submit Changes', style: TextStyle(color: Colors.white)), color: Colors.blue,)
 
               ],

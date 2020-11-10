@@ -22,7 +22,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
     // ignore: non_constant_identifier_names
     return AlertDialog(
       backgroundColor: Colors.yellow,
-      title: Text('Change Your Password'),
+      title: Text('Change Your Password', textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -30,6 +30,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
             height: 80.0,
             width: 200.0,
             child: TextField(
+                style: TextStyle(color: Colors.black),
                 decoration: new InputDecoration(
                     labelText: "New Password",
                     filled: true,
@@ -50,6 +51,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
             height: 80.0,
             width: 200.0,
             child: TextField(
+                style: TextStyle(color: Colors.black),
                 decoration: new InputDecoration(
                     labelText: "Confirm Password",
                     filled: true,
@@ -106,7 +108,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Passwords Successfully Changed", textAlign: TextAlign.center),
+            title: Text("Passwords Successfully Changed", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -127,7 +129,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Passwords Do Not Match. Please Try Again", textAlign: TextAlign.center),
+            title: Text("Passwords Do Not Match. Please Try Again", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

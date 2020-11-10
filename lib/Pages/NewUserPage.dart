@@ -52,12 +52,13 @@ class _NewUserPageState extends State<NewUserPage> {
                 Align(
                     alignment: Alignment.center,
                     child: Image(image: AssetImage("assets/logo.png"))),
-                Text("Fill in the Following Information:"),
+                Text("Please Enter the Following Information:", textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(5),
                   child: Container(
-                    height: 50.0,
-                    width: 159.0,
+                    height: 70.0,
+                    width: 250.0,
                     child: TextField(
                         decoration: new InputDecoration(
                             labelText: "Name",
@@ -78,8 +79,8 @@ class _NewUserPageState extends State<NewUserPage> {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Container(
-                    height: 50.0,
-                    width: 159.0,
+                    height: 70.0,
+                    width: 250.0,
                     child: TextField(
 
                         decoration: new InputDecoration(
@@ -101,8 +102,8 @@ class _NewUserPageState extends State<NewUserPage> {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Container(
-                    height: 50.0,
-                    width: 159.0,
+                    height: 70.0,
+                    width: 250.0,
                     child: TextField(
                         decoration: new InputDecoration(
                             labelText: "Hofstra ID (without the h)",
@@ -123,8 +124,8 @@ class _NewUserPageState extends State<NewUserPage> {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Container(
-                    height: 50.0,
-                    width: 159.0,
+                    height: 70.0,
+                    width: 250.0,
                     child: TextField(
                         decoration: new InputDecoration(
                             labelText: "Password",
@@ -228,9 +229,8 @@ class _NewUserPageState extends State<NewUserPage> {
 
                           },
 
-
-
-                        child: Text("Create"));
+                        color: Colors.blueAccent,
+                        child: Text("Create", style:TextStyle(color: Colors.white)));
                   },
                 ),
               ],

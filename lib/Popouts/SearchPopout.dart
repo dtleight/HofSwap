@@ -117,7 +117,7 @@ class _SearchPopoutState extends State<SearchPopout>
   {
     return
       [
-        Text(text),
+        Text(text, style: TextStyle(color: Colors.black)),
         Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child: TextFormField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index], validator: validation),),)
       ];
   }
