@@ -203,40 +203,77 @@ class _NewUserPageState extends State<NewUserPage> {
                                         }
                                       }
                                       else {
-                                        Scaffold.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  "Your Password must contain at least 6 characters"),));
+                                        Fluttertoast.showToast(
+                                            msg: "Your password must contain at least 6 characters",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.black38,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0
+                                        );
                                       }
                                     }
 
                                     else {
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                "This Hofstra ID already is in use"),));
+                                      Fluttertoast.showToast(
+                                          msg: "This Hofstra ID is already in use",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.black38,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0
+                                      );
                                     }
                                   }
                                   else {
-                                    Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text("Invalid Hofstra ID"),));
+                                    Fluttertoast.showToast(
+                                        msg: "Invalid Hofstra ID",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.black38,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0
+                                    );
                                   }
                                 }
                                 else {
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        "Please type in a hofstra email"),));
+                                  Fluttertoast.showToast(
+                                      msg: "Please type in a Hofstra email",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.black38,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0
+                                  );
                                 }
                               }
                               else {
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text("Invalid email"),));
+                                Fluttertoast.showToast(
+                                    msg: "Invalid Email",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.black38,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
                               }
 
                           }
                           else {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("Please fill all of the boxes"),));
+                            Fluttertoast.showToast(
+                                msg: "Please fill in all the boxes",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.black38,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
                           }
 
                           },
