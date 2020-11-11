@@ -7,9 +7,7 @@ import 'package:hofswap/Pages/SettingsPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
 import 'package:hofswap/Pages/WishListPage.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
-import 'package:provider/provider.dart';
 
-import '../name_state.dart';
 import 'AccountPage.dart';
 
 
@@ -21,16 +19,8 @@ class LandingPage extends StatefulWidget
 
 class _LandingPageState extends State<LandingPage>
 {
-
   @override
   Widget build(BuildContext context) {
-    var name ="";
-    NameState nameState = Provider.of<NameState>(context,listen:false);
-    if(nameState.name == null){
-      nameState.name = UserAccount().name;
-    }
-
-    name=nameState.name;
     return Scaffold
       (
       appBar: AppBar(title: Text("Home"),),
@@ -60,7 +50,7 @@ class _LandingPageState extends State<LandingPage>
                                     Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new AccountPage()));
                                     },
                                 ),
-                              Text(name ?? "Scott Jeffreys")
+                              Text(new UserAccount().name ?? "Scott Jeffreys")
                             ],
                         ),
                     ),
