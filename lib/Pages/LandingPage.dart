@@ -28,9 +28,7 @@ class _LandingPageState extends State<LandingPage>
     NameState nameState = Provider.of<NameState>(context,listen:false);
     if(nameState.name == null){
       nameState.name = UserAccount().name;
-    }
-
-    name=nameState.name;
+    }name=nameState.name;
     return Scaffold
       (
       appBar: AppBar(title: Text("Home"),),
@@ -60,7 +58,7 @@ class _LandingPageState extends State<LandingPage>
                                     Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new AccountPage()));
                                     },
                                 ),
-                              Text(name ?? "Scott Jeffreys")
+                              Text( name ?? "Scott Jeffreys")
                             ],
                         ),
                     ),

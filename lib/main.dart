@@ -4,9 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hofswap/Containers/PageContainer.dart';
+import 'package:hofswap/Picture_state.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/name_state.dart';
 import 'package:hofswap/theme_state.dart';
+import 'package:hofswap/Picture_state.dart';
 import 'package:provider/provider.dart';
 import 'Objects/Textbook.dart';
 import 'Pages/LoginPage.dart';
@@ -20,6 +22,7 @@ void main() async {
         providers: [
           ChangeNotifierProvider(create: (_) => ThemeState()),
           ChangeNotifierProvider(create: (_) => NameState()),
+          ChangeNotifierProvider(create: (_) => PictureState()),
         ],
         child: MyApp(),
       )
