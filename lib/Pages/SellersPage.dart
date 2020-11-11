@@ -182,7 +182,7 @@ class _SellersPageState extends State<SellersPage> {
             child: FlatButton(
               color: Colors.indigoAccent,
               child:
-                  Text("Confirm", style: TextStyle(color: Colors.white),
+                  Text("Confirm", style: TextStyle(color: Colors.white)),
               onPressed: () {
                 setState(() {
                   //Confirm page

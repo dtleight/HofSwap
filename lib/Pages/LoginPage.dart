@@ -132,7 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                                 fontSize: 16.0
                             );
                           }
-                        }
                         else{
                           Fluttertoast.showToast(
                               msg: "Please fill in all the boxes",
@@ -144,6 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: 16.0
                           );
                         };
+
                       },
                       color: Colors.indigoAccent,
                       child: Text(
