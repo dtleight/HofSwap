@@ -4,9 +4,7 @@ import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Pages/changePicturePage.dart';
-import 'package:hofswap/name_state.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 import 'SettingsPage.dart';
 
@@ -16,15 +14,6 @@ class AccountPage extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    var name ="";
-    NameState nameState = Provider.of<NameState>(context,listen:false);
-    if(nameState.name == null){
-      nameState.name = UserAccount().name;
-    }
-
-      name=nameState.name;
-
-
     print(new UserAccount().soldBooks);
     return Scaffold
       (
@@ -71,7 +60,7 @@ class AccountPage extends StatelessWidget
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>
                 [
-                  Text("Name: "+name,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                  Text("Name: "+ account.name,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                   Text("Email: "+ account.email),
                   Text("Hofstra ID: H" + account.hofstraID),
                   Row(
