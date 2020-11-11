@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
@@ -7,18 +9,45 @@ import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Pages/changePicturePage.dart';
 import 'package:hofswap/name_state.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../Picture_state.dart';
 import 'SettingsPage.dart';
 
-class AccountPage extends StatelessWidget
+class AccountPage extends StatefulWidget
 {
+  @override
+  _AccountPageState createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   UserAccount account = new UserAccount();
+
+  var diskImage;
+
+  getImage()async{
+    imageCache.clear();
+    if(diskImage == null){
+      Directory directory  = await getApplicationDocumentsDirectory();
+
+      String path = directory.path;
+      setState(() {
+        diskImage = File('$path/image.jpg');
+
+      });
+    }
+        }
+
   @override
   Widget build(BuildContext context)
   {
     var name ="";
     NameState nameState = Provider.of<NameState>(context,listen:false);
+
+    getImage();
+
+
     if(nameState.name == null){
       nameState.name = UserAccount().name;
     }
@@ -53,14 +82,9 @@ class AccountPage extends StatelessWidget
               Navigator.push(context, new MaterialPageRoute(
                   builder: (ctext) => new ChangePicturePage()));
             },
-<<<<<<< HEAD
 
           child: diskImage == null ? Container() : CircleAvatar(
             child: Image.file(diskImage),
-=======
-          child: CircleAvatar(
-            backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg"),
->>>>>>> parent of 5fb25e1... Change picture every in the app
             radius: 100,
 
           ),),
