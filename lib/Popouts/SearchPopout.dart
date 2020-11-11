@@ -50,7 +50,7 @@ class _SearchPopoutState extends State<SearchPopout>
 
       child: Column
         (
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children:
         [
           Form
@@ -63,19 +63,20 @@ class _SearchPopoutState extends State<SearchPopout>
                 SizedBox(height: 20,),
                 Text('Please Enter a Topic to Search By:', textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                ...addField(0, "Textbook Title",(value){if(value =="" && textControllers[1].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),
-                ...addField(1, "ISBN Number",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[2].text == ""){return "One field needs a value";}return null;}),
-                ...addField(2, "Author",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[1].text == ""){return "One field needs a value";}return null;}),
+                SizedBox(height: 40,),
+                ...addField(0, "Textbook Title",(value){if(value =="" && textControllers[1].text == "" &&  textControllers[2].text == ""){return "Please Enter a Value";}return null;}),
+                ...addField(1, "ISBN Number",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[2].text == ""){return "Please Enter a Value";}return null;}),
+                ...addField(2, "Author",(value){if(value =="" && textControllers[0].text == "" &&  textControllers[1].text == ""){return "Please Enter a Value";}return null;}),
 
                 Align(
                   //alignment: Alignment.bottomCenter,
 
                   child: FlatButton
                     (
-                    color: Color.fromARGB(255, 0, 0, 254),
+                    color: Colors.indigoAccent,
                     child: Text(
                         "Submit",
-                        style: TextStyle(color: Colors.yellowAccent)
+                        style: TextStyle(color: Colors.white)
                     ),
                     onPressed: ()
                     {
@@ -118,7 +119,11 @@ class _SearchPopoutState extends State<SearchPopout>
     return
       [
         Text(text, style: TextStyle(color: Colors.black)),
-        Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child: TextFormField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textControllers[index], validator: validation),),)
+        Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child:
+          TextFormField(style: TextStyle(color: Colors.black), decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),
+            fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),
+              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))),
+              controller: textControllers[index], validator: validation),),)
       ];
   }
 }

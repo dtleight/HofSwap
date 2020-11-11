@@ -94,9 +94,11 @@ class _LoginPageState extends State<LoginPage> {
                   children:
                   [
                     Spacer(flex: 1),
-                    Expanded(flex: 6, child: buildButton("Create New Account", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new NewUserPage()));})),
+                    Expanded(flex: 6, child: buildButton("Create New Account",
+                            (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new NewUserPage()));})),
                     Spacer(flex: 1),
-                    Expanded(flex: 6, child: buildButton("Forgot Password", (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));})),
+                    Expanded(flex: 6, child: buildButton("Forgot Password",
+                            (){Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new forgetPasswordPage()));})),
                     Spacer(flex: 1),
                   ]
               ),
@@ -131,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                                 fontSize: 16.0
                             );
                           }
-                        }
+                          }
                         else{
                           Fluttertoast.showToast(
                               msg: "Please fill in all the boxes",
@@ -143,11 +145,12 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: 16.0
                           );
                         };
+
                       },
-                      color: Color.fromARGB(255, 0, 0, 254),
+                      color: Colors.indigoAccent,
                       child: Text(
                         "Submit",
-                        style: TextStyle(color: Colors.yellowAccent),
+                        style: TextStyle(color: Colors.white),
                       ));
                 },
               ),
@@ -160,9 +163,9 @@ class _LoginPageState extends State<LoginPage> {
   {
       return FlatButton(
         onPressed: onPressed,
-        color: Color.fromARGB(255, 0, 0, 254),
+        color: Colors.indigoAccent,
         child: Text(text,
-            style: TextStyle(color: Colors.yellowAccent)),
+            style: TextStyle(color: Colors.white)),
       );
   }
 }

@@ -1,23 +1,53 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
+import 'package:hofswap/Pages/MyBooksForSale.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Pages/changePicturePage.dart';
 import 'package:hofswap/name_state.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../Picture_state.dart';
 import 'SettingsPage.dart';
 
-class AccountPage extends StatelessWidget
+class AccountPage extends StatefulWidget
 {
+  @override
+  _AccountPageState createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   UserAccount account = new UserAccount();
+
+  var diskImage;
+
+  getImage()async{
+    imageCache.clear();
+    if(diskImage == null){
+      Directory directory  = await getApplicationDocumentsDirectory();
+
+      String path = directory.path;
+      setState(() {
+        diskImage = File('$path/image.jpg');
+
+      });
+    }
+        }
+
   @override
   Widget build(BuildContext context)
   {
     var name ="";
     NameState nameState = Provider.of<NameState>(context,listen:false);
+
+    getImage();
+
+
     if(nameState.name == null){
       nameState.name = UserAccount().name;
     }
@@ -52,8 +82,9 @@ class AccountPage extends StatelessWidget
               Navigator.push(context, new MaterialPageRoute(
                   builder: (ctext) => new ChangePicturePage()));
             },
-          child: CircleAvatar(
-            backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg"),
+
+          child: diskImage == null ? Container() : CircleAvatar(
+            child: Image.file(diskImage),
             radius: 100,
 
           ),),
@@ -74,33 +105,44 @@ class AccountPage extends StatelessWidget
                   Text("Name: "+name,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                   Text("Email: "+ account.email),
                   Text("Hofstra ID: H" + account.hofstraID),
-                  Row(
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FlatButton(
+                      color: Colors.indigoAccent,
+                        onPressed:()
+                        {
+                          Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new MyBooksForSale()));
+                        },
+                      child: Text("My Selling Page" , style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+
+                  ),),
+
+                  /** Row(
                     mainAxisSize: MainAxisSize.min,
                     children:
                     [
                       Text("Rating: "),
                       Icon(Icons.star, color: (account.rating >= 1)?Colors.green[500]:Colors.black),
-                      Icon(Icons.star,color: (account.rating >= 2)?Colors.green[500]:Colors.black),
+                      Icon(Icons.star, color: (account.rating >= 2)?Colors.green[500]:Colors.black),
                       Icon(Icons.star, color: (account.rating >= 3)?Colors.green[500]:Colors.black),
                       Icon(Icons.star, color: (account.rating >= 4)?Colors.green[500]:Colors.black),
                       Icon(Icons.star, color: (account.rating >= 5)?Colors.green[500]:Colors.black),
                     ],
                   ),
                   SizedBox(height: 30,),
-                  Text("My Selling Page " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-/**
+
                   SizedBox(height: 15,),
                   Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),
                   Text("View People You Follow " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   SizedBox(height: 15,),
                   Text("View People Who Follow You " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-    **/
+                **/
                 ]
             )
         )
         ),
-        Flexible(flex: 1,
+        /**Flexible(flex: 1,
             child: ListView.builder
             (
             scrollDirection:Axis.horizontal,
@@ -171,7 +213,7 @@ class AccountPage extends StatelessWidget
               );
             }
             ),
-            ),
+            ), **/
       ],
             ),
     );

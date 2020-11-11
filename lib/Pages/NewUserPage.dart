@@ -30,6 +30,7 @@ class _NewUserPageState extends State<NewUserPage> {
       new TextEditingController(),
       new TextEditingController(),
       new TextEditingController(),
+      new TextEditingController(),
       new TextEditingController()
     ]);
     return Scaffold(
@@ -61,6 +62,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
+                        style: TextStyle(color: Colors.black),
                         decoration: new InputDecoration(
                             labelText: "Name",
                             filled: true,
@@ -83,7 +85,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
-
+                        style: TextStyle(color: Colors.black),
                         decoration: new InputDecoration(
                             labelText: "Hofstra Email",
                             filled: true,
@@ -106,8 +108,9 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
+                        style: TextStyle(color: Colors.black),
                         decoration: new InputDecoration(
-                            labelText: "Hofstra ID (without the h)",
+                            labelText: "Hofstra ID (Without the H)",
                             filled: true,
                             labelStyle: TextStyle(
                               color: Colors.black,
@@ -128,6 +131,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
+                        style: TextStyle(color: Colors.black),
                       obscureText: true,
                         decoration: new InputDecoration(
                             labelText: "Password",
@@ -143,6 +147,29 @@ class _NewUserPageState extends State<NewUserPage> {
                                 borderSide: BorderSide(
                                     color: Colors.black, width: 1.0))),
                         controller: textControllers[3]),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Container(
+                    height: 70.0,
+                    width: 250.0,
+                    child: TextField(
+                        obscureText: true,
+                        decoration: new InputDecoration(
+                            labelText: "Confirm Password",
+                            filled: true,
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            fillColor: Colors.white,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 1.0)),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 1.0))),
+                        controller: textControllers[4]),
                   ),
                 ),
                 Builder(
@@ -170,6 +197,7 @@ class _NewUserPageState extends State<NewUserPage> {
                                     if (!snapShot
                                         .exists) { //make sure the Hofstra ID is correct length, starts with 70 and is only numbers
                                       if (textControllers[3].text.length >= 6) {
+                                        if(textControllers[3].text == textControllers[4].text){
                                         String result = await new DatabaseRouting()
                                             .generateUser(
                                             textControllers[0].text,
@@ -201,10 +229,23 @@ class _NewUserPageState extends State<NewUserPage> {
                                           //show dialog with the error
                                           _showError(result);
                                         }
+                                        }
+                                        else{
+                                          Fluttertoast.showToast(
+                                              msg: "Your passwords do not match",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.black38,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0
+                                          );
+                                        }
                                       }
                                       else {
+
                                         Fluttertoast.showToast(
-                                            msg: "Your password must contain at least 6 characters",
+                                            msg: "Your Password be at least 6 Characters in Length",
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
@@ -217,7 +258,7 @@ class _NewUserPageState extends State<NewUserPage> {
 
                                     else {
                                       Fluttertoast.showToast(
-                                          msg: "This Hofstra ID is already in use",
+                                          msg: "This Hofstra ID is Already in Use",
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
@@ -241,7 +282,7 @@ class _NewUserPageState extends State<NewUserPage> {
                                 }
                                 else {
                                   Fluttertoast.showToast(
-                                      msg: "Please type in a Hofstra email",
+                                      msg: "Please Enter a Hofstra email",
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
@@ -266,7 +307,7 @@ class _NewUserPageState extends State<NewUserPage> {
                           }
                           else {
                             Fluttertoast.showToast(
-                                msg: "Please fill in all the boxes",
+                                msg: "Please Enter all Required Information",
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
                                 timeInSecForIosWeb: 1,
@@ -278,7 +319,7 @@ class _NewUserPageState extends State<NewUserPage> {
 
                           },
 
-                        color: Colors.blueAccent,
+                        color: Colors.indigoAccent,
                         child: Text("Create", style:TextStyle(color: Colors.white)));
                   },
                 ),
@@ -295,7 +336,7 @@ class _NewUserPageState extends State<NewUserPage> {
       barrierDismissible: false,
       builder: (BuildContext context){
         return AlertDialog(
-          title:  Text ( 'set up new account'),
+          title:  Text ( 'Create New Account'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -310,7 +351,7 @@ class _NewUserPageState extends State<NewUserPage> {
                 //context,
                 //MaterialPageRoute(builder: (context) => NewUserPage()),
             //  );
-            }, child: Text('Please try again'),)
+            }, child: Text('Please Try Again'),)
           ],
         );
 

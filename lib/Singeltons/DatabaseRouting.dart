@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/LoginPage.dart';
 import 'package:hofswap/Pages/forgetPasswordPage.dart';
@@ -93,8 +94,15 @@ class DatabaseRouting {
       Navigator.push(
           context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
     }catch(_) {
-      Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text("This Password is Incorrect or you haven't validated your account"),));
+      Fluttertoast.showToast(
+          msg: "Incorrect Password or you have not Validated your account",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.black38,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     }
   }
   ///

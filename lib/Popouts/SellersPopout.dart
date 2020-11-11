@@ -39,6 +39,7 @@ class _SellersPopoutState extends State<SellersPopout>
             key: _formKey,
             child: Column
               (
+              mainAxisSize: MainAxisSize.min,
               children:
               [
                 Text('Please Choose a Condition and Enter a Price:', textAlign: TextAlign.center,
@@ -52,10 +53,10 @@ class _SellersPopoutState extends State<SellersPopout>
                   alignment: Alignment.bottomCenter,
                   child: FlatButton
                     (
-                    color: Color.fromARGB(255, 0, 0, 254),
+                    color: Colors.indigoAccent,
                     child: Text(
                         "Submit",
-                        style: TextStyle(color: Colors.yellowAccent)
+                        style: TextStyle(color: Colors.white)
                     ),
                     onPressed: ()
                     {
@@ -91,20 +92,33 @@ class _SellersPopoutState extends State<SellersPopout>
   }
   Widget buildDropDownList()
   {
-    return DropdownButton<String>(
-      dropdownColor: Colors.white,
-        value: placeholderValue,
-        items: [generateDropDownItem("Mint"),generateDropDownItem("Great"),generateDropDownItem("Good"),generateDropDownItem("Okay"),generateDropDownItem("Bad"),],
-        onChanged: (String newValue) {setState(() {
-          placeholderValue = newValue;
-        });});
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        height: 40, width: 100,
+        decoration: new BoxDecoration(color: Colors.white, border: Border.all(width: .7, color: Colors.black),
+            borderRadius: new BorderRadius.all(Radius.circular(10.0),)),
+        child: Align(
+          alignment: Alignment.center,
+          child: DropdownButton<String>(
+              iconEnabledColor: Colors.grey,
+              iconDisabledColor: Colors.grey,
+                dropdownColor: Colors.white,
+                  value: placeholderValue,
+                  items: [generateDropDownItem("Mint"),generateDropDownItem("Great"),generateDropDownItem("Good"),generateDropDownItem("Okay"),generateDropDownItem("Bad"),],
+                  onChanged: (String newValue) {setState(() {
+                    placeholderValue = newValue;
+                  });}),
+        ),
+      ),
+    );
   }
 
   DropdownMenuItem<String> generateDropDownItem(String text)
   {
     return DropdownMenuItem
       (
-      child: Text(text),
+      child: Text(text, style: TextStyle(color: Colors.black)),
       value: text,
 
     );
@@ -113,8 +127,13 @@ class _SellersPopoutState extends State<SellersPopout>
   {
     return
       [
-        Text(text),
-        Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,child: TextFormField(decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))), controller: textEditingController, validator: validation),),)
+        Text(text, style: TextStyle(color: Colors.black)),
+        Padding(padding: EdgeInsets.all(10),child: Container(height: 80.0, width: 250,
+          child: TextFormField(style: TextStyle(color: Colors.black),
+              decoration: new InputDecoration(labelText: "",labelStyle: TextStyle(color: Colors.black,),
+                  fillColor: Colors.white, filled: true, focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0)),
+                  border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.0))),
+                    controller: textEditingController, validator: validation),),)
       ];
   }
 }
