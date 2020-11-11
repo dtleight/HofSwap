@@ -81,8 +81,8 @@ class FocusedStoreView extends StatelessWidget
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: <Widget>
                              [
-                               Row(children: [Flexible(child: Text("Title: " + tb.title + "\n", overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),]),
-                               Row(children: [Flexible(child: Text("Authors: " + tb.getDisplayAuthors(tb.authors.length),overflow: TextOverflow.ellipsis,maxLines: 2, style: TextStyle(color: Colors.black),)),]),
+                               Row(children: [Flexible(child: Text("Title: " + tb.title + "\n", overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(fontWeight: FontWeight.bold))),]),
+                               Row(children: [Flexible(child: Text("Authors: " + tb.getDisplayAuthors(tb.authors.length),overflow: TextOverflow.ellipsis,maxLines: 2)),]),
                                //Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
                                //Row(children: [Text("Price: "), Text("99.99"),]),
                                //Row(children: [Text("Condition: "), Text("Horrible"),]),
@@ -100,9 +100,9 @@ class FocusedStoreView extends StatelessWidget
                               width: 90,
                               child: FlatButton
                                 (
-                                  child: Text("Add to Wishlist", textAlign: TextAlign.center),
+                                  child: Text("Add to Wishlist", textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
                                   onPressed: () {return addToWishlist();},
-                                  color: Colors.blueAccent,
+                                  color: Colors.indigoAccent,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                                 ),
                             ),
@@ -198,8 +198,8 @@ class FocusedStoreView extends StatelessWidget
                       width: 90,
                       child:FlatButton
                         (
-                        child: Text("Contact Seller", textAlign: TextAlign.center),
-                        color: Colors.blueAccent,
+                        child: Text("Contact Seller", textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
+                        color: Colors.indigoAccent,
                      onPressed: () async
                         {
                           String str = await sendEmail(email);

@@ -39,10 +39,10 @@ class MyApp extends StatelessWidget {
       title: 'HofSwap',
 
         theme: ThemeData(
-            primaryColor: Colors.blue,
+            primaryColor: Colors.indigoAccent,
             primaryColorBrightness: Brightness.light,
             brightness: Brightness.light,
-            primaryColorDark: Colors.blue,
+            primaryColorDark: Colors.indigoAccent,
             canvasColor: Colors.white,
             textTheme: TextTheme(
               body1: TextStyle(color: Colors.black),

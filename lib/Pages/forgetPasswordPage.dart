@@ -120,7 +120,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                             Builder(
                               builder: (context) {
                                 return FlatButton(
-                                  color: Colors.blueAccent,
+                                  color: Colors.indigoAccent,
                                     onPressed: () async {
                                      if(textControllers[0].text != "" && textControllers[2].text != "") {
                                         if (resetNum < 2) {

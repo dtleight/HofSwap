@@ -110,7 +110,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Passwords Successfully Changed", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+            title: Text("Passwords Changed Successfully.", textAlign: TextAlign.center),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -131,7 +131,7 @@ class _ChangePasswordPopoutState extends State<ChangePasswordPopout> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Passwords Do Not Match. Please Try Again", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+            title: Text("Passwords Do Not Match. \nPlease Try Again.", textAlign: TextAlign.center),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

@@ -53,7 +53,7 @@ class _ChangeNamePopoutState extends State<ChangeNamePopout>
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text("Name Successfully Changed", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                        title: Text("Name Successfully Changed.", textAlign: TextAlign.center),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [

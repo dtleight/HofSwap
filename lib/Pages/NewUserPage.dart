@@ -60,6 +60,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
+                        style: TextStyle(color: Colors.black),
                         decoration: new InputDecoration(
                             labelText: "Name",
                             filled: true,
@@ -82,7 +83,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
-
+                        style: TextStyle(color: Colors.black),
                         decoration: new InputDecoration(
                             labelText: "Hofstra Email",
                             filled: true,
@@ -105,8 +106,9 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
+                        style: TextStyle(color: Colors.black),
                         decoration: new InputDecoration(
-                            labelText: "Hofstra ID (without the h)",
+                            labelText: "Hofstra ID (Without the H)",
                             filled: true,
                             labelStyle: TextStyle(
                               color: Colors.black,
@@ -127,6 +129,7 @@ class _NewUserPageState extends State<NewUserPage> {
                     height: 70.0,
                     width: 250.0,
                     child: TextField(
+                        style: TextStyle(color: Colors.black),
                       obscureText: true,
                         decoration: new InputDecoration(
                             labelText: "Password",
@@ -195,7 +198,7 @@ class _NewUserPageState extends State<NewUserPage> {
                                         Scaffold.of(context).showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                  "Your Password must contain at least 6 characters"),));
+                                                  "Your Password be at least 6 Characters in Length"),));
                                       }
                                     }
 
@@ -203,7 +206,7 @@ class _NewUserPageState extends State<NewUserPage> {
                                       Scaffold.of(context).showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                                "This Hofstra ID already is in use"),));
+                                                "This Hofstra ID is Already in Use"),));
                                     }
                                   }
                                   else {
@@ -214,7 +217,7 @@ class _NewUserPageState extends State<NewUserPage> {
                                 else {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                     content: Text(
-                                        "Please type in a hofstra email"),));
+                                        "Please Enter a Hofstra email"),));
                                 }
                               }
                               else {
@@ -225,12 +228,12 @@ class _NewUserPageState extends State<NewUserPage> {
                           }
                           else {
                             Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("Please fill all of the boxes"),));
+                              content: Text("Please Enter all Required Information"),));
                           }
 
                           },
 
-                        color: Colors.blueAccent,
+                        color: Colors.indigoAccent,
                         child: Text("Create", style:TextStyle(color: Colors.white)));
                   },
                 ),
@@ -247,7 +250,7 @@ class _NewUserPageState extends State<NewUserPage> {
       barrierDismissible: false,
       builder: (BuildContext context){
         return AlertDialog(
-          title:  Text ( 'set up new account'),
+          title:  Text ( 'Create New Account'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -262,7 +265,7 @@ class _NewUserPageState extends State<NewUserPage> {
                 //context,
                 //MaterialPageRoute(builder: (context) => NewUserPage()),
             //  );
-            }, child: Text('Please try again'),)
+            }, child: Text('Please Try Again'),)
           ],
         );
 
