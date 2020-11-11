@@ -96,7 +96,7 @@ class DatabaseRouting {
           msg: "Incorrect Password or you have not Validated your account",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
+          timeInSecForIosWeb: 3,
           backgroundColor: Colors.black38,
           textColor: Colors.white,
           fontSize: 16.0
