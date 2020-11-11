@@ -6,6 +6,7 @@ import 'package:hofswap/Pages/LoginPage.dart';
 import 'package:hofswap/Pages/forgetPasswordPage.dart';
 import '../Objects/Account.dart';
 import '../Objects/Textbook.dart';
+import '../name_state.dart';
 import 'UserAccount.dart';
 
 class DatabaseRouting {
@@ -232,6 +233,7 @@ class DatabaseRouting {
            "name" :  value
           }
       );
+     NameState().name = value;
     }
   }
 }

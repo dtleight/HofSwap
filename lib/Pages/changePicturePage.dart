@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
-import 'package:hofswap/Pages/SettingsPage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -18,8 +16,7 @@ class ChangePicturePage extends StatefulWidget
 
 class _ChangePicturePageState extends State<ChangePicturePage> {
 
-  File _savedImage;
-
+  var imagePath = "";
   File _localFile;
 
   @override
@@ -37,7 +34,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
      getApplicationDocumentsDirectory().then((value) {
        String path = value.path;
       setState(() {
-        _localFile = File(path + "/image1.png");
+        _localFile = File('/data/user/0/com.hofswappers.hofswap/app_flutter/images/image1.png');
       });
      });
    }
@@ -60,7 +57,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
                  child: _localFile == null ? Container() :ClipRRect(
                    borderRadius: BorderRadius.circular(50),
                    child: Image.file(
-                     _localFile,
+                     new File('/data/user/0/com.hofswappers.hofswap/app_flutter/images/image1.png'),
                      width: 300,
                      height: 300,
                      fit: BoxFit.fitHeight,
@@ -103,20 +100,38 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
     File image = await ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50
     );
+    Directory appDocDirectory = await getApplicationDocumentsDirectory();
 
-    getApplicationDocumentsDirectory().then((value) {
+    new Directory(appDocDirectory.path+'/'+'images').create(recursive: true)
+// The created directory is returned as a Future.
+        .then((Directory d) {
+      print('Path of New Dir: '+d.path);
+      File imgFile = File('/data/user/0/com.hofswappers.hofswap/app_flutter/images/image1.png');
+      imgFile.deleteSync();
+
+      imgFile.writeAsBytes(image.readAsBytesSync()).then((savedValue){
+      setState(() {
+      imagePath = '$d/image1.png';
+      });
+
+      });
+    });
+
+
+
+  /*  getApplicationDocumentsDirectory().then((value) {
       String path = value.path;
+          File('$path/image1.png').delete().then((value) {
+            image.copy('$path/image1.png').then((v) {
 
-         image.copy('$path/image1.png').then((v) {
+            });
+      });
 
-        });
 
 
-    });
+    });*/
 
-    setState(() {
-      _localFile = image;
-    });
+
 
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hofswap/Containers/PageContainer.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
+import 'package:hofswap/name_state.dart';
 import 'package:hofswap/theme_state.dart';
 import 'package:provider/provider.dart';
 import 'Objects/Textbook.dart';
@@ -18,6 +19,7 @@ void main() async {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ThemeState()),
+          ChangeNotifierProvider(create: (_) => NameState()),
         ],
         child: MyApp(),
       )
