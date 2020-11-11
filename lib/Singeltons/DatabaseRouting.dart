@@ -27,7 +27,9 @@ class DatabaseRouting {
   {
     await loadTextbooks();
   }
-
+  ///
+  /// Adds a textbook into the database
+  ///
   void addTextbook(Textbook t, String condition, double price, ) async
   {
     UserAccount us = new UserAccount();
@@ -147,6 +149,24 @@ class DatabaseRouting {
   }
 
   ///
+  /// Pulls a specific textbook from the database
+  ///
+  Future<Textbook> queryTextbook(String isbn) async
+  {
+    DocumentSnapshot data = await FirebaseFirestore.instance.collection('textbooks').doc(isbn).get();
+    if(data.exists)
+      {
+        return Textbook.temporary("", [], isbn, data['sale_log']);
+      }
+    else
+      {
+        return null;
+      }
+  }
+
+
+
+  ///
   /// Adds wishlist data from the user acccount to the database
   ///
   updateWishlist() async
@@ -179,7 +199,7 @@ class DatabaseRouting {
   }
 
   ///
-  /// Code to handle a password reset
+  /// Handles password reset
   ///
   forgetPassword(String email) async{
     await FirebaseAuth.instance.sendPasswordResetEmail(email:email);
