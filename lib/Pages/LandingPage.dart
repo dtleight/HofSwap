@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:hofswap/Pages/SettingsPage.dart';
 import 'package:hofswap/Pages/StorePage.dart';
 import 'package:hofswap/Pages/WishListPage.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../name_state.dart';
@@ -21,9 +24,24 @@ class LandingPage extends StatefulWidget
 
 class _LandingPageState extends State<LandingPage>
 {
+  var diskImage;
+
+  getImage()async{
+    imageCache.clear();
+    if(diskImage == null){
+      Directory directory  = await getApplicationDocumentsDirectory();
+
+      String path = directory.path;
+      setState(() {
+        diskImage = File('$path/image.jpg');
+
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getImage();
     var name ="";
     NameState nameState = Provider.of<NameState>(context,listen:false);
     if(nameState.name == null){
@@ -51,7 +69,8 @@ class _LandingPageState extends State<LandingPage>
                                   child: CircleAvatar
                                     (
                                       radius: 60,
-                                      backgroundImage: NetworkImage("https://www.hofstra.edu/images/academics/colleges/seas/computer-science/csc-sjeffr2.jpg",),
+                                      child: diskImage == null ? Container() : CircleAvatar(
+                                        child: Image.file(diskImage)),
                                     ),
                                   onTap: ()
                                   {
