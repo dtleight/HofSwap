@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 
 
@@ -162,38 +163,62 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
                                                 }
                                               }
                                               else {
-                                                Scaffold.of(context)
-                                                    .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                          "This is not the correct email"),));
+                                                Fluttertoast.showToast(
+                                                    msg: "This is not the correct email",
+                                                    toastLength: Toast.LENGTH_SHORT,
+                                                    gravity: ToastGravity.BOTTOM,
+                                                    timeInSecForIosWeb: 1,
+                                                    backgroundColor: Colors.black38,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0
+                                                );
                                               }
                                             }
                                             else {
-                                              Scaffold.of(context).showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                        "Not a valid Hofstra ID"),));
+                                              Fluttertoast.showToast(
+                                                  msg: "Not a valid Hofstra ID",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: Colors.black38,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0
+                                              );
                                             }
                                           }
                                           else {
-                                            Scaffold.of(context).showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                      "Not a valid Hofstra ID"),));
+                                            Fluttertoast.showToast(
+                                                msg: "Not a valid Hofstra ID",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.black38,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0
+                                            );
                                           }
                                         } else {
-                                          Scaffold.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    "You cannot reset your password again"),));
+                                          Fluttertoast.showToast(
+                                              msg: "You cannot reset your password again",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.black38,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0
+                                          );
                                         }
                                       }
                                       else{
-                                        Scaffold.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  "Please fill all of the boxes"),));
+                                       Fluttertoast.showToast(
+                                           msg: "Please fill all of the boxes",
+                                           toastLength: Toast.LENGTH_SHORT,
+                                           gravity: ToastGravity.BOTTOM,
+                                           timeInSecForIosWeb: 1,
+                                           backgroundColor: Colors.black38,
+                                           textColor: Colors.white,
+                                           fontSize: 16.0
+                                       );
                                       }  
 
 
