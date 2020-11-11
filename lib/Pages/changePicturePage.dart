@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -53,6 +54,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
             child: GestureDetector(
               onTap: () {
                 _showyPicker(context);
+
               },
               child: CircleAvatar(
                 child: memoryImage == null
@@ -77,11 +79,21 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
           ),
           FlatButton(
               onPressed: () {
+                Fluttertoast.showToast(
+                    msg: "Your picture has been Changed",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.black38,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
                 Navigator.push(
                     context,
+
                     new MaterialPageRoute(
                         builder: (ctext) => new LandingPage()));
-                ;
+
               },
               child: Text('Finished'),
               color: Color.fromARGB(255, 0, 0, 254),
