@@ -7,8 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 
-import '../Picture_state.dart';
-
 class ChangePicturePage extends StatefulWidget {
   ChangePicturePage();
 
@@ -43,7 +41,6 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
 
 
     return Scaffold(
-      backgroundColor: Colors.yellow,
       appBar: AppBar(
         title: Text('Change Your Profile Picture'),
         backgroundColor: Colors.blue,
@@ -66,18 +63,16 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
                         borderRadius: BorderRadius.circular(50),
                         child: Image.file(
                           memoryImage,
-                          width: 165,
-                          height: 165,
+                          width: 300,
+                          height: 300,
                           fit: BoxFit.fitHeight,
-
-                        )
+                        ),
                       ),
                 radius: 100,
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.yellow,
 
                 ),
             ),
-
           ),
           SizedBox(
             height: 40,
@@ -115,8 +110,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
     memoryImage = File(pickedImage.path);
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path;
-    //provider here
-    PictureState().picture = memoryImage;
+
     setState(() {
       diskImage = memoryImage.copySync('$path/image.jpg');
       memoryImage = File(pickedImage.path);
@@ -133,7 +127,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
     memoryImage = File(pickedImage.path);
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path;
-    PictureState().picture = memoryImage;
+
     setState(() {
       diskImage = memoryImage.copySync('$path/image.jpg');
     memoryImage = File(pickedImage.path);

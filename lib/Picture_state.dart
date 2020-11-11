@@ -1,16 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 
 class PictureState with ChangeNotifier{
-  File _picture;
 
-  set picture(value)
+  static String _picture;
+  String get picture => _picture;
+  set picture(String value)
   {
     _picture = value;
     notifyListeners();
   }
 
-  File get picture => _picture;
 }
