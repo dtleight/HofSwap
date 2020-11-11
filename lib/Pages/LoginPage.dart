@@ -122,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                 context);
 
                           }
+                          else {
                             Fluttertoast.showToast(
                                 msg: "An account with this Hofstra ID has not been created",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -131,6 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                                 textColor: Colors.white,
                                 fontSize: 16.0
                             );
+                          }
                           }
                         else{
                           Fluttertoast.showToast(
