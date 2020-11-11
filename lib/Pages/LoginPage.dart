@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/NewUserPage.dart';
 import 'package:hofswap/Pages/forgetPasswordPage.dart';
@@ -121,16 +122,27 @@ class _LoginPageState extends State<LoginPage> {
                                 context);
 
                           }
-                          else {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                  "An account ith this Hofstra ID has not been created"),));
+                            Fluttertoast.showToast(
+                                msg: "An account with this Hofstra ID has not been created",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.black38,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
                           }
                         }
                         else{
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                "Please fill all of the boxes"),));
+                          Fluttertoast.showToast(
+                              msg: "Please fill in all the boxes",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.black38,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
                         };
                       },
                       color: Colors.indigoAccent,
