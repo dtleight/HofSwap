@@ -38,7 +38,6 @@ class _LandingPageState extends State<LandingPage>
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     getImage();
@@ -68,10 +67,9 @@ class _LandingPageState extends State<LandingPage>
                                 (
                                   child: CircleAvatar
                                     (
-                                      radius: 60,
-                                      child: diskImage == null ? Container() : CircleAvatar(
-                                        child: Image.file(diskImage)),
-                                    ),
+                                    backgroundImage: new FileImage(diskImage)??NetworkImage("https://media-exp1.licdn.com/dms/image/C4D03AQGBJvv4Aqpe0A/profile-displayphoto-shrink_400_400/0?e=1610582400&v=beta&t=3IJojANAk3Aqh_aTYH-lxMQemvvWkFb_4AyNvH7jC-o"),
+                                    radius: 60,
+                                      ),
                                   onTap: ()
                                   {
                                     Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new AccountPage()));
@@ -146,4 +144,19 @@ class _LandingPageState extends State<LandingPage>
         body: Align(alignment:Alignment.center, child:Image(image:AssetImage("assets/logo.png")))
     );
   }
+}
+
+class MyClipper extends CustomClipper<Rect>
+{
+  @override
+  Rect getClip(Size size) {
+    return Rect.fromLTRB(0, 0, 60, 60);
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Rect> oldClipper)
+  {
+    return false;
+  }
+
 }

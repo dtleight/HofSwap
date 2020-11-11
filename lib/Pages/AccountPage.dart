@@ -82,12 +82,8 @@ class _AccountPageState extends State<AccountPage> {
               Navigator.push(context, new MaterialPageRoute(
                   builder: (ctext) => new ChangePicturePage()));
             },
-
-          child: diskImage == null ? Container() : CircleAvatar(
-            child: Image.file(diskImage),
-            radius: 100,
-
-          ),),
+  child: CircleAvatar(backgroundImage: new FileImage(diskImage)??NetworkImage("https://media-exp1.licdn.com/dms/image/C4D03AQGBJvv4Aqpe0A/profile-displayphoto-shrink_400_400/0?e=1610582400&v=beta&t=3IJojANAk3Aqh_aTYH-lxMQemvvWkFb_4AyNvH7jC-o"),radius: 120,),
+          ),
         ),
         SizedBox(height: 20,),
         Align(
@@ -117,103 +113,10 @@ class _AccountPageState extends State<AccountPage> {
 
                   ),),
 
-                  /** Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children:
-                    [
-                      Text("Rating: "),
-                      Icon(Icons.star, color: (account.rating >= 1)?Colors.green[500]:Colors.black),
-                      Icon(Icons.star, color: (account.rating >= 2)?Colors.green[500]:Colors.black),
-                      Icon(Icons.star, color: (account.rating >= 3)?Colors.green[500]:Colors.black),
-                      Icon(Icons.star, color: (account.rating >= 4)?Colors.green[500]:Colors.black),
-                      Icon(Icons.star, color: (account.rating >= 5)?Colors.green[500]:Colors.black),
-                    ],
-                  ),
-                  SizedBox(height: 30,),
-
-                  SizedBox(height: 15,),
-                  Text("View WishList " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  SizedBox(height: 15,),
-                  Text("View People You Follow " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  SizedBox(height: 15,),
-                  Text("View People Who Follow You " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                **/
                 ]
             )
         )
         ),
-        /**Flexible(flex: 1,
-            child: ListView.builder
-            (
-            scrollDirection:Axis.horizontal,
-            itemCount: new UserAccount().soldBooks.length,
-            itemBuilder: (BuildContext context, int index) {
-              Textbook tb = new DatabaseRouting().textbookse[new UserAccount().soldBooks[index]];
-              return Container
-                (
-                height: 500,
-                width: 200,
-                child: GestureDetector(
-                  child:  Card
-                    (
-                    child: Row(children: [
-                      Flexible(flex:2,
-                        child: FutureBuilder(
-                          // Paste your image URL inside the htt.get method as a parameter
-                          future: http.get(
-                              "http://covers.openlibrary.org/b/isbn/" +tb.ISBN +"-M.jpg"),
-                          builder: (BuildContext context, AsyncSnapshot<http.Response> snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.none:
-                                return Text("No connection");
-                              case ConnectionState.active:
-                              case ConnectionState.waiting:
-                                return CircularProgressIndicator();
-                              case ConnectionState.done:
-                                if (snapshot.data.bodyBytes.toString().length <= 10000)
-                                  return Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",fit: BoxFit.contain,);
-                                // when we get the data from the http call, we give the bodyBytes to Image.memory for showing the image
-                                return Image.memory(snapshot.data.bodyBytes, fit: BoxFit.contain);
-                            }
-                            return null; // unreachable
-                          },
-                        ),
-                      ),
-                      Flexible(flex: 2,
-                          child:Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [Flexible(child: Text("ISBN: " + tb.ISBN),), Flexible(child: Text("Title: " + tb.title ))],)
-                      )
-                    ],
-                    ),
-                  ),
-                  onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text("Do you want to delete this textbook?"),
-                              FlatButton(
-                                  onPressed: ()
-                                  {
-                                    new DatabaseRouting().deleteTextbook(new UserAccount().email, tb.ISBN,index);
-                                    //Remove textbook from database
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text("Confirm")
-                              )
-                            ],
-                          ),
-                        );
-                      }
-                  );
-                },
-                ),
-              );
-            }
-            ),
-            ), **/
       ],
             ),
     );

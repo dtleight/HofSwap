@@ -23,7 +23,9 @@ class DatabaseRouting {
   }
 
   DatabaseRouting._internal();
-
+  ///
+  ///Initializes the DatabaseRouting singleton
+  ///
   void init() async
   {
     await loadTextbooks();
@@ -137,7 +139,6 @@ class DatabaseRouting {
           print(signUpError.message.toString());
           return signUpError.message.toString();
     }
-    //Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
   }
   ///
   /// Pulls all textbook data from the database
@@ -209,14 +210,11 @@ class DatabaseRouting {
   ///
   /// Handles password reset
   ///
-  forgetPassword(String email) async{
-    await FirebaseAuth.instance.sendPasswordResetEmail(email:email);
-
+  forgetPassword(String email) async
+  {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
-  //updatePassword(){
-  // note to self: change password
-  //}
   ///
   /// Code to pull email credentials from the database
   ///
@@ -232,24 +230,19 @@ class DatabaseRouting {
   void deleteTextbook(String email, String isbn, int index) async
   {
     Map<String,dynamic> temp = textbookse[isbn].sale_log.remove(email);
-    print(textbookse[isbn].sale_log);
     new UserAccount().soldBooks.removeAt(index);
     textbookse[isbn].sale_log.keys.length == 0?await FirebaseFirestore.instance.collection('textbooks').doc(isbn).delete():await FirebaseFirestore.instance.collection('textbooks').doc(isbn).update({'sale_log': textbookse[isbn].sale_log,});
-    /**await FirebaseFirestore.instance.collection('textbooks').doc(isbn).update(
-    {
-      'sale_log': textbookse[isbn].sale_log,
-    }
-    );
-        **/
     await FirebaseFirestore.instance.collection('users').doc(new UserAccount().hofstraID).update
       (
       {
         'soldBooks': new UserAccount().soldBooks
       }
     );
-        //{'sale_log': FieldValue.delete()}).whenComplete(() {});
   }
 
+  ///
+  /// Changes the name field for a user
+  ///
   updateUserName(String value) async
   {
     UserAccount account = new UserAccount();

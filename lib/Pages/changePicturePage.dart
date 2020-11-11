@@ -59,23 +59,7 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
                 _showyPicker(context);
 
               },
-              child: CircleAvatar(
-                child: memoryImage == null
-                    ? Container()
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.file(
-                          memoryImage,
-                          width: 165,
-                          height: 165,
-                          fit: BoxFit.fitHeight,
-
-                        )
-                      ),
-                radius: 100,
-                backgroundColor: Colors.white,
-
-                ),
+              child: CircleAvatar(backgroundImage: new FileImage(diskImage)??NetworkImage("https://media-exp1.licdn.com/dms/image/C4D03AQGBJvv4Aqpe0A/profile-displayphoto-shrink_400_400/0?e=1610582400&v=beta&t=3IJojANAk3Aqh_aTYH-lxMQemvvWkFb_4AyNvH7jC-o"),radius: 120,),
             ),
 
           ),

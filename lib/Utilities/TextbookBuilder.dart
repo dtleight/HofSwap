@@ -36,7 +36,7 @@ class TextbookBuilder
               case ConnectionState.waiting:
                 return CircularProgressIndicator();
               case ConnectionState.done:
-                if (snapshot.data.bodyBytes.toString().length <= 10000)
+                if (snapshot.data.body.isNotEmpty &&snapshot.data.bodyBytes.toString().length <= 10000)
                   return Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",fit: BoxFit.contain,);
                 // when we get the data from the http call, we give the bodyBytes to Image.memory for showing the image
                 return Image.memory(snapshot.data.bodyBytes, fit: BoxFit.contain);
@@ -128,6 +128,7 @@ class TextbookBuilder
     }
     //String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
     String str = "https://www.googleapis.com/books/v1/volumes?q="+ queryParams +"+&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk";
+    print(str);
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json

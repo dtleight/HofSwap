@@ -16,14 +16,14 @@ class SellersPage extends StatefulWidget {
   State<StatefulWidget> createState() => _SellersPageState();
 }
 
-class _SellersPageState extends State<SellersPage> {
-  BuildContext mContext;
+class _SellersPageState extends State<SellersPage>
+{
 
   _SellersPageState() {
-
+    textControllers.addAll([new TextEditingController(), new TextEditingController(), new TextEditingController()]);
+    widgy = constructForm(context);
   }
-  List<TextEditingController> textControllers =
-      new List<TextEditingController>();
+  List<TextEditingController> textControllers = new List<TextEditingController>();
   Widget widgy;
   String placeholderValue = "Good";
 
@@ -40,13 +40,6 @@ class _SellersPageState extends State<SellersPage> {
 
   @override
   Widget build(BuildContext context) {
-    textControllers.addAll([
-      new TextEditingController(),
-      new TextEditingController(),
-      new TextEditingController()
-    ]);
-    widgy = constructForm(context);
-    mContext = context;
     return Scaffold(
       appBar: AppBar(
         title: Text("Seller's Interface"),
@@ -65,7 +58,9 @@ class _SellersPageState extends State<SellersPage> {
       ),
     );
   }
-
+  ///
+  /// This page provides the textboxes that the user uses to search for textbooks to add to the database
+  ///
   Widget constructForm(var context) {
     return SingleChildScrollView(
       child: Column(
@@ -89,7 +84,7 @@ class _SellersPageState extends State<SellersPage> {
                   height: 40,
                 ),
 
-                ...addField(context, 0, "Textbook Title", (value) {
+                ...addField(0, "Textbook Title", (value) {
                   if (value == "" &&
                       textControllers[1].text == "" &&
                       textControllers[2].text == "") {
@@ -97,7 +92,7 @@ class _SellersPageState extends State<SellersPage> {
                   }
                   return null;
                 }, ),
-                ...addField(context, 1, "ISBN Number", (value) {
+                ...addField(1, "ISBN Number", (value) {
                   if (value == "" &&
                       textControllers[0].text == "" &&
                       textControllers[2].text == "") {
@@ -105,7 +100,7 @@ class _SellersPageState extends State<SellersPage> {
                   }
                   return null;
                 }),
-                ...addField(context, 2, "Author", (value) {
+                ...addField(2, "Author", (value) {
                   if (value == "" &&
                       textControllers[0].text == "" &&
                       textControllers[1].text == "") {
@@ -122,9 +117,9 @@ class _SellersPageState extends State<SellersPage> {
                         style: TextStyle(color: Colors.white)),
                     onPressed: () {
                       setState(() {
-                        if (_formKey.currentState.validate())
-                          widgy = constructSuggestions(textControllers[1].text,
-                              textControllers[0].text, textControllers[2].text);
+                        if (_formKey.currentState.validate()) {
+                          widgy = constructSuggestions(textControllers[1].text, textControllers[0].text, textControllers[2].text);
+                        }
                       });
                     },
                   ),
@@ -137,6 +132,9 @@ class _SellersPageState extends State<SellersPage> {
     );
   }
 
+  ///
+  /// Allows the user to confirm that the correct book was selected from the Seller's Interace suggestions.
+  ///
   Widget confirmBook(Textbook tb) {
     return Center(
       child: Column(
@@ -144,6 +142,8 @@ class _SellersPageState extends State<SellersPage> {
           Text(
             tb.title,
             textScaleFactor: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.black),
           ),
           Expanded(
               child: FutureBuilder(
@@ -175,8 +175,10 @@ class _SellersPageState extends State<SellersPage> {
               flex: 3),
           Text(tb.authors
               .toString()
-              .substring(1, tb.authors.toString().length - 1)),
-          Text(tb.ISBN),
+              .substring(1, tb.authors.toString().length - 1),
+            style: TextStyle(color: Colors.black),
+          ),
+          Text(tb.ISBN, style: TextStyle(color: Colors.black),),
           Align(
             alignment: Alignment.bottomCenter,
             child: FlatButton(
@@ -200,6 +202,9 @@ class _SellersPageState extends State<SellersPage> {
     );
   }
 
+  ///
+  /// Creates a page portion that displays the textbooks that were found in the API call
+  ///
   Widget constructSuggestions(String isbn, String title, String author) {
     return FutureBuilder(
       future: TextbookBuilder().queryTextbook(isbn, title, author),
@@ -222,13 +227,9 @@ class _SellersPageState extends State<SellersPage> {
     );
   }
 
-  List<Widget> addField(var context, int index, String text, [Function validation]) {
-    ThemeState provider = Provider.of<ThemeState>(context);
-
-    Color bgColor = provider.isDark ? Colors.black : Colors.white;
-
+  List<Widget> addField(int index, String text, [Function validation]) {
     return [
-      Text(text, style: TextStyle( fontSize: 15)),
+      Text(text, style: TextStyle(color: Colors.black, fontSize: 15)),
       Padding(
         padding: EdgeInsets.all(10),
         child: Container(
@@ -240,7 +241,7 @@ class _SellersPageState extends State<SellersPage> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                   ),
-                  fillColor: bgColor,
+                  fillColor: Colors.white,
                   filled: true,
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black, width: 1.0)),
@@ -251,32 +252,5 @@ class _SellersPageState extends State<SellersPage> {
         ),
       )
     ];
-  }
-
-  Future<Widget> buildTextbookSuggestions(
-      BuildContext context, String isbn, String title, String author) async {
-    List<Textbook> queriedTextbooks =
-        await TextbookBuilder().queryTextbook(isbn, title, author);
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-              title: AppBar(
-                title: Text("Select your Textbook"),
-              ),
-              titlePadding: EdgeInsets.all(0),
-              scrollable: true,
-              content: Container(
-                height: 3000,
-                width: 3000,
-                child: ListView.builder(
-                  itemCount: queriedTextbooks.length,
-                  itemBuilder: (context, index) {
-                    return TextbookBuilder()
-                        .buildTextbookCell(queriedTextbooks[index], () {});
-                  },
-                ),
-              ));
-        });
   }
 }
