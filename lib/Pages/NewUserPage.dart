@@ -34,7 +34,7 @@ class _NewUserPageState extends State<NewUserPage> {
       new TextEditingController()
     ]);
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(title: Text("Create New Account"),
         leading: IconButton(
           icon: Icon(Icons.subdirectory_arrow_left),
           onPressed: () {

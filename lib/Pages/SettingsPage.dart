@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hofswap/Pages/changePicturePage.dart';
+import 'package:hofswap/Popouts/changePicturePage.dart';
 import 'package:hofswap/Popouts/ChangePasswordPopout.dart';
 import 'package:hofswap/theme_state.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget
                trailing: Icon(Icons.more_vert),
                onTap: ()
               {
-               Navigator.push(context, new MaterialPageRoute(builder: (ctext) => new ChangePicturePage()));
+                showDialog(context: context, builder: (context){return ChangePicturePage();});
                },
              ),
            ),

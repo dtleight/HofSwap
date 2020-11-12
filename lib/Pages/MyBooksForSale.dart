@@ -29,8 +29,8 @@ class _MyBooksForSale extends State <MyBooksForSale> {
                   Textbook tb = new DatabaseRouting().textbookse[new UserAccount().soldBooks[index]];
                   return TextbookBuilder().buildTextbookCell(tb,(){},
                 [
-                  Text(tb.title,maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text(tb.getDisplayAuthors(3),maxLines: 2,overflow: TextOverflow.ellipsis),
+                  Text(tb.title,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text(tb.getDisplayAuthors(3),maxLines: 1,overflow: TextOverflow.ellipsis),
                   Align(alignment: Alignment.bottomRight,
                       child: IconButton(
                       icon: Icon(Icons.delete),
@@ -38,43 +38,43 @@ class _MyBooksForSale extends State <MyBooksForSale> {
                           {
                   showDialog(context: context,builder: (BuildContext context)
                   {
-                  return AlertDialog(
-                  title: Text(
-                  "Are You Sure You Want to \nDelete This Textbook?", textAlign: TextAlign.center),
-                  content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                  FlatButton
-                  (
-                  color: Colors.blue,
-                  onPressed: ()
-                  {
-                  new DatabaseRouting().deleteTextbook(new UserAccount().email,tb.ISBN, index);
-                  //Remove textbook from database
-                  Fluttertoast.showToast(
-                      msg: "Textbook Deleted",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.black38,
-                      textColor: Colors.white,
-                      fontSize: 16.0
-                  );
-                  Navigator.pop(context);
-                  },
-                  child: Text("Confirm",style: TextStyle(color: Colors.white))
-                  )
-                  ],
-                  )
-                  );
-                  }
-                  );
-                  }
-                  )
-                  ),
-                  ]
-                  );
-                },
+                        return AlertDialog(
+                          title: Text(
+                          "Are You Sure You Want to \nDelete This Textbook?", textAlign: TextAlign.center),
+                          content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            FlatButton
+                            (
+                              color: Colors.blue,
+                              onPressed: ()
+                              {
+                              new DatabaseRouting().deleteTextbook(new UserAccount().email,tb.ISBN, index);
+                              //Remove textbook from database
+                              Fluttertoast.showToast(
+                                  msg: "Textbook Deleted",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.black38,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                              Navigator.pop(context);
+                              },
+                              child: Text("Confirm",style: TextStyle(color: Colors.white))
+                            )
+                        ],
+                        )
+                        );
+                        }
+                        );
+                        }
+                        )
+                        ),
+                        ]
+                        );
+                      },
               )
             ]
         )

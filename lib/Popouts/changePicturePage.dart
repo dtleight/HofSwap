@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import '../Picture_state.dart';
 
 class ChangePicturePage extends StatefulWidget {
-  ChangePicturePage();
+  ChangePicturePage(){}
 
   @override
   _ChangePicturePageState createState() => _ChangePicturePageState();
@@ -42,17 +42,16 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
   Widget build(BuildContext context){
 
 
-    return Scaffold(
+    return AlertDialog(
       backgroundColor: Colors.yellow,
-      appBar: AppBar(
-        title: Text('Change Your Profile Picture'),
-        backgroundColor: Colors.blue,
-      ),
-      body: Column(
+        title: Text('Change Your Profile Picture', textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: 50,
-          ),
+          SizedBox(height: 10,),
+          Text('Press on the Avatar \nto Select a New Image',
+              textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+          SizedBox(height: 10,),
           Center(
             child: GestureDetector(
               onTap: () {
@@ -84,9 +83,9 @@ class _ChangePicturePageState extends State<ChangePicturePage> {
                         builder: (ctext) => new LandingPage()));
 
               },
-              child: Text('Finished'),
-              color: Color.fromARGB(255, 0, 0, 254),
-              textColor: Colors.yellow),
+              child: Text('Upload'),
+              color: Colors.indigoAccent,
+              textColor: Colors.white),
         ],
       ),
     );
