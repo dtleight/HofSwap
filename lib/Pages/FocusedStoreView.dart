@@ -82,6 +82,7 @@ class FocusedStoreView extends StatelessWidget
                              children: <Widget>
                              [
                                Row(children: [Flexible(child: Text("Title: " + tb.title + "\n", overflow: TextOverflow.ellipsis,maxLines: 2,style: TextStyle(fontWeight: FontWeight.bold))),]),
+                               Row(children: [Flexible(child: Text("ISBN: " + tb.ISBN + "\n", overflow: TextOverflow.ellipsis,maxLines: 1,)),]),
                                Row(children: [Flexible(child: Text("Authors: " + tb.getDisplayAuthors(tb.authors.length),overflow: TextOverflow.ellipsis,maxLines: 2)),]),
                                //Row(children: [Text("Seller: "), Text("Dalton Leight"),]),
                                //Row(children: [Text("Price: "), Text("99.99"),]),
@@ -198,7 +199,7 @@ class FocusedStoreView extends StatelessWidget
                       children:
                       [
                         Text("Book Information: \n", style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text("     Price: \$" + sale_info['price'].toString()),
+                        Text("     Price: \$" + sale_info['price'].toStringAsFixed(2)),
                         Text("     Condition: " + sale_info['condition']),
                       ],
                     ),

@@ -71,7 +71,7 @@ class DatabaseRouting {
           'soldBooks': us.soldBooks,
         }
     );
-    loadTextbooks(); //Not sure if needed - Dalton
+    loadTextbooks();
   }
 
   ///
@@ -84,9 +84,7 @@ class DatabaseRouting {
     DocumentSnapshot doc = await users.doc(id).get();
     String emil = doc.data()['email'];
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: emil, password: password);
-      //FirebaseAuth.instance.sendPasswordResetEmail(email: null)
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emil, password: password);
       //User is validated
       Map<String, dynamic> data = doc.data();
       new UserAccount.instantiate(

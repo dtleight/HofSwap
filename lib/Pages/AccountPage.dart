@@ -101,7 +101,7 @@ class _AccountPageState extends State<AccountPage> {
                   children: <Widget>
                   [
                     Text("Name: "+name +"\n", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                    Text("email: "+ account.email+"\n"),
+                    Text("Email: "+ account.email+"\n"),
                     Text("Hofstra ID: H" + account.hofstraID+"\n\n"),
                     Align(
                       alignment: Alignment.bottomCenter,
