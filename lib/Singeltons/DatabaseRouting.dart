@@ -61,18 +61,17 @@ class DatabaseRouting {
               'sale_log' : {us.email:{'condition':condition, 'price': price}}
       }
         );
-
       }
     ///
     /// Add a reference to the user of their sold textbook
     ///
     us.addSaleTextbook(t.ISBN);
-    print(us.soldBooks);
     await FirebaseFirestore.instance.collection('users').doc(us.hofstraID).update(
         {
           'soldBooks': us.soldBooks,
         }
     );
+    loadTextbooks(); //Not sure if needed - Dalton
   }
 
   ///
@@ -165,7 +164,7 @@ class DatabaseRouting {
     DocumentSnapshot data = await FirebaseFirestore.instance.collection('textbooks').doc(isbn).get();
     if(data.exists)
       {
-        return Textbook.temporary("", [], isbn, data['sale_log']);
+        return Textbook.temporary(data['title'], data['author'], isbn, data['sale_log']);
       }
     else
       {
@@ -238,6 +237,7 @@ class DatabaseRouting {
         'soldBooks': new UserAccount().soldBooks
       }
     );
+    loadTextbooks();
   }
 
   ///
@@ -257,4 +257,5 @@ class DatabaseRouting {
      NameState().name = value;
     }
   }
+
 }

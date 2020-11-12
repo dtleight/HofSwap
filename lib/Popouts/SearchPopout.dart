@@ -82,7 +82,6 @@ class _SearchPopoutState extends State<SearchPopout>
                     {
                       setState(() {
                         if(_formKey.currentState.validate())
-
                           widgy = constructSuggestions(textControllers[1].text,textControllers[0].text,textControllers[2].text);
                       });
                     },),),

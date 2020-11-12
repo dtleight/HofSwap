@@ -21,12 +21,7 @@ class FocusedStoreView extends StatelessWidget
   Widget build(BuildContext context)
   {
     int len;
-
-    //query textbook from the database
-    //Textbook qTextbook = await new DatabaseRouting().queryTextbook(tb.ISBN);
-    //qTextbook==null?len=0:tb.sale_log = qTextbook.sale_log;
-    //await (new DatabaseRouting().queryTextbook(tb.ISBN)).sale_log;
-    tb.sale_log ==null?len=0:len=tb.sale_log.values.length;
+    //tb.sale_log ==null?len=0:len=tb.sale_log.values.length;
     return Scaffold
       (
       backgroundColor: Colors.yellow,
@@ -136,10 +131,10 @@ class FocusedStoreView extends StatelessWidget
               Text("Purchase Options",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),),
               Flexible(flex: 2,
                 child: ListView.builder(
-                    itemCount: len,
+                    itemCount: new DatabaseRouting().textbookse[tb.ISBN]==null?0:new DatabaseRouting().textbookse[tb.ISBN].sale_log.values.length,
                     itemBuilder: (BuildContext context, int i)
                     {
-                      return buildSaleableTextbook(tb.sale_log.values.toList()[i], tb.sale_log.keys.toList()[i]);
+                      return buildSaleableTextbook(new DatabaseRouting().textbookse[tb.ISBN].sale_log.values.toList()[i], new DatabaseRouting().textbookse[tb.ISBN].sale_log.keys.toList()[i]);
                     }
                 ),
               )

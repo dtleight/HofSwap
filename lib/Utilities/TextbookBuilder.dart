@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:http/http.dart' as http;
 
 import 'TextbookAPILoader.dart';
@@ -128,7 +129,6 @@ class TextbookBuilder
     }
     //String queryParams = string.replaceAll(new RegExp(" *"), "").replaceAll(new RegExp(":"), "=").replaceAll(new RegExp(","), "+");
     String str = "https://www.googleapis.com/books/v1/volumes?q="+ queryParams +"+&key=AIzaSyCo9OIQaOJ97f1tuIistw-XU0NGdtsn2Rk";
-    print(str);
     final response = await http.get(str);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response, parse the json
