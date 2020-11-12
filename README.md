@@ -5,6 +5,8 @@
   
   Project Conclusion Date: November 12, 2020
   
+  [GitHub Link](https://github.com/dtleight/HofSwap)
+  
 ![HofSwap Logo](/assets/logo.png)
 ## Getting Started
 
