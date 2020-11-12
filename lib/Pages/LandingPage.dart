@@ -130,6 +130,7 @@ class _LandingPageState extends State<LandingPage>
                   leading: Icon(Icons.power_settings_new),
                   title: Text('Sign Out'),
                   onTap: () async{
+                    nameState.name = null;
                     await FirebaseAuth.instance.signOut();
                     Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new LoginPage()));
                     //
