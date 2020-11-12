@@ -28,7 +28,7 @@ class _forgetPasswordPage extends State<forgetPasswordPage> {
     textControllers
         .addAll([new TextEditingController(), new TextEditingController(), new TextEditingController()]);
     return Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(title: Text("Forgot Password"),
           leading: IconButton(
             icon: Icon(Icons.subdirectory_arrow_left),
             onPressed: () {
