@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hofswap/Pages/FocusedStoreView.dart';
 import 'package:hofswap/Popouts/SearchPopout.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
+import 'package:hofswap/Utilities/SearchHandler.dart';
 import 'package:hofswap/Utilities/TextbookAPILoader.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
+import 'package:hofswap/Widgets/TextbookCard.dart';
 import '../Objects/Textbook.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -73,32 +75,8 @@ class _StorePageState extends State<StorePage> {
               child: GestureDetector(
                 child: Icon(Icons.search),
                 onTap: () async {
-                  showDialog(context: context, builder: (context){return SearchPopout();});
-                  /**
-                  updateSearch();
-                  if (!isSearchEnabled) {
-                    Textbook t = await searchQuery(myController.text);
-                    print("ISBN is " + t.ISBN);
-                    return showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Column(
-                              children: [
-                                Text(t.title),
-                                Flexible(
-                                    child: Image.network(
-                                  "http://covers.openlibrary.org/b/isbn/" +
-                                      t.ISBN +
-                                      "-M.jpg",
-                                )),
-                                Text(t.authors.toString()),
-                              ],
-                            ),
-                          );
-                        });
-                  }
-                  **/
+                  showSearch(context: context, delegate: SearchHandler());
+                  //showDialog(context: context, builder: (context){return SearchPopout();});
                 },
               ))
         ],
@@ -123,10 +101,9 @@ class _StorePageState extends State<StorePage> {
     );
   }
 
-  Container buildTextbookCell(Textbook tb) {
-    return TextbookBuilder().buildTextbookCell(tb, () {
-      Navigator.push(context,
-          new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(tb)));
+  Widget buildTextbookCell(Textbook tb) {
+    return TextbookCard(tb,(){Navigator.push(context,
+        new MaterialPageRoute(builder: (ctxt) => new FocusedStoreView(tb)));
     }, [
       Text(
         tb.title, maxLines: 2, overflow: TextOverflow.ellipsis,

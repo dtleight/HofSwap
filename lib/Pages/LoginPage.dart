@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/NewUserPage.dart';
 import 'package:hofswap/Pages/forgetPasswordPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';

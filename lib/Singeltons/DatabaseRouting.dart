@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hofswap/Pages/LandingPage.dart';
 import 'package:hofswap/Pages/LoginPage.dart';
+import 'package:hofswap/Pages/NewHomePage.dart';
 import 'package:hofswap/Pages/forgetPasswordPage.dart';
 import '../Objects/Account.dart';
 import '../Objects/Textbook.dart';
@@ -91,7 +92,8 @@ class DatabaseRouting {
           data['name'], data['email'], data['rating'], id,
           data['wishlist'].cast<String>().toList(),data['soldBooks'].cast<String>().toList());
       Navigator.push(
-          context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
+            context, new MaterialPageRoute(builder: (ctxt) => new NewHomePage()));
+          //context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
     }catch(_) {
       Fluttertoast.showToast(
           msg: "Incorrect Password or you have not Validated your account",

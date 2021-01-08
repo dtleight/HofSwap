@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Popouts/SellersPopout.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
+import 'package:hofswap/Widgets/TextbookCard.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -213,7 +214,7 @@ class _SellersPageState extends State<SellersPage>
           return ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
-              return TextbookBuilder().buildTextbookCell(snapshot.data[index],
+              return TextbookCard(snapshot.data[index],
                   () {
                 setState(() {
                   widgy = confirmBook(snapshot.data[index]);
@@ -227,6 +228,9 @@ class _SellersPageState extends State<SellersPage>
     );
   }
 
+  ///
+  /// Creates a list for a singular input line.
+  ///
   List<Widget> addField(int index, String text, [Function validation]) {
     return [
       Text(text, style: TextStyle(color: Colors.black, fontSize: 15)),

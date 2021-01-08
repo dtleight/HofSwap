@@ -5,6 +5,7 @@ import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
+import 'package:hofswap/Widgets/TextbookCard.dart';
 
 class MyBooksForSale extends StatefulWidget{
   @override
@@ -18,16 +19,14 @@ class _MyBooksForSale extends State <MyBooksForSale> {
     return Scaffold(
         backgroundColor: Colors.yellow,
         appBar: AppBar(title: Text("My Books For Sale"),),
-        body: Column(
-            children: [
-              ListView.builder
+        body: ListView.builder
                 (
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: new UserAccount().soldBooks.length,
                 itemBuilder: (BuildContext context, int index) {
                   Textbook tb = new DatabaseRouting().textbookse[new UserAccount().soldBooks[index]];
-                  return TextbookBuilder().buildTextbookCell(tb,(){},
+                  return TextbookCard(tb,(){},
                 [
                   Text(tb.title,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),
                   Text(tb.getDisplayAuthors(3),maxLines: 1,overflow: TextOverflow.ellipsis),
@@ -76,8 +75,6 @@ class _MyBooksForSale extends State <MyBooksForSale> {
                         );
                       },
               )
-            ]
-        )
     );
   }
 }

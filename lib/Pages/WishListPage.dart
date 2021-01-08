@@ -5,6 +5,7 @@ import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
+import 'package:hofswap/Widgets/TextbookCard.dart';
 
 import 'FocusedStoreView.dart';
 
@@ -12,10 +13,10 @@ class WishListPage extends StatefulWidget {
   WishListPage() {}
 
   @override
-  State<StatefulWidget> createState() => _StorePageState();
+  State<StatefulWidget> createState() => _WishlistPageState();
 }
 
-class _StorePageState extends State {
+class _WishlistPageState extends State {
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -36,7 +37,7 @@ class _StorePageState extends State {
             if(snapshot.hasData) {
               return ListView.builder(itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    return TextbookBuilder().buildTextbookCell(
+                    return TextbookCard(
                         snapshot.data[index], () {
                       Navigator.push(context, new MaterialPageRoute(
                           builder: (ctxt) =>
@@ -44,7 +45,7 @@ class _StorePageState extends State {
                               snapshot.data[index])));
                     },[
                       Text(snapshot.data[index].title,maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text(snapshot.data[index].getDisplayAuthors(3),maxLines: 2,overflow: TextOverflow.ellipsis),
+                      Text(snapshot.data[index].getDisplayAuthors(3),maxLines: 1,overflow: TextOverflow.ellipsis),
                       Align(alignment:Alignment.centerRight,child: IconButton(icon:Icon(Icons.delete), onPressed: (){
                         //Remove book from the database
                         new UserAccount().wishlist.removeAt(index);
@@ -69,7 +70,6 @@ class _StorePageState extends State {
                 return CircularProgressIndicator();
               }
           }
-
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hofswap/Objects/Textbook.dart';
 import 'package:hofswap/Pages/FocusedStoreView.dart';
 import 'package:hofswap/Utilities/TextbookBuilder.dart';
+import 'package:hofswap/Widgets/TextbookCard.dart';
 
 class SearchPopout extends StatefulWidget
 {
@@ -100,7 +101,7 @@ class _SearchPopoutState extends State<SearchPopout>
         if (snapshot.hasData) {
           return ListView.builder(itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-               return TextbookBuilder().buildTextbookCell(
+               return TextbookCard(
                       snapshot.data[index], () {
                     Navigator.push(context, new MaterialPageRoute(
                         builder: (ctxt) => new FocusedStoreView(

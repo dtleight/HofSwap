@@ -1,22 +1,22 @@
 import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hofswap/Containers/PageContainer.dart';
 import 'package:hofswap/Picture_state.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
+import 'package:hofswap/Utilities/NotificationHandler.dart';
 import 'package:hofswap/name_state.dart';
 import 'package:hofswap/theme_state.dart';
 import 'package:hofswap/Picture_state.dart';
 import 'package:provider/provider.dart';
-import 'Objects/Textbook.dart';
 import 'Pages/LoginPage.dart';
-import 'Pages/NewUserPage.dart';
-import 'Singeltons/UserAccount.dart';
-void main() async {
-  //new UserAccount.instantiate("Dalton Leight", "dleight1@pride.hofstra.edu", 2, "70292000", new List<String>());
 
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+void main() async
+{
   runApp(
       MultiProvider(
         providers: [
@@ -27,8 +27,30 @@ void main() async {
         child: MyApp(),
       )
   );
+  /**
+   * Notification code
+   */
   await Firebase.initializeApp();
   new DatabaseRouting().init();
+  FirebaseMessaging messaging = FirebaseMessaging();
+  String string = await messaging.getToken();
+  ///Prints token to add to firebase messaging platform.
+  print("Token is: " + string.toString());
+  ///Configure provides handling for notification events
+  messaging.configure(
+      onMessage: (message) {print('Got a message whilst in the foreground!');print('Message data: ${message.toString()}');return;},
+      //onBackgroundMessage: backgroundHandler
+      );
+  /**
+   * End of Notification Instantiation
+   */
+}
+
+Future<void> backgroundHandler(message) async
+{
+  await Firebase.initializeApp();
+  print("Handling a background message: " + message.toString());
+  return;
 }
 
 class MyApp extends StatelessWidget {
