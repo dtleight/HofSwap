@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hofswap/Pages/ChatPage.dart';
 import 'package:hofswap/Singeltons/DatabaseRouting.dart';
 import 'package:hofswap/Singeltons/UserAccount.dart';
 import 'package:hofswap/Widgets/HorizontalTextbookDisplay.dart';
@@ -132,6 +133,16 @@ class NewHomePageState extends State<NewHomePage>
                   {
                     Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new SettingsPage()));
                   }
+              ),
+              ListTile
+                (
+                leading: Icon(Icons.message),
+                title: Text('Chat'),
+                onTap: () async{
+                  Navigator.push(context, new MaterialPageRoute(builder: (ctxt) => new ChatPage()));
+                  //
+
+                },
               ),
               ListTile
                 (
