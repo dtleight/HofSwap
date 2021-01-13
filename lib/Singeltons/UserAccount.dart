@@ -7,6 +7,7 @@ class UserAccount extends Account
   List<String> wishlist;
   List<String> soldBooks;
   String email;
+  List<String> conversationIDS;
   static final UserAccount _account = UserAccount._internal();
 
   factory UserAccount()
@@ -14,7 +15,7 @@ class UserAccount extends Account
     return _account;
   }
 
-  UserAccount.instantiate(String name, String email, int rating, String hofstraID, List<String> wlist, List<String> soldBooks) : super.instantiate(name,email,rating)
+  UserAccount.instantiate(String name, String email, int rating, String hofstraID, List<String> wlist, List<String> soldBooks, List<String> conversationIDS) : super.instantiate(name,email,rating,conversationIDS)
   {
     _account.name = name;
     _account.email = email;
@@ -22,6 +23,7 @@ class UserAccount extends Account
     _account.hofstraID = hofstraID;
     _account.wishlist = wlist;
     _account.soldBooks = soldBooks;
+    _account.conversationIDS = conversationIDS;
   }
   UserAccount._internal();
 

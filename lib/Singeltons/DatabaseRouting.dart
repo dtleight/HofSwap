@@ -90,7 +90,7 @@ class DatabaseRouting {
       Map<String, dynamic> data = doc.data();
       new UserAccount.instantiate(
           data['name'], data['email'], data['rating'], id,
-          data['wishlist'].cast<String>().toList(),data['soldBooks'].cast<String>().toList());
+          data['wishlist'].cast<String>().toList(),data['soldBooks'].cast<String>().toList(), data['conversationIDS'].cast<String>().toList());
       Navigator.push(
             context, new MaterialPageRoute(builder: (ctxt) => new NewHomePage()));
           //context, new MaterialPageRoute(builder: (ctxt) => new LandingPage()));
@@ -114,7 +114,7 @@ class DatabaseRouting {
 
     try{
       UserAccount account = new UserAccount.instantiate(
-          name, email, 5, id, new List<String>(), new List<String>());
+          name, email, 5, id, new List<String>(), new List<String>(), new List<String>());
 
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
 
@@ -130,6 +130,7 @@ class DatabaseRouting {
             'wishlist': [],
             'verified': FirebaseAuth.instance.currentUser.emailVerified,
             'soldBooks': [],
+            'conversationIDS':[],
           }
       );
       return null;
@@ -201,6 +202,7 @@ class DatabaseRouting {
           {
             'rating': account.rating,
             'wishlist': account.wishlist,
+            'conversationIDS' : account.conversationIDS,
           }
       );
     }
@@ -256,6 +258,17 @@ class DatabaseRouting {
       );
      NameState().name = value;
     }
+  }
+
+  getConversations(List<String> conversationIDS) async
+  {
+    List<DocumentSnapshot> conversations = new List<DocumentSnapshot>();
+    for(String id in conversationIDS)
+      {
+        conversations.add(await FirebaseFirestore.instance.collection('conversations').doc(id).get());
+      }
+    print(conversations.runtimeType);
+    return conversations;
   }
 
 }
